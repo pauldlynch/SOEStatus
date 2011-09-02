@@ -1,0 +1,291 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DA137249141116B800A1BFCC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA137248141116B800A1BFCC /* UIKit.framework */; };
+		DA13724B141116B800A1BFCC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA13724A141116B800A1BFCC /* Foundation.framework */; };
+		DA13724D141116B800A1BFCC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA13724C141116B800A1BFCC /* CoreGraphics.framework */; };
+		DA137253141116B800A1BFCC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA137251141116B800A1BFCC /* InfoPlist.strings */; };
+		DA137255141116B800A1BFCC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA137254141116B800A1BFCC /* main.m */; };
+		DA137259141116B800A1BFCC /* SOEStatusAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA137258141116B800A1BFCC /* SOEStatusAppDelegate.m */; };
+		DA13725C141116B800A1BFCC /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA13725A141116B800A1BFCC /* MainWindow.xib */; };
+		DA13725F141116B800A1BFCC /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA13725E141116B800A1BFCC /* RootViewController.m */; };
+		DA137262141116B800A1BFCC /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA137260141116B800A1BFCC /* RootViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DA137244141116B800A1BFCC /* SOEStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SOEStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA137248141116B800A1BFCC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DA13724A141116B800A1BFCC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DA13724C141116B800A1BFCC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DA137250141116B800A1BFCC /* SOEStatus-Info.plist */ = {isa = PBXFileReference; path = "SOEStatus-Info.plist"; sourceTree = "<group>"; };
+		DA137252141116B800A1BFCC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DA137254141116B800A1BFCC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DA137256141116B800A1BFCC /* SOEStatus-Prefix.pch */ = {isa = PBXFileReference; path = "SOEStatus-Prefix.pch"; sourceTree = "<group>"; };
+		DA137257141116B800A1BFCC /* SOEStatusAppDelegate.h */ = {isa = PBXFileReference; path = SOEStatusAppDelegate.h; sourceTree = "<group>"; };
+		DA137258141116B800A1BFCC /* SOEStatusAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SOEStatusAppDelegate.m; sourceTree = "<group>"; };
+		DA13725B141116B800A1BFCC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		DA13725D141116B800A1BFCC /* RootViewController.h */ = {isa = PBXFileReference; path = RootViewController.h; sourceTree = "<group>"; };
+		DA13725E141116B800A1BFCC /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		DA137261141116B800A1BFCC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RootViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DA137241141116B800A1BFCC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA137249141116B800A1BFCC /* UIKit.framework in Frameworks */,
+				DA13724B141116B800A1BFCC /* Foundation.framework in Frameworks */,
+				DA13724D141116B800A1BFCC /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DA137239141116B800A1BFCC = {
+			isa = PBXGroup;
+			children = (
+				DA13724E141116B800A1BFCC /* SOEStatus */,
+				DA137247141116B800A1BFCC /* Frameworks */,
+				DA137245141116B800A1BFCC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DA137245141116B800A1BFCC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA137244141116B800A1BFCC /* SOEStatus.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DA137247141116B800A1BFCC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DA137248141116B800A1BFCC /* UIKit.framework */,
+				DA13724A141116B800A1BFCC /* Foundation.framework */,
+				DA13724C141116B800A1BFCC /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DA13724E141116B800A1BFCC /* SOEStatus */ = {
+			isa = PBXGroup;
+			children = (
+				DA137257141116B800A1BFCC /* SOEStatusAppDelegate.h */,
+				DA137258141116B800A1BFCC /* SOEStatusAppDelegate.m */,
+				DA13725A141116B800A1BFCC /* MainWindow.xib */,
+				DA13725D141116B800A1BFCC /* RootViewController.h */,
+				DA13725E141116B800A1BFCC /* RootViewController.m */,
+				DA137260141116B800A1BFCC /* RootViewController.xib */,
+				DA13724F141116B800A1BFCC /* Supporting Files */,
+			);
+			path = SOEStatus;
+			sourceTree = "<group>";
+		};
+		DA13724F141116B800A1BFCC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DA137250141116B800A1BFCC /* SOEStatus-Info.plist */,
+				DA137251141116B800A1BFCC /* InfoPlist.strings */,
+				DA137254141116B800A1BFCC /* main.m */,
+				DA137256141116B800A1BFCC /* SOEStatus-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DA137243141116B800A1BFCC /* SOEStatus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA137265141116B800A1BFCC /* Build configuration list for PBXNativeTarget "SOEStatus" */;
+			buildPhases = (
+				DA137240141116B800A1BFCC /* Sources */,
+				DA137241141116B800A1BFCC /* Frameworks */,
+				DA137242141116B800A1BFCC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SOEStatus;
+			productName = SOEStatus;
+			productReference = DA137244141116B800A1BFCC /* SOEStatus.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DA13723B141116B800A1BFCC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "P & L Systems";
+			};
+			buildConfigurationList = DA13723E141116B800A1BFCC /* Build configuration list for PBXProject "SOEStatus" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DA137239141116B800A1BFCC;
+			productRefGroup = DA137245141116B800A1BFCC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DA137243141116B800A1BFCC /* SOEStatus */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DA137242141116B800A1BFCC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA137253141116B800A1BFCC /* InfoPlist.strings in Resources */,
+				DA13725C141116B800A1BFCC /* MainWindow.xib in Resources */,
+				DA137262141116B800A1BFCC /* RootViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DA137240141116B800A1BFCC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA137255141116B800A1BFCC /* main.m in Sources */,
+				DA137259141116B800A1BFCC /* SOEStatusAppDelegate.m in Sources */,
+				DA13725F141116B800A1BFCC /* RootViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DA137251141116B800A1BFCC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA137252141116B800A1BFCC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DA13725A141116B800A1BFCC /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA13725B141116B800A1BFCC /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		DA137260141116B800A1BFCC /* RootViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA137261141116B800A1BFCC /* en */,
+			);
+			name = RootViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DA137263141116B800A1BFCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DA137264141116B800A1BFCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DA137266141116B800A1BFCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SOEStatus/SOEStatus-Prefix.pch";
+				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		DA137267141116B800A1BFCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SOEStatus/SOEStatus-Prefix.pch";
+				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DA13723E141116B800A1BFCC /* Build configuration list for PBXProject "SOEStatus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA137263141116B800A1BFCC /* Debug */,
+				DA137264141116B800A1BFCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA137265141116B800A1BFCC /* Build configuration list for PBXNativeTarget "SOEStatus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA137266141116B800A1BFCC /* Debug */,
+				DA137267141116B800A1BFCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DA13723B141116B800A1BFCC /* Project object */;
+}
