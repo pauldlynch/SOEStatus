@@ -55,7 +55,7 @@
 		DA1372E414111A1700A1BFCC /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1372DA14111A1700A1BFCC /* ASIInputStream.m */; };
 		DA1372E514111A1700A1BFCC /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1372DC14111A1700A1BFCC /* ASINetworkQueue.m */; };
 		DA1372E914111AAA00A1BFCC /* SOEStatusAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1372E814111AAA00A1BFCC /* SOEStatusAPI.m */; };
-		DA1372EB1411336300A1BFCC /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA1372EA1411336300A1BFCC /* README.txt */; };
+		DA1372EB1411336300A1BFCC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DA1372EA1411336300A1BFCC /* README.md */; };
 		DA1372F0141136BE00A1BFCC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1372EF141136BD00A1BFCC /* CFNetwork.framework */; };
 		DA1372F2141136C900A1BFCC /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1372F1141136C900A1BFCC /* libz.1.2.3.dylib */; };
 		DA1372F714113B6200A1BFCC /* games.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA1372F614113B6200A1BFCC /* games.plist */; };
@@ -164,7 +164,7 @@
 		DA1372DD14111A1700A1BFCC /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
 		DA1372E714111AAA00A1BFCC /* SOEStatusAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEStatusAPI.h; sourceTree = "<group>"; };
 		DA1372E814111AAA00A1BFCC /* SOEStatusAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEStatusAPI.m; sourceTree = "<group>"; };
-		DA1372EA1411336300A1BFCC /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.txt; path = SOEStatus/README.txt; sourceTree = "<group>"; };
+		DA1372EA1411336300A1BFCC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = SOEStatus/README.md; sourceTree = "<group>"; };
 		DA1372EF141136BD00A1BFCC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		DA1372F1141136C900A1BFCC /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		DA1372F614113B6200A1BFCC /* games.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = games.plist; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 		DA137239141116B800A1BFCC = {
 			isa = PBXGroup;
 			children = (
-				DA1372EA1411336300A1BFCC /* README.txt */,
+				DA1372EA1411336300A1BFCC /* README.md */,
 				DA13724E141116B800A1BFCC /* SOEStatus */,
 				DA13726C1411172B00A1BFCC /* Third Party Code */,
 				DA137247141116B800A1BFCC /* Frameworks */,
@@ -477,7 +477,7 @@
 				DA137262141116B800A1BFCC /* RootViewController.xib in Resources */,
 				DA13726B141116CB00A1BFCC /* MainWindow-iPad.xib in Resources */,
 				DA137296141117B100A1BFCC /* arrow.png in Resources */,
-				DA1372EB1411336300A1BFCC /* README.txt in Resources */,
+				DA1372EB1411336300A1BFCC /* README.md in Resources */,
 				DA1372F714113B6200A1BFCC /* games.plist in Resources */,
 				DA1373031411968500A1BFCC /* ServerViewController.xib in Resources */,
 				DA137306141205C500A1BFCC /* medium_icon.png in Resources */,
