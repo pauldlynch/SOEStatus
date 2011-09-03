@@ -11,7 +11,10 @@
 
 @interface ServerViewController : PullRefreshTableViewController
 
+@property (nonatomic, copy) NSString *gameId;
 @property (nonatomic, retain) NSDictionary *game;
 @property (nonatomic, retain) NSArray *servers;
+
+- (void)loadGame;
 
 @end

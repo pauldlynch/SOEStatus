@@ -1,7 +1,6 @@
 Needs:
 
 better sort of servers, allowing for region/name
-refresh control within server list
 display of age, taking into account time of last refresh
 
 

@@ -191,7 +191,7 @@
     ServerViewController *detailViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil];
     // ...
     // Pass the selected object to the new view controller.
-    detailViewController.game = [self.statuses valueForKey:[[self.rows objectAtIndex:indexPath.row] valueForKey:@"key"]];
+    detailViewController.gameId = [[self.rows objectAtIndex:indexPath.row] valueForKey:@"key"];
     detailViewController.title = [[self.rows objectAtIndex:indexPath.row] valueForKey:@"name"];
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];

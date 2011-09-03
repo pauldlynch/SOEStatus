@@ -7,10 +7,12 @@
 //
 
 #import "ServerViewController.h"
+#import "SOEStatusAPI.h"
+#import "PRPAlertView.h"
 
 @implementation ServerViewController
 
-@synthesize game, servers;
+@synthesize gameId, game, servers;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,7 +32,33 @@
 }
 
 - (void)refresh {
+    [self loadGame];
     [super refresh];
+}
+
+- (void)loadGame {
+    [SOEStatusAPI get:gameId parameters:nil completionBlock:^(SOEStatusAPI *api, id object, NSError *error) {
+        if (error) {
+            [PRPAlertView showWithTitle:@"Error" message:[error localizedDescription] buttonTitle:@"Continue"];
+            return;
+        }
+        self.game = [object valueForKey:gameId];
+        NSLog(@"%@", object);
+                
+        NSMutableArray *regionServers = [NSMutableArray array];
+        for (NSDictionary *region in [self.game allValues]) {
+            for (NSString *serverName in [[region allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]) {
+                NSMutableDictionary *server = [[region objectForKey:serverName] mutableCopy];
+                [server setObject:serverName forKey:@"name"];
+                [regionServers addObject:server];
+                [server release];
+            }
+        }
+        self.servers = regionServers;
+
+        
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - View lifecycle
@@ -39,17 +67,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    NSMutableArray *regionServers = [NSMutableArray array];
-    for (NSDictionary *region in [self.game allValues]) {
-        for (NSString *serverName in [[region allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]) {
-            NSMutableDictionary *server = [[region objectForKey:serverName] mutableCopy];
-            [server setObject:serverName forKey:@"name"];
-            [regionServers addObject:server];
-            [server release];
-        }
-    }
-    self.servers = regionServers;
 }
 
 - (void)viewDidUnload
@@ -57,6 +74,12 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self loadGame];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
