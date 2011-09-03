@@ -1,3 +1,10 @@
+Needs:
+
+better sort of servers, allowing for region/name
+refresh control within server list
+display of age, taking into account time of last refresh
+
+
 Accesses the SOE server status data at https://lp.soe.com/json/status/, correctponding to the server status page at http://www.soe.com/status/
 
 Uses code from:
