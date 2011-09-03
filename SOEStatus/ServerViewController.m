@@ -43,19 +43,24 @@
             return;
         }
         self.game = [object valueForKey:gameId];
-        NSLog(@"%@", object);
                 
         NSMutableArray *regionServers = [NSMutableArray array];
-        for (NSDictionary *region in [self.game allValues]) {
-            for (NSString *serverName in [[region allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]) {
+        for (NSString *regionName in [self.game allKeys]) {
+            NSDictionary *region = [self.game valueForKey:regionName];
+            for (NSString *serverName in [region allKeys]) {
                 NSMutableDictionary *server = [[region objectForKey:serverName] mutableCopy];
                 [server setObject:serverName forKey:@"name"];
+                NSString *sortKey = [NSString stringWithFormat:@"%@/%@", regionName, serverName];
+                [server setObject:sortKey forKey:@"sortKey"];
                 [regionServers addObject:server];
                 [server release];
             }
         }
+        NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"sortKey" ascending:YES];
+        [regionServers sortUsingDescriptors:[NSArray arrayWithObject:descriptor]];
+        [descriptor release];
+        
         self.servers = regionServers;
-
         
         [self.tableView reloadData];
     }];
@@ -112,7 +117,7 @@
     NSDictionary *server = [self.servers objectAtIndex:indexPath.row];
     NSString *age = [server valueForKey:@"age"];
     NSString *status = [server valueForKey:@"status"];
-    NSString *name = [server valueForKey:@"name"];
+    NSString *name = [server valueForKey:@"sortKey"];
     cell.textLabel.text = name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", age, status];
     if ([status isEqualToString:@"low"]) {
