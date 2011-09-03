@@ -1,0 +1,12 @@
+(
+{ key = vgd; name = "Vanguard: Saga of Heroes";},
+{ key = swg; name = "Star Wars Galaxies";},
+{ key = ps; name = Planetside;},
+{ key = freerealms; name = FreeRealms;},
+{ key = eqoa; name = "Everquest Online Adventure";},
+{ key = eqmac; name = "Everquest (Mac)";},
+{ key = eq2x; name = "Everquest II Extended";},
+{ key = eq2; name = "Everquest II";},
+{ key = eq; name = Everquest;},
+{ key = dcuo; name = "DC Universe Online";}
+)

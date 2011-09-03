@@ -7,13 +7,88 @@
 //
 
 #import "RootViewController.h"
+#import "SOEStatusAPI.h"
+#import "PRPAlertView.h"
+#import "MoveArray.h"
+#import "ServerViewController.h"
 
 @implementation RootViewController
 
+@synthesize statuses, rows;
+
+- (NSDictionary *)rowForKey:(NSString *)key {
+    for (NSDictionary *game in self.rows) {
+        if ([key isEqualToString:[game valueForKey:@"key"]]) {
+            return game;
+        }
+    }
+    return nil;
+}
+
+- (void)refresh {
+    [super refresh];
+    
+    [SOEStatusAPI get:@"" parameters:nil completionBlock:^(SOEStatusAPI *api, id object, NSError *error){
+        if (error) {
+            NSString *message = [NSString stringWithFormat:@"%@", [error localizedDescription]];
+            [PRPAlertView showWithTitle:@"API Error" message:message buttonTitle:@"Continue"];
+        } else {
+            self.statuses = object;
+            // remove dropped games
+            for (NSDictionary *game in self.rows) {
+                if (![self.statuses objectForKey:[game valueForKey:@"key"]]) [self.rows removeObject:game];
+            }
+            // add missing games
+            for (NSString *key in [self.statuses allKeys]) {
+                if (![self rowForKey:key]) [self.rows addObject:[NSDictionary dictionaryWithObject:key forKey:@"key"]];
+            }
+            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+            NSString *filePath = [documentsPath stringByAppendingPathComponent:@"rows.plist"];
+            [self.rows writeToFile:filePath atomically:YES];
+
+            [self.tableView reloadData];
+        }
+    }];
+}
+
+- (void)editing {
+    [self.tableView setEditing:![self.tableView isEditing] animated:YES];
+    if (self.tableView.isEditing) {
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editing)];
+        self.navigationItem.rightBarButtonItem = doneButton;
+        [doneButton release];
+    } else {
+        UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editing)];
+        self.navigationItem.rightBarButtonItem = editButton;
+        [editButton release];
+        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *filePath = [documentsPath stringByAppendingPathComponent:@"rows.plist"];
+        [self.rows writeToFile:filePath atomically:YES];
+    }
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = @"Games";
+    
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editing)];
+    self.navigationItem.rightBarButtonItem = editButton;
+    [editButton release];
+    
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"rows.plist"];
+    self.rows = [NSMutableArray arrayWithContentsOfFile:filePath];
+    if (!rows) self.rows = [NSMutableArray array];
+    for (NSDictionary *game in [SOEStatusAPI games]) {
+        NSString *key = [game valueForKey:@"key"];
+        if (![self rowForKey:key]) {
+            [rows addObject:game];
+        }
+    }
+    
+    [self refresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -52,7 +127,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [self.rows count];
 }
 
 // Customize the appearance of table view cells.
@@ -66,25 +141,30 @@
     }
 
     // Configure the cell.
+    NSDictionary *game = [self.rows objectAtIndex:indexPath.row];
+    NSString *key = [game valueForKey:@"key"];
+    NSString *value = [game valueForKey:@"name"];
+    if (!value) value = key;
+    cell.textLabel.text = value;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
     return cell;
 }
 
-/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         // Delete the row from the data source.
+        [self.rows removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert)
@@ -92,33 +172,33 @@
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }   
 }
-*/
 
-/*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
+    [self.rows moveObjectFromIndex:fromIndexPath.row toIndex:toIndexPath.row];
 }
-*/
 
-/*
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
-*/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+    ServerViewController *detailViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil];
     // ...
     // Pass the selected object to the new view controller.
+    detailViewController.game = [self.statuses valueForKey:[[self.rows objectAtIndex:indexPath.row] valueForKey:@"key"]];
+    detailViewController.title = [[self.rows objectAtIndex:indexPath.row] valueForKey:@"name"];
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
-	*/
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    [self tableView:tableView didDeselectRowAtIndexPath:indexPath];
 }
 
 - (void)didReceiveMemoryWarning
@@ -139,6 +219,7 @@
 
 - (void)dealloc
 {
+    self.statuses = nil;
     [super dealloc];
 }
 

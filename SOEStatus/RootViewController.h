@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PullRefreshTableViewController.h"
 
-@interface RootViewController : UITableViewController
+@interface RootViewController : PullRefreshTableViewController
+
+@property (nonatomic, retain) NSDictionary *statuses;
+@property (nonatomic, retain) NSMutableArray *rows;
+
+- (NSDictionary *)rowForKey:(NSString *)key;
 
 @end
