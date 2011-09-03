@@ -67,6 +67,10 @@
     }
 }
 
+- (void)actions {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.soe.com/status"]];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -76,6 +80,10 @@
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editing)];
     self.navigationItem.rightBarButtonItem = editButton;
     [editButton release];
+    
+    UIBarButtonItem *actionsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actions)];
+    self.navigationItem.leftBarButtonItem = actionsButton;
+    [actionsButton release];
     
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *filePath = [documentsPath stringByAppendingPathComponent:@"rows.plist"];
