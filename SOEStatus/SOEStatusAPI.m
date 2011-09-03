@@ -11,6 +11,7 @@
 #import "Reachability.h"
 #import "JSON.h"
 #import "UIApplication+PRPNetworkActivity.h"
+#import "PRPAlertView.h"
 
 @interface NSString (Encoding)
 @end
@@ -98,9 +99,15 @@ static NSArray *_games;
     }
     NSURL *requestURL = [NSURL URLWithString:fullRequestString];
     //NSLog(@"get: '%@'", [requestURL absoluteString]);
-    
+            
     self.completionBlock = completion;
-    [[UIApplication sharedApplication] prp_pushNetworkActivity]; 
+    [[UIApplication sharedApplication] prp_pushNetworkActivity];
+    
+    if (![self checkReachability:requestURL]) {
+        //self.completionBlock(self, nil, [NSError errorWithDomain:@"com.plsys.SOEStatusAPI" code:1003 userInfo:nil]);
+        [[UIApplication sharedApplication] prp_popNetworkActivity];
+        return;
+    }
     
     __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:requestURL];
     [request setCompletionBlock:^{
@@ -120,6 +127,23 @@ static NSArray *_games;
         self.completionBlock(self, nil, error);
     }];
     [request startAsynchronous];
+}
+
+- (BOOL)checkReachability:(NSURL *)url {
+    Reachability *hostReach = [Reachability reachabilityForInternetConnection];	
+	NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
+	if (netStatus == NotReachable) {
+        [PRPAlertView showWithTitle:@"Network" message:@"Not connected to the Internet" buttonTitle:@"Continue"];
+        return NO;
+    } else {
+        hostReach = [Reachability reachabilityWithHostName:[url host]];
+        NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
+        if (netStatus == NotReachable) {
+            [PRPAlertView showWithTitle:@"Network" message:@"Can't reach server" buttonTitle:@"Continue"];
+            return NO;
+        }
+    }
+    return YES;
 }
 
 @end

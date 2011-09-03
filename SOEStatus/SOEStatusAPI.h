@@ -24,4 +24,6 @@ typedef void (^SOEStatusAPICompletionBlock)(SOEStatusAPI *api, id object, NSErro
 + (void)get:(NSString *)requestPath parameters:(NSDictionary *)parameters completionBlock:(SOEStatusAPICompletionBlock)completion;
 - (void)get:(NSString *)requestPath parameters:(NSDictionary *)parameters completionBlock:(SOEStatusAPICompletionBlock)completion;
 
+- (BOOL)checkReachability:(NSURL *)url;
+
 @end
