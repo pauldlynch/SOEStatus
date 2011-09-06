@@ -71,6 +71,10 @@
 		DA137312141205F200A1BFCC /* down_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA137311141205F200A1BFCC /* down_icon.png */; };
 		DAA66EBC141612C600C0287A /* ServerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA66EBB141612C600C0287A /* ServerCell.m */; };
 		DAA66EBF141612E500C0287A /* ServerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAA66EBE141612E500C0287A /* ServerCell.xib */; };
+		DAA66ED21416BF7500C0287A /* Server_57.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA66ED11416BF7500C0287A /* Server_57.png */; };
+		DAA66ED41416BF7C00C0287A /* Server_114.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA66ED31416BF7C00C0287A /* Server_114.png */; };
+		DAA66ED61416BFAA00C0287A /* Server_2.svg in Resources */ = {isa = PBXBuildFile; fileRef = DAA66ED51416BFAA00C0287A /* Server_2.svg */; };
+		DAA66ED81416C00B00C0287A /* Server_72.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA66ED71416C00B00C0287A /* Server_72.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -185,6 +189,11 @@
 		DAA66EBA141612C500C0287A /* ServerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerCell.h; sourceTree = "<group>"; };
 		DAA66EBB141612C600C0287A /* ServerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerCell.m; sourceTree = "<group>"; };
 		DAA66EBE141612E500C0287A /* ServerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerCell.xib; sourceTree = "<group>"; };
+		DAA66ECF1416B9A000C0287A /* Server_olivier_boyer_04.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Server_olivier_boyer_04.svg; sourceTree = "<group>"; };
+		DAA66ED11416BF7500C0287A /* Server_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Server_57.png; path = ../Server_57.png; sourceTree = "<group>"; };
+		DAA66ED31416BF7C00C0287A /* Server_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Server_114.png; path = ../Server_114.png; sourceTree = "<group>"; };
+		DAA66ED51416BFAA00C0287A /* Server_2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Server_2.svg; sourceTree = "<group>"; };
+		DAA66ED71416C00B00C0287A /* Server_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Server_72.png; path = ../Server_72.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +221,8 @@
 			isa = PBXGroup;
 			children = (
 				DA1372EA1411336300A1BFCC /* README.md */,
+				DAA66ECF1416B9A000C0287A /* Server_olivier_boyer_04.svg */,
+				DAA66ED51416BFAA00C0287A /* Server_2.svg */,
 				DA13724E141116B800A1BFCC /* SOEStatus */,
 				DA13726C1411172B00A1BFCC /* Third Party Code */,
 				DA137247141116B800A1BFCC /* Frameworks */,
@@ -273,6 +284,9 @@
 			children = (
 				DA137250141116B800A1BFCC /* SOEStatus-Info.plist */,
 				DA137251141116B800A1BFCC /* InfoPlist.strings */,
+				DAA66ED31416BF7C00C0287A /* Server_114.png */,
+				DAA66ED11416BF7500C0287A /* Server_57.png */,
+				DAA66ED71416C00B00C0287A /* Server_72.png */,
 				DA137268141116C900A1BFCC /* iPad */,
 				DA1373041412017D00A1BFCC /* UI Images */,
 				DA137254141116B800A1BFCC /* main.m */,
@@ -496,6 +510,10 @@
 				DA137310141205EA00A1BFCC /* lock_icon.png in Resources */,
 				DA137312141205F200A1BFCC /* down_icon.png in Resources */,
 				DAA66EBF141612E500C0287A /* ServerCell.xib in Resources */,
+				DAA66ED21416BF7500C0287A /* Server_57.png in Resources */,
+				DAA66ED41416BF7C00C0287A /* Server_114.png in Resources */,
+				DAA66ED61416BFAA00C0287A /* Server_2.svg in Resources */,
+				DAA66ED81416C00B00C0287A /* Server_72.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
