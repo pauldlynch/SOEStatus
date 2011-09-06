@@ -69,6 +69,8 @@
 		DA13730E141205E200A1BFCC /* missing_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA13730D141205E200A1BFCC /* missing_icon.png */; };
 		DA137310141205EA00A1BFCC /* lock_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA13730F141205EA00A1BFCC /* lock_icon.png */; };
 		DA137312141205F200A1BFCC /* down_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA137311141205F200A1BFCC /* down_icon.png */; };
+		DAA66EBC141612C600C0287A /* ServerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA66EBB141612C600C0287A /* ServerCell.m */; };
+		DAA66EBF141612E500C0287A /* ServerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAA66EBE141612E500C0287A /* ServerCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,6 +182,9 @@
 		DA13730D141205E200A1BFCC /* missing_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = missing_icon.png; sourceTree = "<group>"; };
 		DA13730F141205EA00A1BFCC /* lock_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock_icon.png; sourceTree = "<group>"; };
 		DA137311141205F200A1BFCC /* down_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down_icon.png; sourceTree = "<group>"; };
+		DAA66EBA141612C500C0287A /* ServerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerCell.h; sourceTree = "<group>"; };
+		DAA66EBB141612C600C0287A /* ServerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerCell.m; sourceTree = "<group>"; };
+		DAA66EBE141612E500C0287A /* ServerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +260,9 @@
 				DA1372FF1411968400A1BFCC /* ServerViewController.h */,
 				DA1373001411968400A1BFCC /* ServerViewController.m */,
 				DA1373011411968400A1BFCC /* ServerViewController.xib */,
+				DAA66EBA141612C500C0287A /* ServerCell.h */,
+				DAA66EBB141612C600C0287A /* ServerCell.m */,
+				DAA66EBE141612E500C0287A /* ServerCell.xib */,
 				DA13724F141116B800A1BFCC /* Supporting Files */,
 			);
 			path = SOEStatus;
@@ -487,6 +495,7 @@
 				DA13730E141205E200A1BFCC /* missing_icon.png in Resources */,
 				DA137310141205EA00A1BFCC /* lock_icon.png in Resources */,
 				DA137312141205F200A1BFCC /* down_icon.png in Resources */,
+				DAA66EBF141612E500C0287A /* ServerCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +543,7 @@
 				DA1372E914111AAA00A1BFCC /* SOEStatusAPI.m in Sources */,
 				DA1372FE1411935E00A1BFCC /* MoveArray.m in Sources */,
 				DA1373021411968500A1BFCC /* ServerViewController.m in Sources */,
+				DAA66EBC141612C600C0287A /* ServerCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,6 +673,7 @@
 				DA137267141116B800A1BFCC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

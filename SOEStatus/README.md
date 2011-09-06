@@ -1,7 +1,7 @@
 Needs:
 
-display of age, taking into account time of last refresh - custom tableCell would suit
-
+Icon! 57x, 114x, 75x, 512x
+review for iPad usage
 
 Accesses the SOE server status data at https://lp.soe.com/json/status/, correctponding to the server status page at http://www.soe.com/status/
 
@@ -18,4 +18,5 @@ Connecting to GitHub:
 http://www.leniel.net/2011/08/xcode-iphone-beginner-projects-git.html
 
 Response is a JSON object, containing keys representing games.  The game object contains regions, which contain servers.  
-Servers have age (time, as hh:mm:ss) and status (low, medium, high, locked).
+Servers have age (time, as hh:mm:ss) and status (low, medium, high, locked). I create in the server controller 
+extra keys for sortKey (region/server) and date (actual NSDate timestamp).

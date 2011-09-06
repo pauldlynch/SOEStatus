@@ -14,6 +14,8 @@
 @property (nonatomic, copy) NSString *gameId;
 @property (nonatomic, retain) NSDictionary *game;
 @property (nonatomic, retain) NSArray *servers;
+@property (nonatomic, retain) UINib *serverCellNib;
+@property (nonatomic, retain) NSDateFormatter *dateFormatter;
 
 - (void)loadGame;
 

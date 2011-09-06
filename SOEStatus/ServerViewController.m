@@ -9,10 +9,33 @@
 #import "ServerViewController.h"
 #import "SOEStatusAPI.h"
 #import "PRPAlertView.h"
+#import "ServerCell.h"
+
+@interface NSDate (Age)
++ (NSDate *)pl_dateFromAgeString:(NSString *)string;
+@end
+
+@implementation NSDate (Age)
+
++ (NSDate *)pl_dateFromAgeString:(NSString *)string {
+    // convert age to actual time stamp
+    NSScanner* timeScanner=[NSScanner scannerWithString:string];
+    int hours, minutes, seconds;
+    [timeScanner scanInt:&hours];
+    [timeScanner scanString:@":" intoString:nil]; //jump over :
+    [timeScanner scanInt:&minutes];
+    [timeScanner scanString:@":" intoString:nil]; //jump over :
+    [timeScanner scanInt:&seconds];
+    seconds = (((hours * 60) + minutes) * 60) + seconds;
+    return [NSDate dateWithTimeIntervalSinceNow:-seconds];
+}
+
+
+@end
 
 @implementation ServerViewController
 
-@synthesize gameId, game, servers;
+@synthesize gameId, game, servers, serverCellNib, dateFormatter;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,12 +46,37 @@
     return self;
 }
 
+- (void)dealloc {
+    self.gameId = nil;
+    self.game = nil;
+    self.servers = nil;
+    self.serverCellNib =nil;
+    self.dateFormatter = nil;
+    [super dealloc];
+}
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (UINib *)serverCellNib {
+    if (!serverCellNib) {
+        self.serverCellNib = [ServerCell nib];
+    }
+    return serverCellNib;
+}
+
+- (NSDateFormatter *)dateFormatter {
+    if (!dateFormatter) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterNoStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    }
+    return dateFormatter;
 }
 
 - (void)refresh {
@@ -52,6 +100,10 @@
                 [server setObject:serverName forKey:@"name"];
                 NSString *sortKey = [NSString stringWithFormat:@"%@/%@", regionName, serverName];
                 [server setObject:sortKey forKey:@"sortKey"];
+                [server setObject:regionName forKey:@"region"];
+                NSString *age = [server valueForKey:@"age"];
+                [server setObject:[NSDate pl_dateFromAgeString:age] forKey:@"date"];
+                
                 [regionServers addObject:server];
                 [server release];
             }
@@ -105,21 +157,18 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
+{    
+    ServerCell *cell = [ServerCell cellForTableView:tableView fromNib:self.serverCellNib];
     
     // Configure the cell.
     NSDictionary *server = [self.servers objectAtIndex:indexPath.row];
-    NSString *age = [server valueForKey:@"age"];
     NSString *status = [server valueForKey:@"status"];
-    NSString *name = [server valueForKey:@"sortKey"];
-    cell.textLabel.text = name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", age, status];
+    
+    cell.serverName.text = [server valueForKey:@"name"];
+    cell.region.text = [server valueForKey:@"region"];
+    cell.age.text = [self.dateFormatter stringFromDate:[server valueForKey:@"date"]];
+    cell.status.text = status;
+    
     if ([status isEqualToString:@"low"]) {
         cell.imageView.image = [UIImage imageNamed:@"low_icon"];
     } else if ([status isEqualToString:@"medium"]) {
