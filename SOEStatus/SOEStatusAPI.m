@@ -103,7 +103,7 @@ static NSArray *_games;
     self.completionBlock = completion;
     [[UIApplication sharedApplication] prp_pushNetworkActivity];
     
-    if (![self checkReachability:requestURL]) {
+    if (![SOEStatusAPI checkReachability:requestURL]) {
         //self.completionBlock(self, nil, [NSError errorWithDomain:@"com.plsys.SOEStatusAPI" code:1003 userInfo:nil]);
         [[UIApplication sharedApplication] prp_popNetworkActivity];
         return;
@@ -129,7 +129,7 @@ static NSArray *_games;
     [request startAsynchronous];
 }
 
-- (BOOL)checkReachability:(NSURL *)url {
++ (BOOL)checkReachability:(NSURL *)url {
     Reachability *hostReach = [Reachability reachabilityForInternetConnection];	
 	NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
 	if (netStatus == NotReachable) {
