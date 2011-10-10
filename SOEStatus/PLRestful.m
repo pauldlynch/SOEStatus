@@ -18,11 +18,11 @@
 @implementation NSString (Encoding)
 
 - (NSString *)pl_stringByAddingPercentEscapesUsingEncoding:(CFStringBuiltInEncodings)encoding {
-    return (NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
+    return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
                                                                (CFStringRef)self,
                                                                NULL,
                                                                (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
-                                                               encoding);
+                                                               encoding) autorelease];
 }
 
 @end
