@@ -7,31 +7,30 @@
 //
 
 #import "SOEStatusAPI.h"
-#import "ASIHTTPRequest.h"
-#import "Reachability.h"
-#import "JSON.h"
-#import "UIApplication+PRPNetworkActivity.h"
-#import "PRPAlertView.h"
 
-@interface NSString (Encoding)
+@interface NSDate (Age)
++ (NSDate *)pl_dateFromAgeString:(NSString *)string;
 @end
-@implementation NSString (Encoding)
 
-- (NSString *)pl_stringByAddingPercentEscapesUsingEncoding:(CFStringBuiltInEncodings)encoding {
-    return (NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
-                                                               (CFStringRef)self,
-                                                               NULL,
-                                                               (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
-                                                               encoding);
+@implementation NSDate (Age)
+
++ (NSDate *)pl_dateFromAgeString:(NSString *)string {
+    // convert age to actual time stamp
+    NSScanner* timeScanner=[NSScanner scannerWithString:string];
+    int hours, minutes, seconds;
+    [timeScanner scanInt:&hours];
+    [timeScanner scanString:@":" intoString:nil]; //jump over :
+    [timeScanner scanInt:&minutes];
+    [timeScanner scanString:@":" intoString:nil]; //jump over :
+    [timeScanner scanInt:&seconds];
+    seconds = (((hours * 60) + minutes) * 60) + seconds;
+    return [NSDate dateWithTimeIntervalSinceNow:-seconds];
 }
 
 @end
 
 @implementation SOEStatusAPI
 
-@synthesize baseURL, completionBlock;
-
-static NSString *endpoint;
 static NSArray *_games;
 
 + (void)initialize {
@@ -39,8 +38,6 @@ static NSArray *_games;
     if (!initialized) {
         initialized = YES;
         // Perform initialization here
-        [SOEStatusAPI setEndpoint:@"https://lp.soe.com/json/status/"]; // public API
-        
         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"games.plist" ofType:nil];
         _games = [[NSArray arrayWithContentsOfFile:filePath] retain];
     }
@@ -51,99 +48,52 @@ static NSArray *_games;
     self = [super init];
     if (self) {
         // Initialization code here.
+        self.endpoint = @"https://lp.soe.com/json/status/"; // public API
     }
     
     return self;
-}
-
-- (void)dealloc {
-    self.baseURL = nil;
-    self.completionBlock = nil;
-    [super dealloc];
-}
-
-+ (void)setEndpoint:(NSString *)value {
-    if (value != endpoint) [endpoint release];
-    endpoint = [value copy];
-}
-- (void)setEndpoint:(NSString *)value {
-    [SOEStatusAPI setEndpoint:value];
-}
-- (NSString *)endpoint {
-    return endpoint;
 }
 
 + (NSArray *)games {
     return _games;
 }
 
-+ (void)get:(NSString *)requestPath parameters:(NSDictionary *)parameters completionBlock:(SOEStatusAPICompletionBlock)completion {
-    SOEStatusAPI *api = [[[self alloc] init] autorelease];
-    [api get:requestPath parameters:parameters completionBlock:completion];
++ (void)getStatuses:(PLRestfulAPICompletionBlock)completion {
+    [SOEStatusAPI get:@"" parameters:nil completionBlock:^(PLRestful *api, id object, int status, NSError *error){
+        completion(api, object, status, error);
+    }];
 }
 
-- (void)get:(NSString *)requestString parameters:(NSDictionary *)parameters completionBlock:(SOEStatusAPICompletionBlock)completion {
-    NSString *fullRequestString = [self.endpoint stringByAppendingString:requestString];
-    if (parameters) {
-        fullRequestString = [fullRequestString stringByAppendingString:@"?"];
-        BOOL first = YES;
-        for (NSString *key in [parameters allKeys]) {
-            if (!first) {
-                fullRequestString = [fullRequestString stringByAppendingString:@"&"];
-            }
-            fullRequestString = [fullRequestString stringByAppendingString:[NSString stringWithFormat:@"%@=%@", 
-                                                                            key, 
-                                                                            [[[parameters objectForKey:key] description] pl_stringByAddingPercentEscapesUsingEncoding:kCFStringEncodingUTF8]]];
-            first = NO;
-        }
-    }
-    NSURL *requestURL = [NSURL URLWithString:fullRequestString];
-    //NSLog(@"get: '%@'", [requestURL absoluteString]);
++ (void)getGameStatus:(NSString *)gameId completion:(PLRestfulAPICompletionBlock)completion {
+    [SOEStatusAPI get:gameId parameters:nil completionBlock:^(PLRestful *api, id object, int status, NSError *error) {
+        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+        if (!error) {
+            NSDictionary *game = [object valueForKey:gameId];
+            [userInfo setObject:game forKey:@"game"];
             
-    self.completionBlock = completion;
-    [[UIApplication sharedApplication] prp_pushNetworkActivity];
-    
-    if (![SOEStatusAPI checkReachability:requestURL]) {
-        //self.completionBlock(self, nil, [NSError errorWithDomain:@"com.plsys.SOEStatusAPI" code:1003 userInfo:nil]);
-        [[UIApplication sharedApplication] prp_popNetworkActivity];
-        return;
-    }
-    
-    __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:requestURL];
-    [request setCompletionBlock:^{
-        [[UIApplication sharedApplication] prp_popNetworkActivity];
-        NSString *json = [request responseString];
-        id object = [json JSONValue];
-        if (object) {
-            self.completionBlock(self, object, nil);
-        } else {
-            NSLog(@"received bad json: '%@'", json);
-            self.completionBlock(self, object, [NSError errorWithDomain:@"com.plsys.SOEStatusAPI" code:1002 userInfo:nil]);
+            NSMutableArray *regionServers = [NSMutableArray array];
+            [userInfo setObject:regionServers forKey:@"regionServers"];
+            for (NSString *regionName in [game allKeys]) {
+                NSDictionary *region = [game valueForKey:regionName];
+                for (NSString *serverName in [region allKeys]) {
+                    NSMutableDictionary *server = [[region objectForKey:serverName] mutableCopy];
+                    [server setObject:serverName forKey:@"name"];
+                    NSString *sortKey = [NSString stringWithFormat:@"%@/%@", regionName, serverName];
+                    [server setObject:sortKey forKey:@"sortKey"];
+                    [server setObject:regionName forKey:@"region"];
+                    NSString *age = [server valueForKey:@"age"];
+                    [server setObject:[NSDate pl_dateFromAgeString:age] forKey:@"date"];
+                    
+                    [regionServers addObject:server];
+                    [server release];
+                }
+            }
+            NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"sortKey" ascending:YES];
+            [regionServers sortUsingDescriptors:[NSArray arrayWithObject:descriptor]];
+            [descriptor release];
         }
+        completion(api, userInfo, status, error);
     }];
-    [request setFailedBlock:^{
-        [[UIApplication sharedApplication] prp_popNetworkActivity];
-        NSError *error = [request error];
-        self.completionBlock(self, nil, error);
-    }];
-    [request startAsynchronous];
-}
-
-+ (BOOL)checkReachability:(NSURL *)url {
-    Reachability *hostReach = [Reachability reachabilityForInternetConnection];	
-	NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
-	if (netStatus == NotReachable) {
-        [PRPAlertView showWithTitle:@"Network" message:@"Not connected to the Internet" buttonTitle:@"Continue"];
-        return NO;
-    } else {
-        hostReach = [Reachability reachabilityWithHostName:[url host]];
-        NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
-        if (netStatus == NotReachable) {
-            [PRPAlertView showWithTitle:@"Network" message:@"Can't reach server" buttonTitle:@"Continue"];
-            return NO;
-        }
-    }
-    return YES;
 }
 
 @end

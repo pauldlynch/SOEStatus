@@ -11,28 +11,6 @@
 #import "PRPAlertView.h"
 #import "ServerCell.h"
 
-@interface NSDate (Age)
-+ (NSDate *)pl_dateFromAgeString:(NSString *)string;
-@end
-
-@implementation NSDate (Age)
-
-+ (NSDate *)pl_dateFromAgeString:(NSString *)string {
-    // convert age to actual time stamp
-    NSScanner* timeScanner=[NSScanner scannerWithString:string];
-    int hours, minutes, seconds;
-    [timeScanner scanInt:&hours];
-    [timeScanner scanString:@":" intoString:nil]; //jump over :
-    [timeScanner scanInt:&minutes];
-    [timeScanner scanString:@":" intoString:nil]; //jump over :
-    [timeScanner scanInt:&seconds];
-    seconds = (((hours * 60) + minutes) * 60) + seconds;
-    return [NSDate dateWithTimeIntervalSinceNow:-seconds];
-}
-
-
-@end
-
 @implementation ServerViewController
 
 @synthesize gameId, game, servers, serverCellNib, dateFormatter;
@@ -85,35 +63,13 @@
 }
 
 - (void)loadGame {
-    [SOEStatusAPI get:gameId parameters:nil completionBlock:^(SOEStatusAPI *api, id object, NSError *error) {
+    [SOEStatusAPI getGameStatus:gameId completion:^(PLRestful *api, id object, int status, NSError *error) {
         if (error) {
             [PRPAlertView showWithTitle:@"Error" message:[error localizedDescription] buttonTitle:@"Continue"];
             return;
         }
-        self.game = [object valueForKey:gameId];
-                
-        NSMutableArray *regionServers = [NSMutableArray array];
-        for (NSString *regionName in [self.game allKeys]) {
-            NSDictionary *region = [self.game valueForKey:regionName];
-            for (NSString *serverName in [region allKeys]) {
-                NSMutableDictionary *server = [[region objectForKey:serverName] mutableCopy];
-                [server setObject:serverName forKey:@"name"];
-                NSString *sortKey = [NSString stringWithFormat:@"%@/%@", regionName, serverName];
-                [server setObject:sortKey forKey:@"sortKey"];
-                [server setObject:regionName forKey:@"region"];
-                NSString *age = [server valueForKey:@"age"];
-                [server setObject:[NSDate pl_dateFromAgeString:age] forKey:@"date"];
-                
-                [regionServers addObject:server];
-                [server release];
-            }
-        }
-        NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"sortKey" ascending:YES];
-        [regionServers sortUsingDescriptors:[NSArray arrayWithObject:descriptor]];
-        [descriptor release];
-        
-        self.servers = regionServers;
-        
+        self.game = [object valueForKey:@"game"];
+        self.servers = [object valueForKey:@"regionServers"];        
         [self.tableView reloadData];
     }];
 }

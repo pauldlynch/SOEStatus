@@ -7,23 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PLRestful.h"
 
-@class SOEStatusAPI;
-
-typedef void (^SOEStatusAPICompletionBlock)(SOEStatusAPI *api, id object, NSError *error);
-
-@interface SOEStatusAPI : NSObject
-
-@property (nonatomic, retain) NSURL *baseURL;
-@property (nonatomic, copy) NSString *endpoint;
-@property (nonatomic, copy) SOEStatusAPICompletionBlock completionBlock;
+@interface SOEStatusAPI : PLRestful
 
 + (NSArray *)games;
 
-+ (void)setEndpoint:(NSString *)value;
-+ (void)get:(NSString *)requestPath parameters:(NSDictionary *)parameters completionBlock:(SOEStatusAPICompletionBlock)completion;
-- (void)get:(NSString *)requestPath parameters:(NSDictionary *)parameters completionBlock:(SOEStatusAPICompletionBlock)completion;
-
-+ (BOOL)checkReachability:(NSURL *)url;
++ (void)getStatuses:(PLRestfulAPICompletionBlock)completion;
++ (void)getGameStatus:(NSString *)gameId completion:(PLRestfulAPICompletionBlock)completion;
 
 @end

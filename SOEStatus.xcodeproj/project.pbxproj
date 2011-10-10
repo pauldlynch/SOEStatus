@@ -55,9 +55,7 @@
 		DA1372E414111A1700A1BFCC /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1372DA14111A1700A1BFCC /* ASIInputStream.m */; };
 		DA1372E514111A1700A1BFCC /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1372DC14111A1700A1BFCC /* ASINetworkQueue.m */; };
 		DA1372E914111AAA00A1BFCC /* SOEStatusAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1372E814111AAA00A1BFCC /* SOEStatusAPI.m */; };
-		DA1372EB1411336300A1BFCC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DA1372EA1411336300A1BFCC /* README.md */; };
 		DA1372F0141136BE00A1BFCC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1372EF141136BD00A1BFCC /* CFNetwork.framework */; };
-		DA1372F2141136C900A1BFCC /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1372F1141136C900A1BFCC /* libz.1.2.3.dylib */; };
 		DA1372F714113B6200A1BFCC /* games.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA1372F614113B6200A1BFCC /* games.plist */; };
 		DA1372FE1411935E00A1BFCC /* MoveArray.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1372FD1411935D00A1BFCC /* MoveArray.m */; };
 		DA1373021411968500A1BFCC /* ServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA1373001411968400A1BFCC /* ServerViewController.m */; };
@@ -69,12 +67,15 @@
 		DA13730E141205E200A1BFCC /* missing_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA13730D141205E200A1BFCC /* missing_icon.png */; };
 		DA137310141205EA00A1BFCC /* lock_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA13730F141205EA00A1BFCC /* lock_icon.png */; };
 		DA137312141205F200A1BFCC /* down_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA137311141205F200A1BFCC /* down_icon.png */; };
+		DA1D544C1442F44E006E652A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DA1D544B1442F44E006E652A /* README.md */; };
+		DA96DB921421FA6C00F0CE7E /* PLRestful.m in Sources */ = {isa = PBXBuildFile; fileRef = DA96DB911421FA6C00F0CE7E /* PLRestful.m */; };
 		DAA66EBC141612C600C0287A /* ServerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA66EBB141612C600C0287A /* ServerCell.m */; };
 		DAA66EBF141612E500C0287A /* ServerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAA66EBE141612E500C0287A /* ServerCell.xib */; };
 		DAA66ED21416BF7500C0287A /* Server_57.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA66ED11416BF7500C0287A /* Server_57.png */; };
 		DAA66ED41416BF7C00C0287A /* Server_114.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA66ED31416BF7C00C0287A /* Server_114.png */; };
 		DAA66ED61416BFAA00C0287A /* Server_2.svg in Resources */ = {isa = PBXBuildFile; fileRef = DAA66ED51416BFAA00C0287A /* Server_2.svg */; };
 		DAA66ED81416C00B00C0287A /* Server_72.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA66ED71416C00B00C0287A /* Server_72.png */; };
+		DAB132B214410229006426E0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB132B114410229006426E0 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -170,9 +171,7 @@
 		DA1372DD14111A1700A1BFCC /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
 		DA1372E714111AAA00A1BFCC /* SOEStatusAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEStatusAPI.h; sourceTree = "<group>"; };
 		DA1372E814111AAA00A1BFCC /* SOEStatusAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEStatusAPI.m; sourceTree = "<group>"; };
-		DA1372EA1411336300A1BFCC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = SOEStatus/README.md; sourceTree = "<group>"; };
 		DA1372EF141136BD00A1BFCC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		DA1372F1141136C900A1BFCC /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		DA1372F614113B6200A1BFCC /* games.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = games.plist; sourceTree = "<group>"; };
 		DA1372FC1411935D00A1BFCC /* MoveArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveArray.h; sourceTree = "<group>"; };
 		DA1372FD1411935D00A1BFCC /* MoveArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveArray.m; sourceTree = "<group>"; };
@@ -186,6 +185,9 @@
 		DA13730D141205E200A1BFCC /* missing_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = missing_icon.png; sourceTree = "<group>"; };
 		DA13730F141205EA00A1BFCC /* lock_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock_icon.png; sourceTree = "<group>"; };
 		DA137311141205F200A1BFCC /* down_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down_icon.png; sourceTree = "<group>"; };
+		DA1D544B1442F44E006E652A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		DA96DB901421FA6C00F0CE7E /* PLRestful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLRestful.h; sourceTree = "<group>"; };
+		DA96DB911421FA6C00F0CE7E /* PLRestful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLRestful.m; sourceTree = "<group>"; };
 		DAA66EBA141612C500C0287A /* ServerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerCell.h; sourceTree = "<group>"; };
 		DAA66EBB141612C600C0287A /* ServerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerCell.m; sourceTree = "<group>"; };
 		DAA66EBE141612E500C0287A /* ServerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerCell.xib; sourceTree = "<group>"; };
@@ -194,6 +196,8 @@
 		DAA66ED31416BF7C00C0287A /* Server_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Server_114.png; path = ../Server_114.png; sourceTree = "<group>"; };
 		DAA66ED51416BFAA00C0287A /* Server_2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Server_2.svg; sourceTree = "<group>"; };
 		DAA66ED71416C00B00C0287A /* Server_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Server_72.png; path = ../Server_72.png; sourceTree = "<group>"; };
+		DAA66ED91416CB9B00C0287A /* Server_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Server_512.png; sourceTree = "<group>"; };
+		DAB132B114410229006426E0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,7 +205,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA1372F2141136C900A1BFCC /* libz.1.2.3.dylib in Frameworks */,
+				DAB132B214410229006426E0 /* libz.dylib in Frameworks */,
 				DA1372F0141136BE00A1BFCC /* CFNetwork.framework in Frameworks */,
 				DA1372BA141118D000A1BFCC /* MessageUI.framework in Frameworks */,
 				DA1372BB141118D000A1BFCC /* QuartzCore.framework in Frameworks */,
@@ -220,9 +224,10 @@
 		DA137239141116B800A1BFCC = {
 			isa = PBXGroup;
 			children = (
-				DA1372EA1411336300A1BFCC /* README.md */,
+				DA1D544B1442F44E006E652A /* README.md */,
 				DAA66ECF1416B9A000C0287A /* Server_olivier_boyer_04.svg */,
 				DAA66ED51416BFAA00C0287A /* Server_2.svg */,
+				DAA66ED91416CB9B00C0287A /* Server_512.png */,
 				DA13724E141116B800A1BFCC /* SOEStatus */,
 				DA13726C1411172B00A1BFCC /* Third Party Code */,
 				DA137247141116B800A1BFCC /* Frameworks */,
@@ -241,7 +246,7 @@
 		DA137247141116B800A1BFCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DA1372F1141136C900A1BFCC /* libz.1.2.3.dylib */,
+				DAB132B114410229006426E0 /* libz.dylib */,
 				DA1372EF141136BD00A1BFCC /* CFNetwork.framework */,
 				DA1372B7141118D000A1BFCC /* MessageUI.framework */,
 				DA1372B8141118D000A1BFCC /* QuartzCore.framework */,
@@ -258,6 +263,8 @@
 		DA13724E141116B800A1BFCC /* SOEStatus */ = {
 			isa = PBXGroup;
 			children = (
+				DA96DB901421FA6C00F0CE7E /* PLRestful.h */,
+				DA96DB911421FA6C00F0CE7E /* PLRestful.m */,
 				DA1372E714111AAA00A1BFCC /* SOEStatusAPI.h */,
 				DA1372E814111AAA00A1BFCC /* SOEStatusAPI.m */,
 				DA137257141116B800A1BFCC /* SOEStatusAppDelegate.h */,
@@ -470,6 +477,7 @@
 		DA13723B141116B800A1BFCC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "P & L Systems";
 			};
 			buildConfigurationList = DA13723E141116B800A1BFCC /* Build configuration list for PBXProject "SOEStatus" */;
@@ -499,7 +507,6 @@
 				DA137262141116B800A1BFCC /* RootViewController.xib in Resources */,
 				DA13726B141116CB00A1BFCC /* MainWindow-iPad.xib in Resources */,
 				DA137296141117B100A1BFCC /* arrow.png in Resources */,
-				DA1372EB1411336300A1BFCC /* README.md in Resources */,
 				DA1372F714113B6200A1BFCC /* games.plist in Resources */,
 				DA1373031411968500A1BFCC /* ServerViewController.xib in Resources */,
 				DA137306141205C500A1BFCC /* medium_icon.png in Resources */,
@@ -514,6 +521,7 @@
 				DAA66ED41416BF7C00C0287A /* Server_114.png in Resources */,
 				DAA66ED61416BFAA00C0287A /* Server_2.svg in Resources */,
 				DAA66ED81416C00B00C0287A /* Server_72.png in Resources */,
+				DA1D544C1442F44E006E652A /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +570,7 @@
 				DA1372FE1411935E00A1BFCC /* MoveArray.m in Sources */,
 				DA1373021411968500A1BFCC /* ServerViewController.m in Sources */,
 				DAA66EBC141612C600C0287A /* ServerCell.m in Sources */,
+				DA96DB921421FA6C00F0CE7E /* PLRestful.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,6 +660,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SOEStatus/SOEStatus-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -664,6 +674,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SOEStatus/SOEStatus-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
