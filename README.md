@@ -14,6 +14,7 @@ Needs:
 ---
 - Icon! 57x, 114x, 75x, 512x
 - review for iPad usage
+- updates for iOS 5 and Xcode 4.2.
 
 1.0
 ---
