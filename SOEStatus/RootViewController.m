@@ -28,7 +28,7 @@
 - (void)refresh {
     [super refresh];
     
-    [SOEStatusAPI get:@"" parameters:nil completionBlock:^(SOEStatusAPI *api, id object, NSError *error){
+    [SOEStatusAPI getStatuses:^(PLRestful *api, id object, int status, NSError *error){
         if (error) {
             NSString *message = [NSString stringWithFormat:@"%@", [error localizedDescription]];
             [PRPAlertView showWithTitle:@"API Error" message:message buttonTitle:@"Continue"];
@@ -119,13 +119,14 @@
 	[super viewDidDisappear:animated];
 }
 
-/*
  // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	// Return YES for supported orientations.
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return YES;
+    }
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
- */
 
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
