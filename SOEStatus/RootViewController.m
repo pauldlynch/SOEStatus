@@ -40,7 +40,8 @@
             }
             // add missing games
             for (NSString *key in [self.statuses allKeys]) {
-                if (![self rowForKey:key]) [self.rows addObject:[NSDictionary dictionaryWithObject:key forKey:@"key"]];
+                NSDictionary *row = [self rowForKey:key];
+                if (!row) [self.rows addObject:[NSDictionary dictionaryWithObject:key forKey:@"key"]];
             }
             NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
             NSString *filePath = [documentsPath stringByAppendingPathComponent:@"rows.plist"];
@@ -91,8 +92,13 @@
     if (!rows) self.rows = [NSMutableArray array];
     for (NSDictionary *game in [SOEStatusAPI games]) {
         NSString *key = [game valueForKey:@"key"];
-        if (![self rowForKey:key]) {
+        NSDictionary *row = [self rowForKey:key];
+        if (!row) {
             [rows addObject:game];
+        }
+        // game added to feed, but name comes from game.plist, which was updated later (by me)
+        if (![row valueForKey:@"name"]) {
+            [rows replaceObjectAtIndex:[rows indexOfObject:row] withObject:game];
         }
     }
     

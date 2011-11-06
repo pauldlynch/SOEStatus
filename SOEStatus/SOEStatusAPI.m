@@ -48,7 +48,7 @@ static NSArray *_games;
     self = [super init];
     if (self) {
         // Initialization code here.
-        self.endpoint = @"https://lp.soe.com/json/status/"; // public API
+        self.endpoint = @"https://data.soe.com/json/status/"; // public API
     }
     
     return self;

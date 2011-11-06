@@ -10,6 +10,11 @@ Needs:
 - Possibility to register for notifications of server status changes;
 - Reachability checks for known SOE servers to identify network outages vs server status.
 
+1.1.1
+-----
+- switch from lp.soe.com to data.soe.com (permanent home)
+- added Clone Wars to games plist
+
 1.1
 ---
 - Icon! 57x, 114x, 75x, 512x
@@ -21,7 +26,7 @@ Needs:
 - base release
 
 
-Accesses the SOE server status data at `https://lp.soe.com/json/status/`, corresponding to the server status page at `http://www.soe.com/status/`
+Accesses the SOE server status data at `https://data.soe.com/json/status/`, corresponding to the server status page at `http://www.soe.com/status/`
 
 ###Uses code from:
 
@@ -30,7 +35,10 @@ Accesses the SOE server status data at `https://lp.soe.com/json/status/`, corres
 - Stig Brautaset's JSON library
 - Apple (Reachability)
 - PullRefreshTableViewController (Leah Culver)
+- Buzz Andersen's SFHFKeychainUtils
 - and a couple of others //TODO: update with details!
+
+RESTful access is based on my own generic code (PLRestful), subclassed to add specific support for the SOE feed.
 
 Connecting to GitHub:
 http://www.leniel.net/2011/08/xcode-iphone-beginner-projects-git.html
