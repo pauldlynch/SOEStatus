@@ -93,12 +93,13 @@
     for (NSDictionary *game in [SOEStatusAPI games]) {
         NSString *key = [game valueForKey:@"key"];
         NSDictionary *row = [self rowForKey:key];
-        if (!row) {
+        if (row) {
+            // game added to feed, but name comes from game.plist, which was updated later (by me)
+            if (![row valueForKey:@"name"]) {
+                [rows replaceObjectAtIndex:[rows indexOfObject:row] withObject:game];
+            }
+        } else {
             [rows addObject:game];
-        }
-        // game added to feed, but name comes from game.plist, which was updated later (by me)
-        if (![row valueForKey:@"name"]) {
-            [rows replaceObjectAtIndex:[rows indexOfObject:row] withObject:game];
         }
     }
     
