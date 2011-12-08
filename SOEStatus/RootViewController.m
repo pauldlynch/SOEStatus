@@ -35,14 +35,18 @@
         } else {
             self.statuses = object;
             // remove dropped games
+            NSMutableArray *newRows = [NSMutableArray array];
             for (NSDictionary *game in self.rows) {
-                if (![self.statuses objectForKey:[game valueForKey:@"key"]]) [self.rows removeObject:game];
+                if ([self.statuses objectForKey:[game valueForKey:@"key"]])
+                    [newRows addObject:game];
             }
+            self.rows = newRows;
             // add missing games
             for (NSString *key in [self.statuses allKeys]) {
                 NSDictionary *row = [self rowForKey:key];
                 if (!row) [self.rows addObject:[NSDictionary dictionaryWithObject:key forKey:@"key"]];
             }
+            
             NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
             NSString *filePath = [documentsPath stringByAppendingPathComponent:@"rows.plist"];
             [self.rows writeToFile:filePath atomically:YES];
