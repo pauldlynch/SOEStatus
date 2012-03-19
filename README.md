@@ -10,6 +10,14 @@ Needs:
 - Possibility to register for notifications of server status changes;
 - Reachability checks for known SOE servers to identify network outages vs server status.
 
+1.2
+---
+
+- updates to sharing, for mail and twitter (requires iOS 5.0+)
+- rating system
+- feedback option
+- improve UX for Open in Safari
+
 1.1.1
 -----
 - switch from lp.soe.com to data.soe.com (permanent home)

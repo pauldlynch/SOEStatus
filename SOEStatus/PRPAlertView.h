@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 
 // START:PRPAlertBlock
-typedef void(^PRPAlertBlock)(void);
+typedef void(^PRPAlertBlock)(NSString *title);
 // END:PRPAlertBlock
 
-@interface PRPAlertView : UIAlertView <UIAlertViewDelegate> {}
+@interface PRPAlertView : UIAlertView <UIAlertViewDelegate>
 
 // START:ShowNoHandler
 + (void)showWithTitle:(NSString *)title

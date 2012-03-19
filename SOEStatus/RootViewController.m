@@ -11,6 +11,8 @@
 #import "PRPAlertView.h"
 #import "MoveArray.h"
 #import "ServerViewController.h"
+#import "PLActionSheet.h"
+#import <Twitter/Twitter.h>
 
 @implementation RootViewController
 
@@ -72,8 +74,105 @@
     }
 }
 
-- (void)actions {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.soe.com/status"]];
+- (IBAction)actions {
+    UIBarButtonItem *item = self.navigationItem.leftBarButtonItem;
+    NSArray *buttons = [NSArray arrayWithObjects:@"Open in Safari", @"Do you like this app?", @"Feedback", nil];
+    [PLActionSheet actionSheetWithTitle:nil destructiveButtonTitle:nil buttons:buttons showFrom:item onDismiss:^(int buttonIndex){
+        if (buttonIndex == 0) {
+            [self openInSafari];
+        } else if (buttonIndex == 1) {
+            [self like];
+        } else if (buttonIndex == 2) {
+            [self feedback];
+        }
+    } onCancel:nil];
+}
+
+- (IBAction)openInSafari {
+    [PRPAlertView showWithTitle:@"Warning" message:@"This will open Mobile Safari with the SOE status page" cancelTitle:@"Cancel" cancelBlock:nil otherTitle:@"Continue" otherBlock:^(NSString *title){
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.soe.com/status"]];
+    }];
+}
+
+- (IBAction)like {
+    UIBarButtonItem *item = self.navigationItem.leftBarButtonItem;
+    NSArray *buttons = [NSArray arrayWithObjects:@"Review in App Store", @"Share by Twitter", @"Share by Email", nil];
+    [PLActionSheet actionSheetWithTitle:nil destructiveButtonTitle:nil buttons:buttons showFrom:item onDismiss:^(int buttonIndex){
+        if (buttonIndex == 0) {
+            [self review];
+        } else if (buttonIndex == 1) {
+            [self shareByTwitter];
+        } else if (buttonIndex == 2) {
+            [self shareByEmail];
+        }
+    } onCancel:nil];
+}
+
+- (IBAction)review {
+    [[UIApplication sharedApplication] 
+     openURL:[NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=463597867"]];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setInteger:21 forKey:@"launchCount"];
+}
+
+- (IBAction)shareByTwitter {
+    if ([TWTweetComposeViewController canSendTweet]) {
+        TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
+        [tweetSheet setInitialText:@"I like this application and I think you should try it too."];
+        [tweetSheet addURL:[NSURL URLWithString:@"http://itunes.com/app/soestatus"]];
+        [self presentModalViewController:tweetSheet animated:YES];
+    }
+}
+
+- (IBAction)shareByEmail {
+    if (![MFMailComposeViewController canSendMail]) {
+        [PRPAlertView showWithTitle:@"Mail error" message:@"This device is not configured to send email" buttonTitle:@"Continue"];
+        return;
+    }
+    
+    MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+    mailer.modalPresentationStyle = UIModalPresentationFormSheet;
+    mailer.mailComposeDelegate = self;
+    
+    NSString *bundleId = [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleIdentifierKey];
+    NSString *appName = [bundleId pathExtension];
+    appName = [appName capitalizedString];
+        
+    [mailer setSubject:appName];
+    
+    [mailer setMessageBody:@"I like this application and I think you should try it too. http://itunes.com/app/soestatus" isHTML:NO];
+    
+    // Present the mail composition interface.
+    [self presentModalViewController:mailer animated:YES];
+    [mailer release];
+
+}
+
+- (IBAction)feedback {
+    if (![MFMailComposeViewController canSendMail]) {
+        [PRPAlertView showWithTitle:@"Mail error" message:@"This device is not configured to send email" buttonTitle:@"Continue"];
+        return;
+    }
+    
+    MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+    mailer.modalPresentationStyle = UIModalPresentationFormSheet;
+    mailer.mailComposeDelegate = self;
+    
+    NSString *bundleId = [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleIdentifierKey];
+    NSString *appName = [bundleId pathExtension];
+    appName = [appName capitalizedString];
+
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleVersionKey];
+    
+    [mailer setSubject:[@"Feedback About " stringByAppendingString:appName]];
+    [mailer setToRecipients:[NSArray arrayWithObject:@"support@plsys.co.uk"]];
+    
+    NSString *body = [NSString stringWithFormat:@"AppID: %@\nVersion: %@\nLocale: %@\nDevice: %@\nOS: %@", bundleId, version, ((NSLocale *)[NSLocale currentLocale]).localeIdentifier, [UIDevice currentDevice].model, [UIDevice currentDevice].systemVersion];
+    [mailer setMessageBody:body isHTML:NO];
+    
+    // Present the mail composition interface.
+    [self presentModalViewController:mailer animated:YES];
+    [mailer release];
 }
 
 - (void)viewDidLoad
@@ -105,6 +204,25 @@
         } else {
             [rows addObject:game];
         }
+    }
+    
+    // rater
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSInteger launchCount = [prefs integerForKey:@"launchCount"];
+    if (launchCount == 20) {
+        launchCount++;
+        [prefs setInteger:launchCount forKey:@"launchCount"];
+        PRPAlertView *alert = [[PRPAlertView alloc] initWithTitle:@"Do you like this app?" message:@"Please rate it on the App Store!" cancelTitle:@"Never" cancelBlock:^(NSString *title){
+            [prefs setInteger:21 forKey:@"launchCount"];
+        } otherTitle:@"Rate now" otherBlock:^(NSString *title){
+            if ([title isEqualToString:@"Rate now"]) {
+                [self review];
+            } else if ([title isEqualToString:@"Later"]) {
+                [prefs setInteger:0 forKey:@"launchCount"];
+            }
+        }];
+        [alert addButtonWithTitle:@"Later"];
+        [alert show];
     }
     
     [self refresh];
@@ -241,6 +359,15 @@
 {
     self.statuses = nil;
     [super dealloc];
+}
+
+#pragma mark MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError *)error {
+    if (error) NSLog(@"%s error sending email, result %d: %@", __PRETTY_FUNCTION__, result, [error localizedDescription]);
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

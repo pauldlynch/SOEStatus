@@ -81,10 +81,10 @@
 willDismissWithButtonIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
     if ([buttonTitle isEqualToString:self.cancelButtonTitle]) {
-        if (self.cancelBlock) self.cancelBlock();
-    //} else if ([buttonTitle isEqualToString:self.otherButtonTitle]) {
+        if (self.cancelBlock) self.cancelBlock(buttonTitle);
+        //} else if ([buttonTitle isEqualToString:self.otherButtonTitle]) {
     } else {
-        if (self.otherBlock) self.otherBlock();
+        if (self.otherBlock) self.otherBlock(buttonTitle);
     }
 }
 // END:DelegateImpl

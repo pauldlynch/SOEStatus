@@ -76,6 +76,8 @@
 		DAA66ED61416BFAA00C0287A /* Server_2.svg in Resources */ = {isa = PBXBuildFile; fileRef = DAA66ED51416BFAA00C0287A /* Server_2.svg */; };
 		DAA66ED81416C00B00C0287A /* Server_72.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA66ED71416C00B00C0287A /* Server_72.png */; };
 		DAB132B214410229006426E0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB132B114410229006426E0 /* libz.dylib */; };
+		DAEBA9581511127600EBB52A /* PLActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEBA9571511127600EBB52A /* PLActionSheet.m */; };
+		DAEBA95A1511132600EBB52A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEBA9591511132600EBB52A /* Twitter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -198,6 +200,9 @@
 		DAA66ED71416C00B00C0287A /* Server_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Server_72.png; path = ../Server_72.png; sourceTree = "<group>"; };
 		DAA66ED91416CB9B00C0287A /* Server_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Server_512.png; sourceTree = "<group>"; };
 		DAB132B114410229006426E0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		DAEBA9561511127600EBB52A /* PLActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLActionSheet.h; sourceTree = "<group>"; };
+		DAEBA9571511127600EBB52A /* PLActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLActionSheet.m; sourceTree = "<group>"; };
+		DAEBA9591511132600EBB52A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +210,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAEBA95A1511132600EBB52A /* Twitter.framework in Frameworks */,
 				DAB132B214410229006426E0 /* libz.dylib in Frameworks */,
 				DA1372F0141136BE00A1BFCC /* CFNetwork.framework in Frameworks */,
 				DA1372BA141118D000A1BFCC /* MessageUI.framework in Frameworks */,
@@ -246,6 +252,7 @@
 		DA137247141116B800A1BFCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAEBA9591511132600EBB52A /* Twitter.framework */,
 				DAB132B114410229006426E0 /* libz.dylib */,
 				DA1372EF141136BD00A1BFCC /* CFNetwork.framework */,
 				DA1372B7141118D000A1BFCC /* MessageUI.framework */,
@@ -281,6 +288,8 @@
 				DAA66EBA141612C500C0287A /* ServerCell.h */,
 				DAA66EBB141612C600C0287A /* ServerCell.m */,
 				DAA66EBE141612E500C0287A /* ServerCell.xib */,
+				DAEBA9561511127600EBB52A /* PLActionSheet.h */,
+				DAEBA9571511127600EBB52A /* PLActionSheet.m */,
 				DA13724F141116B800A1BFCC /* Supporting Files */,
 			);
 			path = SOEStatus;
@@ -477,7 +486,7 @@
 		DA13723B141116B800A1BFCC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "P & L Systems";
 			};
 			buildConfigurationList = DA13723E141116B800A1BFCC /* Build configuration list for PBXProject "SOEStatus" */;
@@ -571,6 +580,7 @@
 				DA1373021411968500A1BFCC /* ServerViewController.m in Sources */,
 				DAA66EBC141612C600C0287A /* ServerCell.m in Sources */,
 				DA96DB921421FA6C00F0CE7E /* PLRestful.m in Sources */,
+				DAEBA9581511127600EBB52A /* PLActionSheet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,6 +637,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -641,15 +652,17 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(VALID_ARCHS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -660,6 +673,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SOEStatus/SOEStatus-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
@@ -674,6 +688,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SOEStatus/SOEStatus-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
