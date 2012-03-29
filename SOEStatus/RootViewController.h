@@ -10,7 +10,7 @@
 #import <MessageUI/MessageUI.h>
 #import "PullRefreshTableViewController.h"
 
-@interface RootViewController : PullRefreshTableViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
+@interface RootViewController : PullRefreshTableViewController <MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, retain) NSDictionary *statuses;
 @property (nonatomic, retain) NSMutableArray *rows;

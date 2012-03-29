@@ -11,7 +11,8 @@
 @interface PLActionSheet ()
 
 @property (nonatomic, copy) DismissBlock dismissBlock;
-@property (nonatomic, copy) CancelBlock cancelBlock;
+@property (nonatomic, copy) VoidBlock cancelBlock;
+@property (nonatomic, copy) VoidBlock finalBlock;
 @property (nonatomic, retain) id view;
 
 @end
@@ -19,15 +20,16 @@
 
 @implementation PLActionSheet
 
-@synthesize dismissBlock, cancelBlock, view;
+@synthesize dismissBlock, cancelBlock, finalBlock, view;
 
 + (void)actionSheetWithTitle:(NSString *)title                     
       destructiveButtonTitle:(NSString *)destructiveButtonTitle
                      buttons:(NSArray *)buttonTitles
                     showFrom:(id)view
                    onDismiss:(DismissBlock)dismissed                   
-                    onCancel:(CancelBlock)cancelled {
-    [[[[self alloc] initWithTitle:title destructiveButtonTitle:destructiveButtonTitle buttons:buttonTitles showFrom:view onDismiss:dismissed onCancel:cancelled] autorelease] show];
+                    onCancel:(VoidBlock)cancelled
+                     finally:(VoidBlock)finally {
+    [[[[self alloc] initWithTitle:title destructiveButtonTitle:destructiveButtonTitle buttons:buttonTitles showFrom:view onDismiss:dismissed onCancel:cancelled finally:finally] autorelease] show];
 }
 
 - (id)initWithTitle:(NSString *)title                     
@@ -35,7 +37,8 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
             buttons:(NSArray *)buttonTitles
            showFrom:(id)aView
           onDismiss:(DismissBlock)dismissed                   
-           onCancel:(CancelBlock)cancelled {
+           onCancel:(VoidBlock)cancelled
+            finally:(VoidBlock)finally {
     [self initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:destructiveButtonTitle otherButtonTitles:nil];
     
     for (NSString *thisButtonTitle in buttonTitles)
@@ -49,6 +52,7 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
     
     self.dismissBlock = dismissed;
     self.cancelBlock = cancelled;
+    self.finalBlock = finally;
     self.view = aView;
     
     return self;
@@ -80,6 +84,7 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
 	} else {
         if (self.dismissBlock) self.dismissBlock(buttonIndex);
     }
+    if (self.finalBlock) self.finalBlock();
 }
 
 @end

@@ -85,7 +85,7 @@
         } else if (buttonIndex == 2) {
             [self feedback];
         }
-    } onCancel:nil];
+    } onCancel:nil finally:nil];
 }
 
 - (IBAction)openInSafari {
@@ -105,7 +105,7 @@
         } else if (buttonIndex == 2) {
             [self shareByEmail];
         }
-    } onCancel:nil];
+    } onCancel:nil finally:nil];
 }
 
 - (IBAction)review {
