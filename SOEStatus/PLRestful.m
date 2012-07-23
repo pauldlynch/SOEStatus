@@ -12,6 +12,7 @@
 #import "PRPAlertView.h"
 #import "Reachability.h"
 #import "UIApplication+PRPNetworkActivity.h"
+#import "ReachabilityAdditions.h"
 
 @interface NSString (Encoding)
 @end
@@ -127,7 +128,7 @@ static NSDictionary *statusMessages;
     self.completionBlock = completion;
     [[UIApplication sharedApplication] prp_pushNetworkActivity];
     
-    if (![PLRestful checkReachability:aRequest.url]) {
+    if (![Reachability checkReachability:aRequest.url]) {
         [[UIApplication sharedApplication] prp_popNetworkActivity];
         return;
     }

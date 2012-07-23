@@ -68,6 +68,7 @@
 		DA137310141205EA00A1BFCC /* lock_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA13730F141205EA00A1BFCC /* lock_icon.png */; };
 		DA137312141205F200A1BFCC /* down_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA137311141205F200A1BFCC /* down_icon.png */; };
 		DA1D544C1442F44E006E652A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DA1D544B1442F44E006E652A /* README.md */; };
+		DA91D9B415244CB90047E6D0 /* ReachabilityAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DA91D9B315244CB90047E6D0 /* ReachabilityAdditions.m */; };
 		DA96DB921421FA6C00F0CE7E /* PLRestful.m in Sources */ = {isa = PBXBuildFile; fileRef = DA96DB911421FA6C00F0CE7E /* PLRestful.m */; };
 		DAA66EBC141612C600C0287A /* ServerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA66EBB141612C600C0287A /* ServerCell.m */; };
 		DAA66EBF141612E500C0287A /* ServerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAA66EBE141612E500C0287A /* ServerCell.xib */; };
@@ -188,6 +189,8 @@
 		DA13730F141205EA00A1BFCC /* lock_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock_icon.png; sourceTree = "<group>"; };
 		DA137311141205F200A1BFCC /* down_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down_icon.png; sourceTree = "<group>"; };
 		DA1D544B1442F44E006E652A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		DA91D9B215244CB90047E6D0 /* ReachabilityAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityAdditions.h; sourceTree = "<group>"; };
+		DA91D9B315244CB90047E6D0 /* ReachabilityAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityAdditions.m; sourceTree = "<group>"; };
 		DA96DB901421FA6C00F0CE7E /* PLRestful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLRestful.h; sourceTree = "<group>"; };
 		DA96DB911421FA6C00F0CE7E /* PLRestful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLRestful.m; sourceTree = "<group>"; };
 		DAA66EBA141612C500C0287A /* ServerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerCell.h; sourceTree = "<group>"; };
@@ -413,6 +416,8 @@
 		DA1372AE1411183600A1BFCC /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
+				DA91D9B215244CB90047E6D0 /* ReachabilityAdditions.h */,
+				DA91D9B315244CB90047E6D0 /* ReachabilityAdditions.m */,
 				DA137280141117B100A1BFCC /* Reachability.h */,
 				DA137281141117B100A1BFCC /* Reachability.m */,
 			);
@@ -581,6 +586,7 @@
 				DAA66EBC141612C600C0287A /* ServerCell.m in Sources */,
 				DA96DB921421FA6C00F0CE7E /* PLRestful.m in Sources */,
 				DAEBA9581511127600EBB52A /* PLActionSheet.m in Sources */,
+				DA91D9B415244CB90047E6D0 /* ReachabilityAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
