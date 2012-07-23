@@ -6,7 +6,6 @@
 	{ key = dcuo; name = "DC Universe™ Online";},
 	{ key = ps; name = "Planetside®";},
 	{ key = vgd; name = "Vanguard: Saga of Heroes®";},
-	{ key = swg; name = "Star Wars Galaxies™";},
 	{ key = freerealms; name = "FreeRealms®";},
 	{ key = eqoa; name = "Everquest® Online Adventure";},
 	{ key = clonewars; name = "Star Wars®: Clone Wars Adventures™";},
