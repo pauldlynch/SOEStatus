@@ -66,7 +66,7 @@
     [SOEStatusAPI getGameStatus:gameId completion:^(PLRestful *api, id object, int status, NSError *error) {
         if (error) {
             [PRPAlertView showWithTitle:@"Error" message:[error localizedDescription] buttonTitle:@"Continue"];
-            return;
+            //return;
         }
         self.game = [object valueForKey:@"game"];
         self.servers = [object valueForKey:@"regionServers"];        

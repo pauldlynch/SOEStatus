@@ -32,29 +32,30 @@
     
     [SOEStatusAPI getStatuses:^(PLRestful *api, id object, int status, NSError *error){
         if (error) {
+            NSLog(@"API Error: %@", error);
             NSString *message = [NSString stringWithFormat:@"%@", [error localizedDescription]];
             [PRPAlertView showWithTitle:@"API Error" message:message buttonTitle:@"Continue"];
-        } else {
-            self.statuses = object;
-            // remove dropped games
-            NSMutableArray *newRows = [NSMutableArray array];
-            for (NSDictionary *game in self.rows) {
-                if ([self.statuses objectForKey:[game valueForKey:@"key"]])
-                    [newRows addObject:game];
-            }
-            self.rows = newRows;
-            // add missing games
-            for (NSString *key in [self.statuses allKeys]) {
-                NSDictionary *row = [self rowForKey:key];
-                if (!row) [self.rows addObject:[NSDictionary dictionaryWithObject:key forKey:@"key"]];
-            }
-            
-            NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-            NSString *filePath = [documentsPath stringByAppendingPathComponent:@"rows.plist"];
-            [self.rows writeToFile:filePath atomically:YES];
-
-            [self.tableView reloadData];
+            //return;
         }
+        self.statuses = object;
+        // remove dropped games
+        NSMutableArray *newRows = [NSMutableArray array];
+        for (NSDictionary *game in self.rows) {
+            if ([self.statuses objectForKey:[game valueForKey:@"key"]])
+                [newRows addObject:game];
+        }
+        self.rows = newRows;
+        // add missing games
+        for (NSString *key in [self.statuses allKeys]) {
+            NSDictionary *row = [self rowForKey:key];
+            if (!row) [self.rows addObject:[NSDictionary dictionaryWithObject:key forKey:@"key"]];
+        }
+        
+        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *filePath = [documentsPath stringByAppendingPathComponent:@"rows.plist"];
+        [self.rows writeToFile:filePath atomically:YES];
+
+        [self.tableView reloadData];
     }];
 }
 
@@ -121,6 +122,8 @@
         [tweetSheet setInitialText:@"I like this application and I think you should try it too."];
         [tweetSheet addURL:[NSURL URLWithString:@"http://itunes.com/app/soestatus"]];
         [self presentModalViewController:tweetSheet animated:YES];
+    } else {
+        [PRPAlertView showWithTitle:@"Twitter" message:@"Unable to send tweet: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
     }
 }
 
