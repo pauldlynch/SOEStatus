@@ -44,8 +44,10 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
     for (NSString *thisButtonTitle in buttonTitles)
         [self addButtonWithTitle:thisButtonTitle];
     
-    [self addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-    self.cancelButtonIndex = [buttonTitles count];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel")];
+        self.cancelButtonIndex = [buttonTitles count];
+    }
     
     if (destructiveButtonTitle)
         self.cancelButtonIndex ++;
@@ -66,14 +68,17 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
 }
 
 - (void)show {
-    if ([view isKindOfClass:[UITabBar class]])
-        [self showFromTabBar:(UITabBar*) view];
-    
-    if ([view isKindOfClass:[UIView class]])
-        [self showInView:view];
-    
-    if ([view isKindOfClass:[UIBarButtonItem class]])
-        [self showFromBarButtonItem:(UIBarButtonItem*) view animated:YES];
+    if (view) {
+        if ([view isKindOfClass:[UITabBar class]]) {
+            [self showFromTabBar:(UITabBar*) view];
+        } else if ([view isKindOfClass:[UIView class]]) {
+            [self showInView:view];
+        } else if ([view isKindOfClass:[UIBarButtonItem class]]) {
+            [self showFromBarButtonItem:(UIBarButtonItem*) view animated:YES];
+        }
+    } else {
+        [self showInView:[UIApplication sharedApplication].keyWindow];
+    }
 }
 
 #pragma UIActionSheetDelegate
