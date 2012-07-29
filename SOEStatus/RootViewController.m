@@ -79,11 +79,11 @@
     UIBarButtonItem *item = self.navigationItem.leftBarButtonItem;
     NSArray *buttons = [NSArray arrayWithObjects:@"Open in Safari", @"Do you like this app?", @"Feedback", nil];
     [PLActionSheet actionSheetWithTitle:nil destructiveButtonTitle:nil buttons:buttons showFrom:item onDismiss:^(int buttonIndex){
-        if (buttonIndex == 0) {
+        if (buttonIndex == [buttons indexOfObject:@"Open in Safari"]) {
             [self openInSafari];
-        } else if (buttonIndex == 1) {
+        } else if (buttonIndex == [buttons indexOfObject:@"Do you like this app?"]) {
             [self like];
-        } else if (buttonIndex == 2) {
+        } else if (buttonIndex == [buttons indexOfObject:@"Feedback"]) {
             [self feedback];
         }
     } onCancel:nil finally:nil];

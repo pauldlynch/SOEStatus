@@ -44,7 +44,7 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
     for (NSString *thisButtonTitle in buttonTitles)
         [self addButtonWithTitle:thisButtonTitle];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
         [self addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel")];
         self.cancelButtonIndex = [buttonTitles count];
     }
