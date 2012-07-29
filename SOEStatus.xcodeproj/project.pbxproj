@@ -491,7 +491,7 @@
 		DA13723B141116B800A1BFCC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = "P & L Systems";
 			};
 			buildConfigurationList = DA13723E141116B800A1BFCC /* Build configuration list for PBXProject "SOEStatus" */;
