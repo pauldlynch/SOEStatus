@@ -9,4 +9,5 @@
 	{ key = freerealms; name = "FreeRealms®";},
 	{ key = eqoa; name = "Everquest® Online Adventure";},
 	{ key = clonewars; name = "Star Wars®: Clone Wars Adventures™";},
+	{ key = code4344; name = "Planetside® 2";},
 )
