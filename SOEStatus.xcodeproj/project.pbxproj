@@ -248,6 +248,7 @@
 		DA137239141116B800A1BFCC = {
 			isa = PBXGroup;
 			children = (
+				DA1D544B1442F44E006E652A /* README.md */,
 				DA78892C1611C2BD00A426F6 /* Default-Landscape@2x~ipad.png */,
 				DA78892A1611C26A00A426F6 /* Default-Landscape~ipad.png */,
 				DA7889281611C22200A426F6 /* Default@2x.png */,
@@ -255,7 +256,6 @@
 				DA7889241611C19200A426F6 /* Default-Portrait@2x~ipad.png */,
 				DA7889221611C0C400A426F6 /* Default-Portrait~ipad.png */,
 				DA7889201611B40200A426F6 /* Default-568h@2x.png */,
-				DA1D544B1442F44E006E652A /* README.md */,
 				DAA66ECF1416B9A000C0287A /* Server_olivier_boyer_04.svg */,
 				DAA66ED51416BFAA00C0287A /* Server_2.svg */,
 				DAA66ED91416CB9B00C0287A /* Server_512.png */,
@@ -678,8 +678,9 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "armv7 armv7s armv6";
 			};
 			name = Debug;
 		};
@@ -696,11 +697,12 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s armv6";
 			};
 			name = Release;
 		};
@@ -712,7 +714,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -727,7 +729,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

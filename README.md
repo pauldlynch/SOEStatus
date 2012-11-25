@@ -10,6 +10,16 @@ Needs:
 - Possibility to register for notifications of server status changes;
 - Reachability checks for known SOE servers to identify network outages vs server status.
 
+1.4.1
+-----
+
+Updates for Planetside 2.
+
+1.4
+---
+
+Support for Xcode 4.5 building.
+
 1.2
 ---
 

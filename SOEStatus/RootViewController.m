@@ -122,6 +122,7 @@
         [tweetSheet setInitialText:@"I like this application and I think you should try it too."];
         [tweetSheet addURL:[NSURL URLWithString:@"http://itunes.com/app/soestatus"]];
         [self presentModalViewController:tweetSheet animated:YES];
+        [tweetSheet release];
     } else {
         [PRPAlertView showWithTitle:@"Twitter" message:@"Unable to send tweet: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
     }
@@ -226,6 +227,7 @@
         }];
         [alert addButtonWithTitle:@"Later"];
         [alert show];
+        [alert release];
     }
     
     [self refresh];

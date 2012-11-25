@@ -39,7 +39,7 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
           onDismiss:(DismissBlock)dismissed                   
            onCancel:(VoidBlock)cancelled
             finally:(VoidBlock)finally {
-    [self initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:destructiveButtonTitle otherButtonTitles:nil];
+    self  = [self initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:destructiveButtonTitle otherButtonTitles:nil];
     
     for (NSString *thisButtonTitle in buttonTitles)
         [self addButtonWithTitle:thisButtonTitle];
