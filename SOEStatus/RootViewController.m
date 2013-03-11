@@ -97,13 +97,15 @@
 
 - (IBAction)like {
     UIBarButtonItem *item = self.navigationItem.leftBarButtonItem;
-    NSArray *buttons = [NSArray arrayWithObjects:@"Review in App Store", @"Share by Twitter", @"Share by Email", nil];
+    NSArray *buttons = [NSArray arrayWithObjects:@"Review in App Store", @"Share by Twitter", @"Share by Facebook", @"Share by Email", nil];
     [PLActionSheet actionSheetWithTitle:nil destructiveButtonTitle:nil buttons:buttons showFrom:item onDismiss:^(int buttonIndex){
         if (buttonIndex == 0) {
             [self review];
         } else if (buttonIndex == 1) {
             [self shareByTwitter];
         } else if (buttonIndex == 2) {
+            [self shareByFacebook];
+        } else if (buttonIndex == 3) {
             [self shareByEmail];
         }
     } onCancel:nil finally:nil];
@@ -117,14 +119,43 @@
 }
 
 - (IBAction)shareByTwitter {
-    if ([TWTweetComposeViewController canSendTweet]) {
-        TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
-        [tweetSheet setInitialText:@"I like this application and I think you should try it too."];
-        [tweetSheet addURL:[NSURL URLWithString:@"http://itunes.com/app/soestatus"]];
-        [self presentModalViewController:tweetSheet animated:YES];
-        [tweetSheet release];
+    if ([SLComposeViewController alloc] != nil) {
+        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+            SLComposeViewController *tweetVC =
+            [SLComposeViewController composeViewControllerForServiceType:
+             SLServiceTypeTwitter];
+            [tweetVC setInitialText:@"I like this application and I think you should try it too."];
+            [tweetVC addURL:[NSURL URLWithString:@"http://itunes.com/app/soestatus"]];
+            [self presentViewController:tweetVC animated:YES completion:NULL];
+        } else {
+            [PRPAlertView showWithTitle:@"Twitter" message:@"Unable to send tweet: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
+        }
     } else {
-        [PRPAlertView showWithTitle:@"Twitter" message:@"Unable to send tweet: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
+        if ([TWTweetComposeViewController canSendTweet]) {
+            TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
+            [tweetSheet setInitialText:@"I like this application and I think you should try it too."];
+            [tweetSheet addURL:[NSURL URLWithString:@"http://itunes.com/app/soestatus"]];
+            [self presentModalViewController:tweetSheet animated:YES];
+        } else {
+            [PRPAlertView showWithTitle:@"Twitter" message:@"Unable to send tweet: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
+        }
+    }
+}
+
+- (IBAction)shareByFacebook {
+    if ([SLComposeViewController alloc] != nil) {
+        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+            SLComposeViewController *fbVC =
+            [SLComposeViewController composeViewControllerForServiceType:
+             SLServiceTypeFacebook];
+            [fbVC setInitialText:@"I like this application and I think you should try it too."];
+            [fbVC addURL:[NSURL URLWithString:@"http://itunes.com/app/soestatus"]];
+            [self presentViewController:fbVC animated:YES completion:NULL];
+        } else {
+            [PRPAlertView showWithTitle:@"Facebook" message:@"Unable to post to Facebook: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
+        }
+    } else {
+        [PRPAlertView showWithTitle:@"Facebook" message:@"Posting to Facebook isn't available on this version of iOS" buttonTitle:@"Continue"];
     }
 }
 

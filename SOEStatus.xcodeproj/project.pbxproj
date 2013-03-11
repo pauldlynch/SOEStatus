@@ -67,6 +67,7 @@
 		DA13730E141205E200A1BFCC /* missing_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA13730D141205E200A1BFCC /* missing_icon.png */; };
 		DA137310141205EA00A1BFCC /* lock_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA13730F141205EA00A1BFCC /* lock_icon.png */; };
 		DA137312141205F200A1BFCC /* down_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA137311141205F200A1BFCC /* down_icon.png */; };
+		DA3908CB16B9D4F300FE7286 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3908CA16B9D4F300FE7286 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DA7889211611B40200A426F6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA7889201611B40200A426F6 /* Default-568h@2x.png */; };
 		DA7889231611C0C400A426F6 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DA7889221611C0C400A426F6 /* Default-Portrait~ipad.png */; };
 		DA7889251611C19200A426F6 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DA7889241611C19200A426F6 /* Default-Portrait@2x~ipad.png */; };
@@ -195,6 +196,7 @@
 		DA13730F141205EA00A1BFCC /* lock_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock_icon.png; sourceTree = "<group>"; };
 		DA137311141205F200A1BFCC /* down_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down_icon.png; sourceTree = "<group>"; };
 		DA1D544B1442F44E006E652A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		DA3908CA16B9D4F300FE7286 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		DA7889201611B40200A426F6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		DA7889221611C0C400A426F6 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		DA7889241611C19200A426F6 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3908CB16B9D4F300FE7286 /* Social.framework in Frameworks */,
 				DAEBA95A1511132600EBB52A /* Twitter.framework in Frameworks */,
 				DAB132B214410229006426E0 /* libz.dylib in Frameworks */,
 				DA1372F0141136BE00A1BFCC /* CFNetwork.framework in Frameworks */,
@@ -278,6 +281,7 @@
 		DA137247141116B800A1BFCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA3908CA16B9D4F300FE7286 /* Social.framework */,
 				DAEBA9591511132600EBB52A /* Twitter.framework */,
 				DAB132B114410229006426E0 /* libz.dylib */,
 				DA1372EF141136BD00A1BFCC /* CFNetwork.framework */,
