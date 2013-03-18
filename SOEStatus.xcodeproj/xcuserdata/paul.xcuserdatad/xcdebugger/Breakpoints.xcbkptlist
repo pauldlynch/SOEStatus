@@ -2,6 +2,34 @@
 <Bucket
    type = "1"
    version = "1.0">
+   <FileBreakpoints>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SOEStatus/RootViewController.m"
+         timestampString = "384697492.302642"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "31"
+         endingLineNumber = "31"
+         landmarkName = "-refresh"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SOEStatus/RootViewController.m"
+         timestampString = "384697717.597972"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "231"
+         endingLineNumber = "231"
+         landmarkName = "-viewDidLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+   </FileBreakpoints>
    <ExceptionBreakpoints>
       <ExceptionBreakpoint
          shouldBeEnabled = "Yes"

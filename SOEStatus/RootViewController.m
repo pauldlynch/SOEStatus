@@ -119,7 +119,7 @@
 }
 
 - (IBAction)shareByTwitter {
-    if ([SLComposeViewController alloc] != nil) {
+    if (NSClassFromString(@"SLComposeViewController")) {
         if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
             SLComposeViewController *tweetVC =
             [SLComposeViewController composeViewControllerForServiceType:
@@ -136,6 +136,7 @@
             [tweetSheet setInitialText:@"I like this application and I think you should try it too."];
             [tweetSheet addURL:[NSURL URLWithString:@"http://itunes.com/app/soestatus"]];
             [self presentModalViewController:tweetSheet animated:YES];
+            [tweetSheet release];
         } else {
             [PRPAlertView showWithTitle:@"Twitter" message:@"Unable to send tweet: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
         }
@@ -143,7 +144,7 @@
 }
 
 - (IBAction)shareByFacebook {
-    if ([SLComposeViewController alloc] != nil) {
+    if (NSClassFromString(@"SLComposeViewController")) {
         if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
             SLComposeViewController *fbVC =
             [SLComposeViewController composeViewControllerForServiceType:
@@ -260,13 +261,12 @@
         [alert show];
         [alert release];
     }
-    
-    [self refresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self refresh];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -394,6 +394,7 @@
 - (void)dealloc
 {
     self.statuses = nil;
+    self.rows = nil;
     [super dealloc];
 }
 
