@@ -11,6 +11,8 @@
 #import "PRPAlertView.h"
 #import "ServerCell.h"
 
+NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
+
 @implementation ServerViewController
 
 @synthesize gameId, game, servers, serverCellNib, dateFormatter;
@@ -80,6 +82,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [[NSNotificationCenter defaultCenter] postNotificationName:SOEGameSelectedNotification object:self];
 }
 
 - (void)viewDidUnload

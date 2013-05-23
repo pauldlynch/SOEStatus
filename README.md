@@ -10,6 +10,11 @@ Needs:
 - Possibility to register for notifications of server status changes;
 - Reachability checks for known SOE servers to identify network outages vs server status.
 
+1.5
+---
+
+Update iPad version to present the status information in a popover, and present a Ken Burns animation of relevant images from Flickr in the background.
+
 1.4.1
 -----
 

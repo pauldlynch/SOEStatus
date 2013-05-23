@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "PullRefreshTableViewController.h"
 
+extern NSString *SOEGameSelectedNotification;
+
 @interface ServerViewController : PullRefreshTableViewController
 
 @property (nonatomic, copy) NSString *gameId;
