@@ -12,9 +12,9 @@
 
 @interface BackgroundViewController : UIViewController
 
-@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *statusButton;
-@property (nonatomic, retain) IBOutlet FlickrKenBurnsView *backgroundView;
-@property (nonatomic, retain) UIPopoverController *statusPopover;
+@property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *statusButton;
+@property (nonatomic, strong) IBOutlet FlickrKenBurnsView *backgroundView;
+@property (nonatomic, strong) UIPopoverController *statusPopover;
 
 @end

@@ -12,13 +12,5 @@
 
 @synthesize serverName, region, age, status, imageView;
 
-- (void)dealloc {
-    self.serverName = nil;
-    self.region = nil;
-    self.age = nil;
-    self.status = nil;
-    self.imageView = nil;
-    [super dealloc];
-}
 
 @end

@@ -53,12 +53,10 @@ Accesses the SOE server status data at `https://data.soe.com/json/status/`, corr
 
 ###Uses code from:
 
-- ASIHTTPRequest
+- AFNetworking
 - Matt Drance's book "iOS Recipes"
-- Stig Brautaset's JSON library
 - Apple (Reachability)
 - PullRefreshTableViewController (Leah Culver)
-- Buzz Andersen's SFHFKeychainUtils
 - and a couple of others //TODO: update with details!
 
 RESTful access is based on my own generic code (PLRestful), subclassed to add specific support for the SOE feed.

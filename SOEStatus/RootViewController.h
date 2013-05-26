@@ -8,13 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
-#import "PullRefreshTableViewController.h"
 
 extern NSString *SOEGameSelectedNotification;
 
-@interface RootViewController : PullRefreshTableViewController <MFMailComposeViewControllerDelegate>
+@interface RootViewController : UITableViewController <MFMailComposeViewControllerDelegate>
 
-@property (nonatomic, retain) NSDictionary *statuses;
+@property (nonatomic, strong) NSDictionary *statuses;
 
 - (IBAction)actions;
 - (IBAction)openInSafari;

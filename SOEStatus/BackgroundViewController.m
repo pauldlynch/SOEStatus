@@ -29,9 +29,6 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.statusPopover = nil;
-    self.toolbar = nil;
-    [super dealloc];
 }
 
 - (void)gameChanged:(NSNotification *)notification {
@@ -60,11 +57,9 @@
     
     RootViewController *rootVC = [[RootViewController alloc] init];
     UINavigationController *statusVC = [[UINavigationController alloc] initWithRootViewController:rootVC];
-    self.statusPopover = [[[UIPopoverController alloc] initWithContentViewController:statusVC] autorelease];
+    self.statusPopover = [[UIPopoverController alloc] initWithContentViewController:statusVC];
     self.statusPopover.popoverContentSize = CGSizeMake(320.0, 568.0);
     [self.statusPopover presentPopoverFromBarButtonItem:self.statusButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    [rootVC release];
-    [statusVC release];
 }
 
 - (void)didReceiveMemoryWarning

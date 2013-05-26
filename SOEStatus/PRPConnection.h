@@ -29,7 +29,7 @@ typedef void (^PRPConnectionCompletionBlock)(PRPConnection *connection,
 @property (nonatomic, copy, readonly) NSURL *url;
 @property (nonatomic, copy, readonly) NSURLRequest *urlRequest;
 @property (nonatomic, assign, readonly) NSInteger contentLength;
-@property (nonatomic, retain, readonly) NSMutableData *downloadData;
+@property (nonatomic, strong, readonly) NSMutableData *downloadData;
 @property (nonatomic, assign, readonly) float percentComplete;
 @property (nonatomic, assign) NSUInteger progressThreshold;
 

@@ -70,12 +70,5 @@
      */
 }
 
-- (void)dealloc
-{
-    [_window release];
-    [_navigationController release];
-    self.toolbarController = nil;
-    [super dealloc];
-}
 
 @end

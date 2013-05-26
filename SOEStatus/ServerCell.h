@@ -11,10 +11,10 @@
 
 @interface ServerCell : PRPNibBasedTableViewCell
 
-@property (nonatomic, retain) IBOutlet UILabel *serverName;
-@property (nonatomic, retain) IBOutlet UILabel *region;
-@property (nonatomic, retain) IBOutlet UILabel *age;
-@property (nonatomic, retain) IBOutlet UILabel *status;
-@property (nonatomic, retain) IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) IBOutlet UILabel *serverName;
+@property (nonatomic, strong) IBOutlet UILabel *region;
+@property (nonatomic, strong) IBOutlet UILabel *age;
+@property (nonatomic, strong) IBOutlet UILabel *status;
+@property (nonatomic, strong) IBOutlet UIImageView *imageView;
 
 @end

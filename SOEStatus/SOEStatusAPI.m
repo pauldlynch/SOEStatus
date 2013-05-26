@@ -69,12 +69,10 @@
                     [server setObject:[NSDate pl_dateFromAgeString:age] forKey:@"date"];
                     
                     [regionServers addObject:server];
-                    [server release];
                 }
             }
             NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"sortKey" ascending:YES];
             [regionServers sortUsingDescriptors:[NSArray arrayWithObject:descriptor]];
-            [descriptor release];
         }
         completion(api, userInfo, status, error);
     }];

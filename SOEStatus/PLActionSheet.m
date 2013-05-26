@@ -13,7 +13,7 @@
 @property (nonatomic, copy) DismissBlock dismissBlock;
 @property (nonatomic, copy) VoidBlock cancelBlock;
 @property (nonatomic, copy) VoidBlock finalBlock;
-@property (nonatomic, retain) id view;
+@property (nonatomic, strong) id view;
 
 @end
 
@@ -29,7 +29,7 @@
                    onDismiss:(DismissBlock)dismissed                   
                     onCancel:(VoidBlock)cancelled
                      finally:(VoidBlock)finally {
-    [[[[self alloc] initWithTitle:title destructiveButtonTitle:destructiveButtonTitle buttons:buttonTitles showFrom:view onDismiss:dismissed onCancel:cancelled finally:finally] autorelease] show];
+    [[[self alloc] initWithTitle:title destructiveButtonTitle:destructiveButtonTitle buttons:buttonTitles showFrom:view onDismiss:dismissed onCancel:cancelled finally:finally] show];
 }
 
 - (id)initWithTitle:(NSString *)title                     
@@ -60,12 +60,6 @@ destructiveButtonTitle:(NSString *)destructiveButtonTitle
     return self;
 }
 
-- (void)dealloc {
-    self.dismissBlock = nil;
-    self.cancelBlock = nil;
-    self.view = nil;
-    [super dealloc];
-}
 
 - (void)show {
     if (view) {

@@ -29,12 +29,11 @@ const float PRPWebViewControllerFadeDuration = 0.5;
 @synthesize delegate;
 
 - (void)dealloc {
-    [url release], url = nil;
+    url = nil;
     
-    [backgroundColor release], backgroundColor = nil;
-    [webView stopLoading], webView.delegate = nil, [webView release], webView = nil;
-    [activityIndicator release], activityIndicator = nil;
-    [super dealloc];
+    backgroundColor = nil;
+    [webView stopLoading], webView.delegate = nil, webView, webView = nil;
+    activityIndicator = nil;
 }
 
 - (void)viewDidUnload {
@@ -50,7 +49,6 @@ const float PRPWebViewControllerFadeDuration = 0.5;
     UIView *mainView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     mainView.autoresizingMask = resizeAllMask;
     self.view = mainView;
-    [mainView release];
     
     webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     webView.autoresizingMask = resizeAllMask;
@@ -123,7 +121,6 @@ const float PRPWebViewControllerFadeDuration = 0.5;
                                              target:self
                                              action:@selector(doneButtonTapped:)];
             self.navigationItem.rightBarButtonItem = done;
-            [done release];
         } else {
             self.navigationItem.rightBarButtonItem = nil;
         }
@@ -135,8 +132,7 @@ const float PRPWebViewControllerFadeDuration = 0.5;
 - (void)setBackgroundColor:(UIColor *)color {
     if (backgroundColor != color) {
         [self willChangeValueForKey:@"backgroundColor"];
-        [backgroundColor release];
-        backgroundColor = [color retain];
+        backgroundColor = color;
         [self didChangeValueForKey:@"backgroundColor"];
         [self resetBackgroundColor];
     }
@@ -183,7 +179,6 @@ const float PRPWebViewControllerFadeDuration = 0.5;
                                                            delegate:nil cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
             [alert show];
-            [alert release];
         }
     }
 }

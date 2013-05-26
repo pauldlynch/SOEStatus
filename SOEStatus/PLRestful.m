@@ -7,22 +7,21 @@
 //
 
 #import "PLRestful.h"
-#import "ASIHTTPRequest.h"
+#import "AFNetworking.h"
 #import "PRPAlertView.h"
-#import "Reachability.h"
 #import "UIApplication+PRPNetworkActivity.h"
-#import "ReachabilityAdditions.h"
+#import "SOEHTTPClient.h"
 
 @interface NSString (Encoding)
 @end
 @implementation NSString (Encoding)
 
 - (NSString *)pl_stringByAddingPercentEscapesUsingEncoding:(CFStringBuiltInEncodings)encoding {
-    return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
+    return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,
                                                                (CFStringRef)self,
                                                                NULL,
                                                                (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
-                                                               encoding) autorelease];
+                                                               encoding));
 }
 
 @end
@@ -80,7 +79,7 @@ static NSDictionary *statusMessages;
     return [statusMessages objectForKey:[NSNumber numberWithInt:status]];
 }
 
-+ (BOOL)checkReachability:(NSURL *)url {
+/*+ (BOOL)checkReachability:(NSURL *)url {
     Reachability *hostReach = [Reachability reachabilityForInternetConnection];	
 	NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
 	if (netStatus == NotReachable) {
@@ -95,98 +94,72 @@ static NSDictionary *statusMessages;
         }
     }
     return YES;
-}
+}*/
 
 + (void)get:(NSString *)requestPath parameters:(NSDictionary *)parameters completionBlock:(PLRestfulAPICompletionBlock)completion {
-    PLRestful *api = [[[self alloc] init] autorelease];
+    PLRestful *api = [[self alloc] init];
     [api get:requestPath parameters:parameters completionBlock:completion];
 }
 
-+ (void)post:(NSString *)requestPath content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion {
+/*+ (void)post:(NSString *)requestPath content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion {
     PLRestful *api = [[[self alloc] init] autorelease];
     [api post:requestPath content:content completionBlock:completion];
-}
+}*/
 
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
-}
 
-- (void)dealloc {
-    self.completionBlock = nil;
-    [super dealloc];
-}
-
-- (void)handleRequest:(ASIHTTPRequest *)aRequest completion:(PLRestfulAPICompletionBlock)completion {
+/*- (void)handleRequest:requestString completion:(PLRestfulAPICompletionBlock)completion {
     self.completionBlock = completion;
     [[UIApplication sharedApplication] prp_pushNetworkActivity];
     
-    if (![Reachability checkReachability:aRequest.url]) {
+    if (![[SOEHTTPClient sharedClient] networkReachabilityStatus]) {
         [[UIApplication sharedApplication] prp_popNetworkActivity];
         return;
     }
     
-    __block ASIHTTPRequest *request = aRequest;
-    if (username && password) {
-        request.username = username;
-        request.password = password;
-        request.authenticationScheme = (NSString *)kCFHTTPAuthenticationSchemeBasic;
-    }
-    [request setCompletionBlock:^{
-        [[UIApplication sharedApplication] prp_popNetworkActivity];
-        NSString *json = [request responseString];
-        //NSLog(@"json = %@", json);
-        NSError *error;
-        id object = [NSJSONSerialization JSONObjectWithData:[request responseData] options:0 error:&error];
-        if (object) {
-            self.completionBlock(self, object, request.responseStatusCode, nil);
-        } else {
-            NSLog(@"received invalid json, %@: '%@'", error, json);
-            
-            self.completionBlock(self, object, request.responseStatusCode, nil);
-        }
+    [[SOEHTTPClient sharedClient] setUsername:username andPassword:password];
+    
+    [[SOEHTTPClient sharedClient] getPath:requestString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"IP Address: %@", [responseObject valueForKeyPath:@"origin"]);
+        if (completion) completion(self, responseObject, operation.response.statusCode, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (completion) completion(self, operation.responseString, operation.response.statusCode, error);
     }];
-    [request setFailedBlock:^{
-        [[UIApplication sharedApplication] prp_popNetworkActivity];
-        NSError *error = [request error];
-        self.completionBlock(self, nil, request.responseStatusCode, error);
-    }];
-    [request startAsynchronous];
-}
+}*/
 
 - (void)get:(NSString *)requestString parameters:(NSDictionary *)parameters completionBlock:(PLRestfulAPICompletionBlock)completion {
-    NSString *fullRequestString = [self.endpoint stringByAppendingString:requestString];
     if (parameters) {
-        fullRequestString = [fullRequestString stringByAppendingString:@"?"];
+        requestString = [requestString stringByAppendingString:@"?"];
         BOOL first = YES;
         for (NSString *key in [parameters allKeys]) {
             if (!first) {
-                fullRequestString = [fullRequestString stringByAppendingString:@"&"];
+                requestString = [requestString stringByAppendingString:@"&"];
             }
-            fullRequestString = [fullRequestString stringByAppendingString:[NSString stringWithFormat:@"%@=%@", key, [[[parameters objectForKey:key] description] pl_stringByAddingPercentEscapesUsingEncoding:kCFStringEncodingUTF8]]];
+            requestString = [requestString stringByAppendingString:[NSString stringWithFormat:@"%@=%@", key, [[[parameters objectForKey:key] description] pl_stringByAddingPercentEscapesUsingEncoding:kCFStringEncodingUTF8]]];
             first = NO;
         }
     }
-    NSURL *requestURL = [NSURL URLWithString:fullRequestString];
-    //NSLog(@"get: '%@'", [requestURL absoluteString]);
     
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:requestURL];
-    [self handleRequest:request completion:completion];
+    [[UIApplication sharedApplication] prp_pushNetworkActivity];
+    
+    if (![[SOEHTTPClient sharedClient] networkReachabilityStatus]) {
+        [[UIApplication sharedApplication] prp_popNetworkActivity];
+        return;
+    }
+    
+    [[SOEHTTPClient sharedClient] setUsername:username andPassword:password];
+    
+    [[SOEHTTPClient sharedClient] getPath:requestString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"response = %@", responseObject);
+        if (completion) completion(self, responseObject, operation.response.statusCode, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (completion) completion(self, operation.responseString, operation.response.statusCode, error);
+    }];
 }
 
-- (void)post:(NSString *)requestString content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion {
-    NSString *fullRequestString = [self.endpoint stringByAppendingString:requestString];
-    NSURL *requestURL = [NSURL URLWithString:fullRequestString];
-    
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:requestURL];
+/*- (void)post:(NSString *)requestString content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion {
     [request appendPostData:[NSJSONSerialization dataWithJSONObject:content options:0 error:nil]];
-    [self handleRequest:request completion:completion];
-}
+    [self handleRequest:requestString completion:completion];
+}*/
 
 @end

@@ -24,14 +24,6 @@
     return self;
 }
 
-- (void)dealloc {
-    self.gameId = nil;
-    self.game = nil;
-    self.servers = nil;
-    self.serverCellNib =nil;
-    self.dateFormatter = nil;
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -59,7 +51,6 @@
 
 - (void)refresh {
     [self loadGame];
-    [super refresh];
 }
 
 - (void)loadGame {
@@ -71,6 +62,7 @@
             self.servers = [object valueForKey:@"regionServers"];
             self.contentSizeForViewInPopover = CGSizeMake(self.contentSizeForViewInPopover.width, 44.0 * [self.servers count]);
             [self.tableView reloadData];
+            [self.refreshControl endRefreshing];
         }
     }];
 }
@@ -81,6 +73,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewDidUnload

@@ -17,18 +17,18 @@
     
     BOOL shouldShowDoneButton;
     
-    id <PRPWebViewControllerDelegate> delegate;
+    id <PRPWebViewControllerDelegate> __weak delegate;
 }
 
-@property (nonatomic, retain) NSURL *url;
+@property (nonatomic, strong) NSURL *url;
 
-@property (nonatomic, retain) UIColor *backgroundColor;
-@property (nonatomic, retain) UIWebView *webView;
-@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UIColor *backgroundColor;
+@property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic, assign) BOOL shouldShowDoneButton;
 
-@property (nonatomic, assign) id <PRPWebViewControllerDelegate> delegate;
+@property (nonatomic, weak) id <PRPWebViewControllerDelegate> delegate;
 
 - (void)reload;
 

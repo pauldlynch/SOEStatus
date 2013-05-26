@@ -10,9 +10,9 @@
 
 @interface FlickrKenBurnsView ()
 
-@property (nonatomic, retain) NSMutableArray *photoURLs;
-@property (nonatomic, retain) NSMutableArray *photoURLStrings;
-@property (nonatomic, retain) NSMutableArray *photoNames;
+@property (nonatomic, strong) NSMutableArray *photoURLs;
+@property (nonatomic, strong) NSMutableArray *photoURLStrings;
+@property (nonatomic, strong) NSMutableArray *photoNames;
 
 - (void)loadFlickrPhotoSearch:(NSString *)searchString apiKey:(NSString *)apiKey;
 
@@ -24,7 +24,7 @@ NSDictionary *sizeCodes;
 
 + (void)initialize {
     if (self == [FlickrKenBurnsView class]) {
-        sizeCodes = [@{
+        sizeCodes = @{
                       @"Square": @"s",
                       @"Large Square": @"q",
                       @"Thumbnail": @"t",
@@ -35,7 +35,7 @@ NSDictionary *sizeCodes;
                       @"Medium 800": @"c",
                       @"Large": @"b",
                       @"Original": @"o",
-                      } retain];
+                      };
     }
 }
 
@@ -49,7 +49,7 @@ NSDictionary *sizeCodes;
     NSError *error;
     NSDictionary *results = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
     if (!results) {
-        NSLog(@"%s bad JSON from Flickr API: %@ '%@'", __PRETTY_FUNCTION__, error, [[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] autorelease]);
+        NSLog(@"%s bad JSON from Flickr API: %@ '%@'", __PRETTY_FUNCTION__, error, [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
         return nil;
     }
     

@@ -20,9 +20,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
 
 @synthesize statuses;
 
-- (void)refresh {
-    [super refresh];
-    
+- (void)refresh {    
     [SOEStatusAPI getStatuses:^(PLRestful *api, id object, int status, NSError *error){
         if (error) {
             NSLog(@"API Error: %@", error);
@@ -33,6 +31,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
         [SOEGame updateWithStatuses:object];
         
         [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
     }];
 }
 
@@ -41,11 +40,9 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     if (self.tableView.isEditing) {
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editing)];
         self.navigationItem.rightBarButtonItem = doneButton;
-        [doneButton release];
     } else {
         UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editing)];
         self.navigationItem.rightBarButtonItem = editButton;
-        [editButton release];
         [SOEGame save];
     }
 }
@@ -111,7 +108,6 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
             [tweetSheet setInitialText:@"I like this application and I think you should try it too."];
             [tweetSheet addURL:[NSURL URLWithString:@"http://itunes.com/app/soestatus"]];
             [self presentModalViewController:tweetSheet animated:YES];
-            [tweetSheet release];
         } else {
             [PRPAlertView showWithTitle:@"Twitter" message:@"Unable to send tweet: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
         }
@@ -155,7 +151,6 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     
     // Present the mail composition interface.
     [self presentModalViewController:mailer animated:YES];
-    [mailer release];
 
 }
 
@@ -183,7 +178,6 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     
     // Present the mail composition interface.
     [self presentModalViewController:mailer animated:YES];
-    [mailer release];
 }
 
 - (void)viewDidLoad
@@ -194,11 +188,12 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editing)];
     self.navigationItem.rightBarButtonItem = editButton;
-    [editButton release];
     
     UIBarButtonItem *actionsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actions)];
     self.navigationItem.leftBarButtonItem = actionsButton;
-    [actionsButton release];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     
     // rater
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -217,7 +212,6 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
         }];
         [alert addButtonWithTitle:@"Later"];
         [alert show];
-        [alert release];
     }
     
     self.contentSizeForViewInPopover = CGSizeMake(self.contentSizeForViewInPopover.width, 44.0 * [[SOEGame games] count]);
@@ -271,7 +265,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
     // Configure the cell.
@@ -326,7 +320,6 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     detailViewController.gameId = game.key;
     detailViewController.title = game.name;
     [self.navigationController pushViewController:detailViewController animated:YES];
-    [detailViewController release];
     [[NSNotificationCenter defaultCenter] postNotificationName:SOEGameSelectedNotification object:self userInfo:@{@"game": game}];
 }
 
@@ -350,11 +343,6 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     // For example: self.myOutlet = nil;
 }
 
-- (void)dealloc
-{
-    self.statuses = nil;
-    [super dealloc];
-}
 
 #pragma mark MFMailComposeViewControllerDelegate
 

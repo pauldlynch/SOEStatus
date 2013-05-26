@@ -21,7 +21,7 @@ NSMutableArray *_gameKeys;
     if (!_games) {        
         NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
         NSString *filePath = [documentsPath stringByAppendingPathComponent:@"rows.plist"];
-        _gameKeys = [[NSArray arrayWithContentsOfFile:filePath] retain];
+        _gameKeys = [NSArray arrayWithContentsOfFile:filePath];
         if ([[_gameKeys lastObject] isKindOfClass:[NSDictionary class]]) {
             // old format, must convert
             _gameKeys = [_gameKeys valueForKey:@"key"];
@@ -38,7 +38,6 @@ NSMutableArray *_gameKeys;
             if ([key isEqualToString:[gameDictionary objectForKey:@"key"]]) {
                 SOEGame *game = [[SOEGame alloc] initWithDictionary:gameDictionary];
                 [newGames addObject:game];
-                [game release];
             }
             }
         }
@@ -48,11 +47,10 @@ NSMutableArray *_gameKeys;
             if (![_gameKeys containsObject:[gameDictionary objectForKey:@"key"]]) {
                 SOEGame *game = [[SOEGame alloc] initWithDictionary:gameDictionary];
                 [newGames addObject:game];
-                [game release];
             }
         }
         
-        _games = [newGames retain];
+        _games = newGames;
     }
     return _games;
 }
@@ -79,10 +77,9 @@ NSMutableArray *_gameKeys;
         if (!game) {
             SOEGame *newGame = [[SOEGame alloc] initWithDictionary:[NSDictionary dictionaryWithObject:key forKey:@"key"]];
             [newGames addObject:newGame];
-            [game release];
         }
     }
-    _games = [newGames retain];
+    _games = newGames;
     
     [SOEGame save];
 }

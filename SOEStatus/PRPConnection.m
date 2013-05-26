@@ -18,10 +18,10 @@
 
 @interface PRPConnection ()
 
-@property (nonatomic, retain) NSURLConnection *connection;
+@property (nonatomic, strong) NSURLConnection *connection;
 @property (nonatomic, copy)   NSURL *url;
 @property (nonatomic, copy) NSURLRequest *urlRequest;
-@property (nonatomic, retain) NSMutableData *downloadData;
+@property (nonatomic, strong) NSMutableData *downloadData;
 @property (nonatomic, assign) NSInteger contentLength;
 
 @property (nonatomic, assign) float previousMilestone;
@@ -46,32 +46,29 @@
 @synthesize completionBlock;
 
 - (void)dealloc {
-    [url release], url = nil;
-    [urlRequest release], urlRequest = nil;
-    [connection cancel], [connection release], connection = nil;
-    [downloadData release], downloadData = nil;
-    [progressBlock release], progressBlock = nil;
-    [completionBlock release], completionBlock = nil;
+    url = nil;
+    urlRequest = nil;
+    [connection cancel], connection = nil;
+    downloadData = nil;
+    progressBlock = nil;
+    completionBlock = nil;
     
-    [super dealloc];
 }
 
 + (id)connectionWithRequest:(NSURLRequest *)request
               progressBlock:(PRPConnectionProgressBlock)progress
             completionBlock:(PRPConnectionCompletionBlock)completion {
-    return [[[self alloc] initWithRequest:request
+    return [[self alloc] initWithRequest:request
                             progressBlock:progress
-                          completionBlock:completion]
-            autorelease];
+                          completionBlock:completion];
 }
 
 + (id)connectionWithURL:(NSURL *)downloadURL
           progressBlock:(PRPConnectionProgressBlock)progress
         completionBlock:(PRPConnectionCompletionBlock)completion {
-    return [[[self alloc] initWithURL:downloadURL
+    return [[self alloc] initWithURL:downloadURL
                         progressBlock:progress
-                      completionBlock:completion] 
-            autorelease];
+                      completionBlock:completion];
 }
 
 - (id)initWithURL:(NSURL *)requestURL
