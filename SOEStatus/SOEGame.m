@@ -25,7 +25,6 @@ NSMutableArray *_gameKeys;
         if ([[_gameKeys lastObject] isKindOfClass:[NSDictionary class]]) {
             // old format, must convert
             _gameKeys = [_gameKeys valueForKey:@"key"];
-            [SOEGame save];
         }
         
         filePath = [[NSBundle mainBundle] pathForResource:@"games.plist" ofType:nil];
@@ -35,10 +34,10 @@ NSMutableArray *_gameKeys;
         NSMutableArray *newGames = [NSMutableArray array];
         for (NSString *key in _gameKeys) {
             for (NSDictionary *gameDictionary in gameDictionaries) {
-            if ([key isEqualToString:[gameDictionary objectForKey:@"key"]]) {
-                SOEGame *game = [[SOEGame alloc] initWithDictionary:gameDictionary];
-                [newGames addObject:game];
-            }
+                if ([key isEqualToString:[gameDictionary objectForKey:@"key"]]) {
+                    SOEGame *game = [[SOEGame alloc] initWithDictionary:gameDictionary];
+                    [newGames addObject:game];
+                }
             }
         }
         
