@@ -15,6 +15,8 @@ Needs:
 
 Update iPad version to present the status information in a popover, and present a Ken Burns animation of relevant images from Flickr in the background.
 
+Update various 3rd party code to modern iOS (ARC, etc), and remove obsolete code.
+
 1.4.1
 -----
 
