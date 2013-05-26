@@ -79,67 +79,19 @@ static NSDictionary *statusMessages;
     return [statusMessages objectForKey:[NSNumber numberWithInt:status]];
 }
 
-/*+ (BOOL)checkReachability:(NSURL *)url {
-    Reachability *hostReach = [Reachability reachabilityForInternetConnection];	
-	NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
-	if (netStatus == NotReachable) {
-        [PRPAlertView showWithTitle:@"Network" message:@"Not connected to the Internet" buttonTitle:@"Continue"];
-        return NO;
-    } else {
-        hostReach = [Reachability reachabilityWithHostName:[url host]];
-        NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
-        if (netStatus == NotReachable) {
-            [PRPAlertView showWithTitle:@"Network" message:@"Can't reach server" buttonTitle:@"Continue"];
-            return NO;
-        }
-    }
-    return YES;
-}*/
-
 + (void)get:(NSString *)requestPath parameters:(NSDictionary *)parameters completionBlock:(PLRestfulAPICompletionBlock)completion {
     PLRestful *api = [[self alloc] init];
     [api get:requestPath parameters:parameters completionBlock:completion];
 }
 
-/*+ (void)post:(NSString *)requestPath content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion {
-    PLRestful *api = [[[self alloc] init] autorelease];
++ (void)post:(NSString *)requestPath content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion {
+    PLRestful *api = [[self alloc] init];
     [api post:requestPath content:content completionBlock:completion];
-}*/
+}
 
 
-
-/*- (void)handleRequest:requestString completion:(PLRestfulAPICompletionBlock)completion {
-    self.completionBlock = completion;
-    [[UIApplication sharedApplication] prp_pushNetworkActivity];
-    
-    if (![[SOEHTTPClient sharedClient] networkReachabilityStatus]) {
-        [[UIApplication sharedApplication] prp_popNetworkActivity];
-        return;
-    }
-    
-    [[SOEHTTPClient sharedClient] setUsername:username andPassword:password];
-    
-    [[SOEHTTPClient sharedClient] getPath:requestString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"IP Address: %@", [responseObject valueForKeyPath:@"origin"]);
-        if (completion) completion(self, responseObject, operation.response.statusCode, nil);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (completion) completion(self, operation.responseString, operation.response.statusCode, error);
-    }];
-}*/
 
 - (void)get:(NSString *)requestString parameters:(NSDictionary *)parameters completionBlock:(PLRestfulAPICompletionBlock)completion {
-    if (parameters) {
-        requestString = [requestString stringByAppendingString:@"?"];
-        BOOL first = YES;
-        for (NSString *key in [parameters allKeys]) {
-            if (!first) {
-                requestString = [requestString stringByAppendingString:@"&"];
-            }
-            requestString = [requestString stringByAppendingString:[NSString stringWithFormat:@"%@=%@", key, [[[parameters objectForKey:key] description] pl_stringByAddingPercentEscapesUsingEncoding:kCFStringEncodingUTF8]]];
-            first = NO;
-        }
-    }
-    
     [[UIApplication sharedApplication] prp_pushNetworkActivity];
     
     if (![[SOEHTTPClient sharedClient] networkReachabilityStatus]) {
@@ -149,17 +101,29 @@ static NSDictionary *statusMessages;
     
     [[SOEHTTPClient sharedClient] setUsername:username andPassword:password];
     
-    [[SOEHTTPClient sharedClient] getPath:requestString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"response = %@", responseObject);
+    [[SOEHTTPClient sharedClient] getPath:requestString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (completion) completion(self, responseObject, operation.response.statusCode, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (completion) completion(self, operation.responseString, operation.response.statusCode, error);
     }];
 }
 
-/*- (void)post:(NSString *)requestString content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion {
-    [request appendPostData:[NSJSONSerialization dataWithJSONObject:content options:0 error:nil]];
-    [self handleRequest:requestString completion:completion];
-}*/
+- (void)post:(NSString *)requestString content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion {
+    [[UIApplication sharedApplication] prp_pushNetworkActivity];
+    
+    if (![[SOEHTTPClient sharedClient] networkReachabilityStatus]) {
+        [[UIApplication sharedApplication] prp_popNetworkActivity];
+        return;
+    }
+    
+    [[SOEHTTPClient sharedClient] setUsername:username andPassword:password];
+    
+    [[SOEHTTPClient sharedClient] postPath:requestString parameters:content success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (completion) completion(self, responseObject, operation.response.statusCode, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (completion) completion(self, operation.responseString, operation.response.statusCode, error);
+    }];
+
+}
 
 @end
