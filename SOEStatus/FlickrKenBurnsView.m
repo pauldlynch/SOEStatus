@@ -43,7 +43,7 @@
         NSArray *photos = [[results objectForKey:@"photos"] objectForKey:@"photo"];
         for (NSDictionary *photo in photos) {
             NSString *title = [photo objectForKey:@"title"];
-            [self.photoNames addObject:([title length] > 0 ? title: @"Untitled")];
+            [self.photoNames addObject:([title length] > 0 ? title : @"Untitled")];
             NSString *photoURLString = [NSString stringWithFormat:@"http://farm%@.static.flickr.com/%@/%@_%@_b.jpg", [photo objectForKey:@"farm"], [photo objectForKey:@"server"], [photo objectForKey:@"id"], [photo objectForKey:@"secret"]];
             [self.photoURLStrings addObject:photoURLString];
             [self.photoURLs addObject:[NSURL URLWithString:photoURLString]];

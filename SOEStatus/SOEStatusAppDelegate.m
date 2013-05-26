@@ -22,7 +22,11 @@
     [prefs setInteger:launchCount  forKey:@"launchCount"];  
 
     // Add the navigation controller's view to the window and display.
-    self.window.rootViewController = self.navigationController;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        self.window.rootViewController = self.navigationController;
+    } else {
+        self.window.rootViewController = self.toolbarController;
+    }
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -70,6 +74,7 @@
 {
     [_window release];
     [_navigationController release];
+    [self.toolbarController release];
     [super dealloc];
 }
 

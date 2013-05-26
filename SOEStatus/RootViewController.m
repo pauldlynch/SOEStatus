@@ -9,23 +9,16 @@
 #import "RootViewController.h"
 #import "SOEStatusAPI.h"
 #import "PRPAlertView.h"
-#import "MoveArray.h"
 #import "ServerViewController.h"
 #import "PLActionSheet.h"
 #import <Twitter/Twitter.h>
+#import "SOEGame.h"
+
+NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
 
 @implementation RootViewController
 
-@synthesize statuses, rows;
-
-- (NSDictionary *)rowForKey:(NSString *)key {
-    for (NSDictionary *game in self.rows) {
-        if ([key isEqualToString:[game valueForKey:@"key"]]) {
-            return game;
-        }
-    }
-    return nil;
-}
+@synthesize statuses;
 
 - (void)refresh {
     [super refresh];
@@ -37,24 +30,8 @@
             [PRPAlertView showWithTitle:@"API Error" message:message buttonTitle:@"Continue"];
             //return;
         }
-        self.statuses = object;
-        // remove dropped games
-        NSMutableArray *newRows = [NSMutableArray array];
-        for (NSDictionary *game in self.rows) {
-            if ([self.statuses objectForKey:[game valueForKey:@"key"]])
-                [newRows addObject:game];
-        }
-        self.rows = newRows;
-        // add missing games
-        for (NSString *key in [self.statuses allKeys]) {
-            NSDictionary *row = [self rowForKey:key];
-            if (!row) [self.rows addObject:[NSDictionary dictionaryWithObject:key forKey:@"key"]];
-        }
+        [SOEGame updateWithStatuses:object];
         
-        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        NSString *filePath = [documentsPath stringByAppendingPathComponent:@"rows.plist"];
-        [self.rows writeToFile:filePath atomically:YES];
-
         [self.tableView reloadData];
     }];
 }
@@ -69,9 +46,7 @@
         UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editing)];
         self.navigationItem.rightBarButtonItem = editButton;
         [editButton release];
-        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        NSString *filePath = [documentsPath stringByAppendingPathComponent:@"rows.plist"];
-        [self.rows writeToFile:filePath atomically:YES];
+        [SOEGame save];
     }
 }
 
@@ -225,23 +200,6 @@
     self.navigationItem.leftBarButtonItem = actionsButton;
     [actionsButton release];
     
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"rows.plist"];
-    self.rows = [NSMutableArray arrayWithContentsOfFile:filePath];
-    if (!rows) self.rows = [NSMutableArray array];
-    for (NSDictionary *game in [SOEStatusAPI games]) {
-        NSString *key = [game valueForKey:@"key"];
-        NSDictionary *row = [self rowForKey:key];
-        if (row) {
-            // game added to feed, but name comes from game.plist, which was updated later (by me)
-            if (![row valueForKey:@"name"]) {
-                [rows replaceObjectAtIndex:[rows indexOfObject:row] withObject:game];
-            }
-        } else {
-            [rows addObject:game];
-        }
-    }
-    
     // rater
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSInteger launchCount = [prefs integerForKey:@"launchCount"];
@@ -261,6 +219,8 @@
         [alert show];
         [alert release];
     }
+    
+    self.contentSizeForViewInPopover = CGSizeMake(self.contentSizeForViewInPopover.width, 44.0 * [[SOEGame games] count]);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -301,7 +261,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.rows count];
+    return [[SOEGame games] count];
 }
 
 // Customize the appearance of table view cells.
@@ -315,11 +275,8 @@
     }
 
     // Configure the cell.
-    NSDictionary *game = [self.rows objectAtIndex:indexPath.row];
-    NSString *key = [game valueForKey:@"key"];
-    NSString *value = [game valueForKey:@"name"];
-    if (!value) value = key;
-    cell.textLabel.text = value;
+    SOEGame *game = [[SOEGame games] objectAtIndex:indexPath.row];
+    cell.textLabel.text = game.name ? game.name : game.key;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
@@ -338,7 +295,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         // Delete the row from the data source.
-        [self.rows removeObjectAtIndex:indexPath.row];
+        [SOEGame removeGame:[[SOEGame games] objectAtIndex:indexPath.row ]];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert)
@@ -350,7 +307,7 @@
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    [self.rows moveObjectFromIndex:fromIndexPath.row toIndex:toIndexPath.row];
+    [SOEGame moveGameFromIndex:fromIndexPath.row to:toIndexPath.row];
 }
 
 // Override to support conditional rearranging of the table view.
@@ -365,10 +322,12 @@
     ServerViewController *detailViewController = [[ServerViewController alloc] initWithNibName:@"ServerViewController" bundle:nil];
     // ...
     // Pass the selected object to the new view controller.
-    detailViewController.gameId = [[self.rows objectAtIndex:indexPath.row] valueForKey:@"key"];
-    detailViewController.title = [[self.rows objectAtIndex:indexPath.row] valueForKey:@"name"];
+    SOEGame *game = [[SOEGame games] objectAtIndex:indexPath.row];
+    detailViewController.gameId = game.key;
+    detailViewController.title = game.name;
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SOEGameSelectedNotification object:self userInfo:@{@"game": game}];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
@@ -394,7 +353,6 @@
 - (void)dealloc
 {
     self.statuses = nil;
-    self.rows = nil;
     [super dealloc];
 }
 

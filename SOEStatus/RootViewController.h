@@ -10,10 +10,11 @@
 #import <MessageUI/MessageUI.h>
 #import "PullRefreshTableViewController.h"
 
+extern NSString *SOEGameSelectedNotification;
+
 @interface RootViewController : PullRefreshTableViewController <MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, retain) NSDictionary *statuses;
-@property (nonatomic, retain) NSMutableArray *rows;
 
 - (IBAction)actions;
 - (IBAction)openInSafari;
@@ -22,7 +23,5 @@
 - (IBAction)shareByTwitter;
 - (IBAction)shareByEmail;
 - (IBAction)feedback;
-
-- (NSDictionary *)rowForKey:(NSString *)key;
 
 @end

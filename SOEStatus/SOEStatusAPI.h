@@ -11,8 +11,6 @@
 
 @interface SOEStatusAPI : PLRestful
 
-+ (NSArray *)games;
-
 + (void)getStatuses:(PLRestfulAPICompletionBlock)completion;
 + (void)getGameStatus:(NSString *)gameId completion:(PLRestfulAPICompletionBlock)completion;
 

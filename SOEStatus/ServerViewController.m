@@ -11,8 +11,6 @@
 #import "PRPAlertView.h"
 #import "ServerCell.h"
 
-NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
-
 @implementation ServerViewController
 
 @synthesize gameId, game, servers, serverCellNib, dateFormatter;
@@ -68,11 +66,12 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     [SOEStatusAPI getGameStatus:gameId completion:^(PLRestful *api, id object, int status, NSError *error) {
         if (error) {
             [PRPAlertView showWithTitle:@"Error" message:[error localizedDescription] buttonTitle:@"Continue"];
-            //return;
+        } else {
+            self.game = [object valueForKey:@"game"];
+            self.servers = [object valueForKey:@"regionServers"];
+            self.contentSizeForViewInPopover = CGSizeMake(self.contentSizeForViewInPopover.width, 44.0 * [self.servers count]);
+            [self.tableView reloadData];
         }
-        self.game = [object valueForKey:@"game"];
-        self.servers = [object valueForKey:@"regionServers"];        
-        [self.tableView reloadData];
     }];
 }
 
@@ -82,7 +81,6 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [[NSNotificationCenter defaultCenter] postNotificationName:SOEGameSelectedNotification object:self];
 }
 
 - (void)viewDidUnload

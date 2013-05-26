@@ -31,18 +31,6 @@
 
 @implementation SOEStatusAPI
 
-static NSArray *_games;
-
-+ (void)initialize {
-    static BOOL initialized = NO;
-    if (!initialized) {
-        initialized = YES;
-        // Perform initialization here
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"games.plist" ofType:nil];
-        _games = [[NSArray arrayWithContentsOfFile:filePath] retain];
-    }
-}
-
 - (id)init
 {
     self = [super init];
@@ -52,10 +40,6 @@ static NSArray *_games;
     }
     
     return self;
-}
-
-+ (NSArray *)games {
-    return _games;
 }
 
 + (void)getStatuses:(PLRestfulAPICompletionBlock)completion {

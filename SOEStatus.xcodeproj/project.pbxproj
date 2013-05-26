@@ -70,6 +70,8 @@
 		DA3908CB16B9D4F300FE7286 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3908CA16B9D4F300FE7286 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DA4D8DF9174E65FE00E61232 /* JBKenBurnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4D8DF8174E65FE00E61232 /* JBKenBurnsView.m */; };
 		DA4D8DFC174E660B00E61232 /* FlickrKenBurnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4D8DFB174E660B00E61232 /* FlickrKenBurnsView.m */; };
+		DA4D8DFF1750C5D800E61232 /* BackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4D8DFE1750C5D800E61232 /* BackgroundViewController.m */; };
+		DA4D8E05175109E900E61232 /* SOEGame.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4D8E04175109E900E61232 /* SOEGame.m */; };
 		DA7889211611B40200A426F6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA7889201611B40200A426F6 /* Default-568h@2x.png */; };
 		DA7889231611C0C400A426F6 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DA7889221611C0C400A426F6 /* Default-Portrait~ipad.png */; };
 		DA7889251611C19200A426F6 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DA7889241611C19200A426F6 /* Default-Portrait@2x~ipad.png */; };
@@ -203,6 +205,11 @@
 		DA4D8DF8174E65FE00E61232 /* JBKenBurnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBKenBurnsView.m; sourceTree = "<group>"; };
 		DA4D8DFA174E660B00E61232 /* FlickrKenBurnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrKenBurnsView.h; sourceTree = "<group>"; };
 		DA4D8DFB174E660B00E61232 /* FlickrKenBurnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrKenBurnsView.m; sourceTree = "<group>"; };
+		DA4D8DFD1750C5D800E61232 /* BackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundViewController.h; sourceTree = "<group>"; };
+		DA4D8DFE1750C5D800E61232 /* BackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundViewController.m; sourceTree = "<group>"; };
+		DA4D8E001750C91B00E61232 /* FlickrAPIKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlickrAPIKey.h; sourceTree = "<group>"; };
+		DA4D8E03175109E800E61232 /* SOEGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEGame.h; sourceTree = "<group>"; };
+		DA4D8E04175109E900E61232 /* SOEGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEGame.m; sourceTree = "<group>"; };
 		DA7889201611B40200A426F6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		DA7889221611C0C400A426F6 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		DA7889241611C19200A426F6 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
@@ -310,6 +317,8 @@
 				DA96DB911421FA6C00F0CE7E /* PLRestful.m */,
 				DA1372E714111AAA00A1BFCC /* SOEStatusAPI.h */,
 				DA1372E814111AAA00A1BFCC /* SOEStatusAPI.m */,
+				DA4D8E03175109E800E61232 /* SOEGame.h */,
+				DA4D8E04175109E900E61232 /* SOEGame.m */,
 				DA137257141116B800A1BFCC /* SOEStatusAppDelegate.h */,
 				DA137258141116B800A1BFCC /* SOEStatusAppDelegate.m */,
 				DA13725A141116B800A1BFCC /* MainWindow.xib */,
@@ -317,6 +326,8 @@
 				DA1372FD1411935D00A1BFCC /* MoveArray.m */,
 				DA13725D141116B800A1BFCC /* RootViewController.h */,
 				DA13725E141116B800A1BFCC /* RootViewController.m */,
+				DA4D8DFD1750C5D800E61232 /* BackgroundViewController.h */,
+				DA4D8DFE1750C5D800E61232 /* BackgroundViewController.m */,
 				DA137260141116B800A1BFCC /* RootViewController.xib */,
 				DA1372FF1411968400A1BFCC /* ServerViewController.h */,
 				DA1373001411968400A1BFCC /* ServerViewController.m */,
@@ -326,6 +337,7 @@
 				DAA66EBE141612E500C0287A /* ServerCell.xib */,
 				DAEBA9561511127600EBB52A /* PLActionSheet.h */,
 				DAEBA9571511127600EBB52A /* PLActionSheet.m */,
+				DA4D8E001750C91B00E61232 /* FlickrAPIKey.h */,
 				DA4D8DFA174E660B00E61232 /* FlickrKenBurnsView.h */,
 				DA4D8DFB174E660B00E61232 /* FlickrKenBurnsView.m */,
 				DA13724F141116B800A1BFCC /* Supporting Files */,
@@ -633,6 +645,8 @@
 				DA91D9B415244CB90047E6D0 /* ReachabilityAdditions.m in Sources */,
 				DA4D8DF9174E65FE00E61232 /* JBKenBurnsView.m in Sources */,
 				DA4D8DFC174E660B00E61232 /* FlickrKenBurnsView.m in Sources */,
+				DA4D8DFF1750C5D800E61232 /* BackgroundViewController.m in Sources */,
+				DA4D8E05175109E900E61232 /* SOEGame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
