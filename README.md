@@ -3,6 +3,10 @@ README for SOE Status
 
 An iPhone/iPad app to check the status of SOE game servers.
 
+This release for the iPhone tidies up some old code, and shouldn't have any obvious changes.  On the iPad, however, I was bored with the oversized iPhone UI.  This release moves the status information to a popover window, and fills the background with an animated, "Ken Burns" style, game appropriate, rotating set of images selected from Flickr.  Enjoy them while waiting for servers up!
+
+If you find any problems, please use the Feedback menu to report them to me directly.  Or fix them yourself - the code is, as ever, available for you on github at https://github.com/pauldlynch/SOEStatus.
+
 
 Needs:
 ------
