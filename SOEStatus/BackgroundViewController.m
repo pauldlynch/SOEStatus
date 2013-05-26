@@ -35,7 +35,7 @@
     SOEGame *game = [[notification userInfo] objectForKey:@"game"];
     NSLog(@"%s %@", __PRETTY_FUNCTION__, game.name);
     if (game.search) {
-    [self.backgroundView animateWithSearch:game.search apiKey:FlickrAPIKey transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
+        [self.backgroundView animateWithSearch:game.search apiKey:FlickrAPIKey transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
     }
 }
 
