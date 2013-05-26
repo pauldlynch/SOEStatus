@@ -36,7 +36,7 @@
 
 - (void)gameChanged:(NSNotification *)notification {
     SOEGame *game = [[notification userInfo] objectForKey:@"game"];
-    NSLog(@"%s %@", __PRETTY_FUNCTION__, game);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, game.name);
     if (game.search) {
     [self.backgroundView animateWithSearch:game.search apiKey:FlickrAPIKey transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
     }
@@ -60,7 +60,7 @@
     
     RootViewController *rootVC = [[RootViewController alloc] init];
     UINavigationController *statusVC = [[UINavigationController alloc] initWithRootViewController:rootVC];
-    self.statusPopover = [[UIPopoverController alloc] initWithContentViewController:statusVC];
+    self.statusPopover = [[[UIPopoverController alloc] initWithContentViewController:statusVC] autorelease];
     self.statusPopover.popoverContentSize = CGSizeMake(320.0, 568.0);
     [self.statusPopover presentPopoverFromBarButtonItem:self.statusButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     [rootVC release];
@@ -71,13 +71,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    /*if (self.statusPopover.isPopoverVisible) {
-        [self.statusPopover dismissPopoverAnimated:NO];
-        [self.statusPopover presentPopoverFromBarButtonItem:self.statusButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:NO];
-    }*/
 }
 
 @end

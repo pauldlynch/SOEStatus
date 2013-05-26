@@ -74,7 +74,7 @@
 {
     [_window release];
     [_navigationController release];
-    [self.toolbarController release];
+    self.toolbarController = nil;
     [super dealloc];
 }
 

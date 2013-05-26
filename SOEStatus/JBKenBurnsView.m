@@ -82,7 +82,7 @@
 
 - (void) animateWithURLs:(NSArray *)urls transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)inLandscape;
 {
-    self.imagesArray      = [[NSMutableArray alloc] init];
+    self.imagesArray      = [NSMutableArray array];
     self.timeTransition   = duration;
     self.isLoop           = shouldLoop;
     self.isLandscape      = inLandscape;
@@ -94,6 +94,7 @@
     for (uint i=0; i<bufferSize; i++) {
         NSString *url = [[NSString alloc] initWithString:[urls objectAtIndex:i]];
         [self.imagesArray addObject:[self _downloadImageFrom:url]];
+        [url release];
     }
     
     self.layer.masksToBounds = YES;
@@ -301,6 +302,7 @@
     }
     
     [self addSubview:imageView];
+    [imageView release];
     
     // Generates the animation
     [UIView beginAnimations:nil context:NULL];

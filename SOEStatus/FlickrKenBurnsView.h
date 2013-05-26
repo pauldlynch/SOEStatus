@@ -11,6 +11,6 @@
 
 @interface FlickrKenBurnsView : KenBurnsView
 
-- (void) animateWithSearch:(NSString *)searchString apiKey:(NSString *)apiKey transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)inLandscape;
+- (void)animateWithSearch:(NSString *)searchString apiKey:(NSString *)apiKey transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)inLandscape;
 
 @end

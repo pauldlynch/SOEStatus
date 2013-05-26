@@ -29,7 +29,7 @@ NSMutableArray *_gameKeys;
         }
         
         filePath = [[NSBundle mainBundle] pathForResource:@"games.plist" ofType:nil];
-        NSArray *gameDictionaries = [[NSMutableArray arrayWithContentsOfFile:filePath] retain];
+        NSArray *gameDictionaries = [NSMutableArray arrayWithContentsOfFile:filePath];
         
         // now order _games according to _gameKeys
         NSMutableArray *newGames = [NSMutableArray array];
