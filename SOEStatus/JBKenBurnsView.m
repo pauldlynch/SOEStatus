@@ -82,24 +82,25 @@
 
 - (void) animateWithURLs:(NSArray *)urls transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)inLandscape;
 {
-    self.imagesArray      = [NSMutableArray array];
-    self.timeTransition   = duration;
-    self.isLoop           = shouldLoop;
-    self.isLandscape      = inLandscape;
-    self.animationInCurse = NO;
-    
-    int bufferSize = (imageBufer < urls.count) ? imageBufer : urls.count;
-    
-    // Fill the buffer.
-    for (uint i=0; i<bufferSize; i++) {
-        NSString *url = [[NSString alloc] initWithString:[urls objectAtIndex:i]];
-        [self.imagesArray addObject:[self _downloadImageFrom:url]];
-    }
-    
-    self.layer.masksToBounds = YES;
-    
-    [NSThread detachNewThreadSelector:@selector(_startInternetAnimations:) toTarget:self withObject:urls];
-    
+    dispatch_async(dispatch_get_current_queue(), ^{
+        self.imagesArray      = [NSMutableArray array];
+        self.timeTransition   = duration;
+        self.isLoop           = shouldLoop;
+        self.isLandscape      = inLandscape;
+        self.animationInCurse = NO;
+        
+        int bufferSize = (imageBufer < urls.count) ? imageBufer : urls.count;
+        
+        // Fill the buffer.
+        for (uint i=0; i<bufferSize; i++) {
+            NSString *url = [[NSString alloc] initWithString:[urls objectAtIndex:i]];
+            [self.imagesArray addObject:[self _downloadImageFrom:url]];
+        }
+        
+        self.layer.masksToBounds = YES;
+        
+        [NSThread detachNewThreadSelector:@selector(_startInternetAnimations:) toTarget:self withObject:urls];
+    });
 }
 
 - (void) _startAnimations:(NSArray *)images
@@ -142,7 +143,7 @@
             
             if ( bufferIndex == self.imagesArray.count -1)
             {
-                NSLog(@"Wrapping!!");
+                //NSLog(@"Wrapping!!");
                 wrapping = YES;
                 bufferIndex = -1;
             }
