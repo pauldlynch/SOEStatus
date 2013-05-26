@@ -82,7 +82,8 @@
 
 - (void) animateWithURLs:(NSArray *)urls transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)inLandscape;
 {
-    dispatch_async(dispatch_get_current_queue(), ^{
+    dispatch_queue_t task_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(task_queue, ^{
         self.imagesArray      = [NSMutableArray array];
         self.timeTransition   = duration;
         self.isLoop           = shouldLoop;
@@ -138,9 +139,12 @@
                                    withObject:[NSNumber numberWithInt:0]
                                 waitUntilDone:YES];
             
-            [self.imagesArray removeObjectAtIndex:0];
-            [self.imagesArray addObject:[self _downloadImageFrom:[urls objectAtIndex: urlIndex]]];
-            
+            id image = [self _downloadImageFrom:[urls objectAtIndex: urlIndex]];
+            if ([self.imagesArray count] && image) {
+                [self.imagesArray removeObjectAtIndex:0];
+                [self.imagesArray addObject:image];
+            }
+        
             if ( bufferIndex == self.imagesArray.count -1)
             {
                 //NSLog(@"Wrapping!!");
@@ -158,7 +162,9 @@
 
 - (void) _animate:(NSNumber*)num
 {
-    UIImage* image = [self.imagesArray objectAtIndex:[num intValue]];
+    UIImage* image;
+    if ([self.imagesArray count] == 0) return;
+    image = [self.imagesArray objectAtIndex:[num intValue]];
     UIImageView *imageView;
     
     float resizeRatio   = -1;
