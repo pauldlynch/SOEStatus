@@ -8,7 +8,6 @@
 
 #import "PLRestful.h"
 #import "ASIHTTPRequest.h"
-#import "JSON.h"
 #import "PRPAlertView.h"
 #import "Reachability.h"
 #import "UIApplication+PRPNetworkActivity.h"
@@ -143,11 +142,12 @@ static NSDictionary *statusMessages;
         [[UIApplication sharedApplication] prp_popNetworkActivity];
         NSString *json = [request responseString];
         //NSLog(@"json = %@", json);
-        id object = [json JSONValue];
+        NSError *error;
+        id object = [NSJSONSerialization JSONObjectWithData:[request responseData] options:0 error:&error];
         if (object) {
             self.completionBlock(self, object, request.responseStatusCode, nil);
         } else {
-            NSLog(@"received invalid json: '%@'", json);
+            NSLog(@"received invalid json, %@: '%@'", error, json);
             
             self.completionBlock(self, object, request.responseStatusCode, nil);
         }
@@ -185,7 +185,7 @@ static NSDictionary *statusMessages;
     NSURL *requestURL = [NSURL URLWithString:fullRequestString];
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:requestURL];
-    [request appendPostData:[[content JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request appendPostData:[NSJSONSerialization dataWithJSONObject:content options:0 error:nil]];
     [self handleRequest:request completion:completion];
 }
 
