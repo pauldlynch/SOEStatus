@@ -65,13 +65,13 @@ NSDictionary *sizeCodes;
     self.photoURLs = [NSMutableArray array];
     self.photoURLStrings = [NSMutableArray array];
     self.photoNames = [NSMutableArray array];
-
+    
     NSString *urlString = [NSString stringWithFormat:@"http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%@&tags=%@&per_page=20&format=json&nojsoncallback=1&content_type=7&safe_search=2", apiKey, [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSDictionary *results = [FlickrKenBurnsView callFlickr:urlString];
     if (!results) {
         return;
     }
-        
+    
     NSArray *photos = [results valueForKeyPath:@"photos.photo"];
     for (NSDictionary *photo in photos) {
         NSString *title = [photo objectForKey:@"title"];
@@ -85,13 +85,16 @@ NSDictionary *sizeCodes;
 }
 
 - (void)animateWithSearch:(NSString *)searchString apiKey:(NSString *)apiKey transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)inLandscape {
-    [self loadFlickrPhotoSearch:searchString apiKey:apiKey];
-    if ([self.photoURLStrings count]) {
-        [super animateWithURLs:self.photoURLStrings transitionDuration:duration loop:shouldLoop isLandscape:inLandscape];
-    } else {
-        // halt animations, if we're lucky
-        self.isLoop = NO;
-    }
+    dispatch_queue_t task_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(task_queue, ^{
+        [self loadFlickrPhotoSearch:searchString apiKey:apiKey];
+        if ([self.photoURLStrings count]) {
+            [super animateWithURLs:self.photoURLStrings transitionDuration:duration loop:shouldLoop isLandscape:inLandscape];
+        } else {
+            // halt animations, if we're lucky
+            self.isLoop = NO;
+        }
+    });
 }
 
 @end
