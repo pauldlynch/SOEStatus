@@ -29,30 +29,29 @@
 #define imageBufer 3
 
 // Private interface
-@interface KenBurnsView ()
+@interface JBKenBurnsView () {
+    NSMutableArray *_imagesArray;
+    CGFloat _showImageDuration;
+    NSInteger _currentIndex;
+    BOOL _shouldLoop;
+    BOOL _isLandscape;
+}
 
-@property (nonatomic) int currentImage;
-@property (nonatomic) BOOL animationInCurse;
+@property (nonatomic, assign) int currentImage;
 
-- (void) _animate:(NSNumber*)num;
-- (void) _startAnimations:(NSArray*)images;
-- (void) _startInternetAnimations:(NSArray *)urls;
-- (UIImage *) _downloadImageFrom:(NSString *)url;
-- (void) _notifyDelegate:(NSNumber *) imageIndex;
+@property (nonatomic, strong) NSTimer *nextImageTimer;
+@property (nonatomic, strong) NSRunLoop *timerRunLoop;;
+
 @end
 
 
-@implementation KenBurnsView
-
-@synthesize imagesArray, timeTransition, isLoop, isLandscape;
-@synthesize animationInCurse, currentImage, delegate;
-
+@implementation JBKenBurnsView
 
 -(id)init
 {
     self = [super init];
     if (self) {
-        self.layer.masksToBounds = YES;
+        [self setup];
     }
     return self;
 }
@@ -61,111 +60,69 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.layer.masksToBounds = YES;
+        [self setup];
     }
     return self;
 }
 
-- (void) animateWithImages:(NSMutableArray *)images transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)inLandscape;
+- (void)awakeFromNib
 {
-    self.imagesArray      = images;
-    self.timeTransition   = duration;
-    self.isLoop           = shouldLoop;
-    self.isLandscape      = inLandscape;
-    self.animationInCurse = NO;
-    
+    [self setup];
+}
+
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self.layer removeAllAnimations];
+    [self timerInvalidate];
+}
+
+- (void)setup
+{
+    self.backgroundColor = [UIColor clearColor];
     self.layer.masksToBounds = YES;
+}
+
+- (void) animateWithImages:(NSArray *)images transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)isLandscape {
+    [self _startAnimationsWithData:images transitionDuration:duration loop:shouldLoop isLandscape:isLandscape];
+}
+
+- (void)_startAnimationsWithData:(NSArray *)data transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)isLandscape
+{
+    _imagesArray        = [data mutableCopy];
+    _showImageDuration  = duration;
+    _shouldLoop         = shouldLoop;
+    _isLandscape        = isLandscape;
     
-    [NSThread detachNewThreadSelector:@selector(_startAnimations:) toTarget:self withObject:images];
+    // start at 0
+    _currentIndex       = -1;
     
+    [self timerInvalidate];
+    [self.layer removeAllAnimations];
+    
+    self.nextImageTimer = [NSTimer timerWithTimeInterval:duration target:self selector:@selector(nextImage) userInfo:nil repeats:YES];
+    self.timerRunLoop = [NSRunLoop mainRunLoop];
+    [self.timerRunLoop addTimer:self.nextImageTimer forMode:NSRunLoopCommonModes];
+    [self nextImage];
 }
 
-- (void) animateWithURLs:(NSArray *)urls transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)inLandscape;
-{
-    dispatch_queue_t task_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(task_queue, ^{
-        self.imagesArray      = [NSMutableArray array];
-        self.timeTransition   = duration;
-        self.isLoop           = shouldLoop;
-        self.isLandscape      = inLandscape;
-        self.animationInCurse = NO;
-        
-        int bufferSize = (imageBufer < urls.count) ? imageBufer : urls.count;
-        
-        // Fill the buffer.
-        for (uint i=0; i<bufferSize; i++) {
-            NSString *url = [[NSString alloc] initWithString:[urls objectAtIndex:i]];
-            [self.imagesArray addObject:[self _downloadImageFrom:url]];
-        }
-        
-        self.layer.masksToBounds = YES;
-        
-        [NSThread detachNewThreadSelector:@selector(_startInternetAnimations:) toTarget:self withObject:urls];
-    });
-}
-
-- (void) _startAnimations:(NSArray *)images
-{
-    @autoreleasepool {
-        for (uint i = 0; i < [images count]; i++) {
-            
-            [self performSelectorOnMainThread:@selector(_animate:)
-                                   withObject:[NSNumber numberWithInt:i]
-                                waitUntilDone:YES];
-            
-            sleep(self.timeTransition);
-            
-            i = (i == [images count] - 1) && isLoop ? -1 : i;
-            
-        }
+- (void)nextImage {
+    _currentIndex++;
+    
+    UIImage *image = nil;
+    id imageSource = _imagesArray[_currentIndex];
+    if ([imageSource isKindOfClass:[UIImage class]]) {
+        image = _imagesArray[_currentIndex];
+    } else if ([imageSource isKindOfClass:[NSURL class]]) {
+        image = [UIImage imageWithData:[NSData dataWithContentsOfURL:_imagesArray[_currentIndex]]];
+    } else if ([imageSource isKindOfClass:[NSString class]]) {
+        image = [UIImage imageWithContentsOfFile:_imagesArray[_currentIndex]];
+    } else {
+        NSLog(@"Unrecognized image type: %@", NSStringFromClass([imageSource class]));
     }
-}
-
-- (UIImage *) _downloadImageFrom:(NSString *) url
-{
-    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
-    return image;
-}
-
-- (void) _startInternetAnimations:(NSArray *)urls
-{
-    @autoreleasepool {
-        BOOL wrapping = NO;
-        int bufferIndex = 0;
-        
-        for (int urlIndex=self.imagesArray.count; urlIndex < [urls count]; urlIndex++) {
-            
-            [self performSelectorOnMainThread:@selector(_animate:)
-                                   withObject:[NSNumber numberWithInt:0]
-                                waitUntilDone:YES];
-            
-            id image = [self _downloadImageFrom:[urls objectAtIndex: urlIndex]];
-            if ([self.imagesArray count] && image) {
-                [self.imagesArray removeObjectAtIndex:0];
-                [self.imagesArray addObject:image];
-            }
-        
-            if ( bufferIndex == self.imagesArray.count -1)
-            {
-                //NSLog(@"Wrapping!!");
-                wrapping = YES;
-                bufferIndex = -1;
-            }
-            
-            bufferIndex++;
-            urlIndex = (urlIndex == [urls count]-1) && isLoop ? -1 : urlIndex;
-            
-            sleep(self.timeTransition);
-        }
-    }
-}
-
-- (void) _animate:(NSNumber*)num
-{
-    UIImage* image;
-    if ([self.imagesArray count] == 0) return;
-    image = [self.imagesArray objectAtIndex:[num intValue]];
-    UIImageView *imageView;
+    
+    if (!image) return;
+    
+    UIImageView *imageView = nil;
     
     float resizeRatio   = -1;
     float widthDiff     = -1;
@@ -176,10 +133,10 @@
     float zoomInY       = -1;
     float moveX         = -1;
     float moveY         = -1;
-    float frameWidth    = isLandscape? self.frame.size.width : self.frame.size.height;
-    float frameHeight   = isLandscape? self.frame.size.height : self.frame.size.width;
+    float frameWidth    = _isLandscape? self.frame.size.width : self.frame.size.height;
+    float frameHeight   = _isLandscape? self.frame.size.height : self.frame.size.width;
     
-    // Widder than screen
+    // Wider than screen
     if (image.size.width > frameWidth)
     {
         widthDiff  = image.size.width - frameWidth;
@@ -190,9 +147,9 @@
             heightDiff = image.size.height - frameHeight;
             
             if (widthDiff > heightDiff)
-                resizeRatio = frameHeight / image.size.height;
-            else
                 resizeRatio = frameWidth / image.size.width;
+            else
+                resizeRatio = frameHeight / image.size.height;
             
             // No higher than screen
         }
@@ -206,7 +163,7 @@
                 resizeRatio = self.bounds.size.height / image.size.height;
         }
         
-        // No widder than screen
+        // No wider than screen
     }
     else
     {
@@ -285,9 +242,10 @@
             break;
             
         default:
-            NSLog(@"def");
+            NSLog(@"Unknown random number found in JBKenBurnsView _animate");
             break;
     }
+    
     
     CALayer *picLayer    = [CALayer layer];
     picLayer.contents    = (id)image.CGImage;
@@ -303,40 +261,61 @@
     [[self layer] addAnimation:animation forKey:nil];
     
     // Remove the previous view
-    if ([[self subviews] count] > 0){
-        [[[self subviews] objectAtIndex:0] removeFromSuperview];
+    for (UIView *subview in [self subviews]) {
+        if ([subview isKindOfClass:[UIImageView class]]) {
+            [subview removeFromSuperview];
+        }
     }
     
     [self addSubview:imageView];
     
     // Generates the animation
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:self.timeTransition+2];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-    CGAffineTransform rotate    = CGAffineTransformMakeRotation(rotation);
-    CGAffineTransform moveRight = CGAffineTransformMakeTranslation(moveX, moveY);
-    CGAffineTransform combo1    = CGAffineTransformConcat(rotate, moveRight);
-    CGAffineTransform zoomIn    = CGAffineTransformMakeScale(zoomInX, zoomInY);
-    CGAffineTransform transform = CGAffineTransformConcat(zoomIn, combo1);
-    imageView.transform = transform;
-    [UIView commitAnimations];
-    
-    [self performSelector:@selector(_notifyDelegate:) withObject:num afterDelay:self.timeTransition];
+    [UIView animateWithDuration:(_showImageDuration + 2) delay:0 options:(UIViewAnimationCurveEaseIn) animations:^{
+        CGAffineTransform rotate    = CGAffineTransformMakeRotation(rotation);
+        CGAffineTransform moveRight = CGAffineTransformMakeTranslation(moveX, moveY);
+        CGAffineTransform combo1    = CGAffineTransformConcat(rotate, moveRight);
+        CGAffineTransform zoomIn    = CGAffineTransformMakeScale(zoomInX, zoomInY);
+        CGAffineTransform transform = CGAffineTransformConcat(zoomIn, combo1);
+        imageView.transform = transform;
+    } completion:^(BOOL finished){
+        [self _notifyDelegate];
+        
+        if (_currentIndex == _imagesArray.count - 1) {
+            if (_shouldLoop) {
+                _currentIndex = -1;
+            } else {
+                [self timerInvalidate];
+            }
+        }
+    }];
 }
 
-- (void) _notifyDelegate: (NSNumber *)imageIndex
+- (void) _notifyDelegate
 {
-    if (delegate) {
-        if([self.delegate respondsToSelector:@selector(didShowImageAtIndex:)])
+    if (_delegate) {
+        if([_delegate respondsToSelector:@selector(didShowImageAtIndex:)])
         {
-            [self.delegate didShowImageAtIndex:[imageIndex intValue]];
+            [_delegate didShowImageAtIndex:_currentIndex];
         }
         
-        if ([imageIndex intValue] == ([self.imagesArray count]-1) && !isLoop && [self.delegate respondsToSelector:@selector(didFinishAllAnimations)]) {
-            [self.delegate didFinishAllAnimations];
-        } 
+        if (_currentIndex == ([_imagesArray count] - 1) && !_shouldLoop && [_delegate respondsToSelector:@selector(didFinishAllAnimations)]) {
+            [_delegate didFinishAllAnimations];
+        }
     }
-    
+}
+
+- (void)timerInvalidate {
+    [self.timerRunLoop performSelector:@selector(invalidate) target:self.nextImageTimer argument:nil order:10 modes:@[NSRunLoopCommonModes]];
+    if (self.timerRunLoop != [NSRunLoop mainRunLoop]) {
+        [self.timerRunLoop runUntilDate:[NSDate date]];
+    }
+}
+
+- (void)flush {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self timerInvalidate];
+    [self.layer removeAllAnimations];
+    _imagesArray = nil;
 }
 
 @end

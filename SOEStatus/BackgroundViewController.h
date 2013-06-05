@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class FlickrKenBurnsView;
+@class JBKenBurnsView;
 
 @interface BackgroundViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *statusButton;
-@property (nonatomic, strong) IBOutlet FlickrKenBurnsView *backgroundView;
+@property (nonatomic, strong) IBOutlet JBKenBurnsView *backgroundView;
 @property (nonatomic, strong) UIPopoverController *statusPopover;
 
 @end

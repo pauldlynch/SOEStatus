@@ -44,7 +44,6 @@
 		DA137312141205F200A1BFCC /* down_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA137311141205F200A1BFCC /* down_icon.png */; };
 		DA3908CB16B9D4F300FE7286 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3908CA16B9D4F300FE7286 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DA4D8DF9174E65FE00E61232 /* JBKenBurnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4D8DF8174E65FE00E61232 /* JBKenBurnsView.m */; };
-		DA4D8DFC174E660B00E61232 /* FlickrKenBurnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4D8DFB174E660B00E61232 /* FlickrKenBurnsView.m */; };
 		DA4D8DFF1750C5D800E61232 /* BackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4D8DFE1750C5D800E61232 /* BackgroundViewController.m */; };
 		DA4D8E05175109E900E61232 /* SOEGame.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4D8E04175109E900E61232 /* SOEGame.m */; };
 		DA6D55B317522E0A0055EB92 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6D55A117522E0A0055EB92 /* AFHTTPClient.m */; };
@@ -132,8 +131,6 @@
 		DA3908CA16B9D4F300FE7286 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		DA4D8DF7174E65FE00E61232 /* JBKenBurnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBKenBurnsView.h; sourceTree = "<group>"; };
 		DA4D8DF8174E65FE00E61232 /* JBKenBurnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBKenBurnsView.m; sourceTree = "<group>"; };
-		DA4D8DFA174E660B00E61232 /* FlickrKenBurnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrKenBurnsView.h; sourceTree = "<group>"; };
-		DA4D8DFB174E660B00E61232 /* FlickrKenBurnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrKenBurnsView.m; sourceTree = "<group>"; };
 		DA4D8DFD1750C5D800E61232 /* BackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundViewController.h; sourceTree = "<group>"; };
 		DA4D8DFE1750C5D800E61232 /* BackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundViewController.m; sourceTree = "<group>"; };
 		DA4D8E001750C91B00E61232 /* FlickrAPIKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlickrAPIKey.h; sourceTree = "<group>"; };
@@ -288,8 +285,6 @@
 				DAEBA9561511127600EBB52A /* PLActionSheet.h */,
 				DAEBA9571511127600EBB52A /* PLActionSheet.m */,
 				DA4D8E001750C91B00E61232 /* FlickrAPIKey.h */,
-				DA4D8DFA174E660B00E61232 /* FlickrKenBurnsView.h */,
-				DA4D8DFB174E660B00E61232 /* FlickrKenBurnsView.m */,
 				DA13724F141116B800A1BFCC /* Supporting Files */,
 			);
 			path = SOEStatus;
@@ -498,7 +493,6 @@
 				DA96DB921421FA6C00F0CE7E /* PLRestful.m in Sources */,
 				DAEBA9581511127600EBB52A /* PLActionSheet.m in Sources */,
 				DA4D8DF9174E65FE00E61232 /* JBKenBurnsView.m in Sources */,
-				DA4D8DFC174E660B00E61232 /* FlickrKenBurnsView.m in Sources */,
 				DA4D8DFF1750C5D800E61232 /* BackgroundViewController.m in Sources */,
 				DA4D8E05175109E900E61232 /* SOEGame.m in Sources */,
 				DA6D55B317522E0A0055EB92 /* AFHTTPClient.m in Sources */,
@@ -609,7 +603,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -625,7 +619,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

@@ -319,7 +319,7 @@
 					<string>SOEStatusAppDelegate</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>FlickrKenBurnsView</string>
+					<string>JBKenBurnsView</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -366,7 +366,7 @@
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>FlickrKenBurnsView</string>
+							<string>JBKenBurnsView</string>
 							<string>UIBarButtonItem</string>
 							<string>UIToolbar</string>
 						</object>
@@ -383,7 +383,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">backgroundView</string>
-								<string key="candidateClassName">FlickrKenBurnsView</string>
+								<string key="candidateClassName">JBKenBurnsView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">statusButton</string>
@@ -401,19 +401,11 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">FlickrKenBurnsView</string>
-					<string key="superclassName">KenBurnsView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/FlickrKenBurnsView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">KenBurnsView</string>
+					<string key="className">JBKenBurnsView</string>
 					<string key="superclassName">UIView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/KenBurnsView.h</string>
+						<string key="minorKey">./Classes/JBKenBurnsView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
