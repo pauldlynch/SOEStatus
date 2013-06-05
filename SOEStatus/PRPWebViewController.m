@@ -32,7 +32,9 @@ const float PRPWebViewControllerFadeDuration = 0.5;
     url = nil;
     
     backgroundColor = nil;
-    [webView stopLoading], webView.delegate = nil, webView, webView = nil;
+    [webView stopLoading];
+    webView.delegate = nil;
+    webView = nil;
     activityIndicator = nil;
 }
 
@@ -96,7 +98,7 @@ const float PRPWebViewControllerFadeDuration = 0.5;
 #pragma mark -
 #pragma mark Actions
 - (void)doneButtonTapped:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)fadeWebViewIn {
