@@ -30,6 +30,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
         }
         [SOEGame updateWithStatuses:object];
         
+        self.contentSizeForViewInPopover = CGSizeMake(self.contentSizeForViewInPopover.width, 44.0 * [[SOEGame games] count]);
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
     }];
@@ -107,7 +108,8 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
             TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
             [tweetSheet setInitialText:@"I like this application and I think you should try it too."];
             [tweetSheet addURL:[NSURL URLWithString:@"http://itunes.com/app/soestatus"]];
-            [self presentModalViewController:tweetSheet animated:YES];
+            tweetSheet.modalPresentationStyle = UIModalPresentationFormSheet;
+            [self presentViewController:tweetSheet animated:YES completion:nil];
         } else {
             [PRPAlertView showWithTitle:@"Twitter" message:@"Unable to send tweet: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
         }
@@ -150,7 +152,8 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     [mailer setMessageBody:@"I like this application and I think you should try it too. http://itunes.com/app/soestatus" isHTML:NO];
     
     // Present the mail composition interface.
-    [self presentModalViewController:mailer animated:YES];
+    mailer.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:mailer animated:YES completion:nil];
 
 }
 
@@ -177,7 +180,8 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     [mailer setMessageBody:body isHTML:NO];
     
     // Present the mail composition interface.
-    [self presentModalViewController:mailer animated:YES];
+    mailer.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:mailer animated:YES completion:nil];
 }
 
 - (void)viewDidLoad
@@ -350,7 +354,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError *)error {
     if (error) NSLog(@"%s error sending email, result %d: %@", __PRETTY_FUNCTION__, result, [error localizedDescription]);
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
