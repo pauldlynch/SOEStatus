@@ -7,22 +7,14 @@
 //
 
 #import "PLRestful.h"
-#import "AFNetworking.h"
 #import "PRPAlertView.h"
+#import "Reachability.h"
 #import "UIApplication+PRPNetworkActivity.h"
-#import "SOEHTTPClient.h"
+#import "PLCategories.h"
 
-@interface NSString (Encoding)
-@end
-@implementation NSString (Encoding)
+@interface PLRestful ()
 
-- (NSString *)pl_stringByAddingPercentEscapesUsingEncoding:(CFStringBuiltInEncodings)encoding {
-    return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,
-                                                               (CFStringRef)self,
-                                                               NULL,
-                                                               (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
-                                                               encoding));
-}
+@property (nonatomic, strong) NSOperationQueue *restQueue;
 
 @end
 
@@ -36,47 +28,64 @@ static NSDictionary *statusMessages;
 +(void)initialize {
     if (self == [PLRestful class]) {
         statusMessages = [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"Ok", [NSNumber numberWithInt:200], 
-                          @"Created", [NSNumber numberWithInt:201], // responds to a POST that creates a resource
-                          @"Accepted", [NSNumber numberWithInt:202], // long running task
-                          @"Non-authoritative information", [NSNumber numberWithInt:203], 
-                          @"No content", [NSNumber numberWithInt:204], 
-                          @"Reset content", [NSNumber numberWithInt:205], 
-                          @"Partial content", [NSNumber numberWithInt:206], 
-                          @"Multiple choices", [NSNumber numberWithInt:300], 
-                          @"Moved permanently", [NSNumber numberWithInt:301], // new URI in Location header
-                          @"Found", [NSNumber numberWithInt:302], // temp URI in Location header
-                          @"See other", [NSNumber numberWithInt:303], // see Location header
-                          @"Not modified", [NSNumber numberWithInt:304], 
-                          @"Use proxy", [NSNumber numberWithInt:305], 
-                          @"Bad request", [NSNumber numberWithInt:400], 
-                          @"Unauthorized", [NSNumber numberWithInt:401], // WWW-Authenticate header has challenge
-                          @"Forbidden", [NSNumber numberWithInt:403], 
-                          @"Not found", [NSNumber numberWithInt:404], 
-                          @"Not allowed", [NSNumber numberWithInt:405], // Allow header has list of valid methods
-                          @"Not acceptable", [NSNumber numberWithInt:406], 
-                          @"Authentication required", [NSNumber numberWithInt:407], 
-                          @"Request timeout", [NSNumber numberWithInt:408], 
-                          @"Conflict", [NSNumber numberWithInt:409], 
-                          @"Gone", [NSNumber numberWithInt:410], 
-                          @"Length required", [NSNumber numberWithInt:411], 
-                          @"Precondition failed", [NSNumber numberWithInt:412], 
-                          @"Request entity too large", [NSNumber numberWithInt:413], 
-                          @"Request URI too long", [NSNumber numberWithInt:414], 
-                          @"Unspported media type", [NSNumber numberWithInt:415], 
-                          @"Requested range not satisfiable", [NSNumber numberWithInt:416], 
-                          @"Expectation failed", [NSNumber numberWithInt:417], 
-                          @"Internal server error", [NSNumber numberWithInt:500], 
-                          @"Not implemented", [NSNumber numberWithInt:501], 
-                          @"Bad gateway", [NSNumber numberWithInt:502], 
-                          @"Service unavailable", [NSNumber numberWithInt:503], // temporary 
-                          @"Gateway timeout", [NSNumber numberWithInt:504], 
+                          @"Ok", [NSNumber numberWithInteger:200],
+                          @"Created", [NSNumber numberWithInteger:201], // responds to a POST that creates a resource
+                          @"Accepted", [NSNumber numberWithInteger:202], // long running task
+                          @"Non-authoritative information", [NSNumber numberWithInteger:203],
+                          @"No content", [NSNumber numberWithInteger:204],
+                          @"Reset content", [NSNumber numberWithInteger:205],
+                          @"Partial content", [NSNumber numberWithInteger:206],
+                          @"Multiple choices", [NSNumber numberWithInteger:300],
+                          @"Moved permanently", [NSNumber numberWithInteger:301], // new URI in Location header
+                          @"Found", [NSNumber numberWithInteger:302], // temp URI in Location header
+                          @"See other", [NSNumber numberWithInteger:303], // see Location header
+                          @"Not modified", [NSNumber numberWithInteger:304],
+                          @"Use proxy", [NSNumber numberWithInteger:305],
+                          @"Bad request", [NSNumber numberWithInteger:400],
+                          @"Unauthorized", [NSNumber numberWithInteger:401], // WWW-Authenticate header has challenge
+                          @"Forbidden", [NSNumber numberWithInteger:403],
+                          @"Not found", [NSNumber numberWithInteger:404],
+                          @"Not allowed", [NSNumber numberWithInteger:405], // Allow header has list of valid methods
+                          @"Not acceptable", [NSNumber numberWithInteger:406],
+                          @"Authentication required", [NSNumber numberWithInteger:407],
+                          @"Request timeout", [NSNumber numberWithInteger:408],
+                          @"Conflict", [NSNumber numberWithInteger:409],
+                          @"Gone", [NSNumber numberWithInteger:410],
+                          @"Length required", [NSNumber numberWithInteger:411],
+                          @"Precondition failed", [NSNumber numberWithInteger:412],
+                          @"Request entity too large", [NSNumber numberWithInteger:413],
+                          @"Request URI too long", [NSNumber numberWithInteger:414],
+                          @"Unspported media type", [NSNumber numberWithInteger:415],
+                          @"Requested range not satisfiable", [NSNumber numberWithInteger:416],
+                          @"Expectation failed", [NSNumber numberWithInteger:417],
+                          @"Internal server error", [NSNumber numberWithInteger:500],
+                          @"Not implemented", [NSNumber numberWithInteger:501],
+                          @"Bad gateway", [NSNumber numberWithInteger:502],
+                          @"Service unavailable", [NSNumber numberWithInteger:503], // temporary
+                          @"Gateway timeout", [NSNumber numberWithInteger:504],
                           nil];
     }
 }
 
 + (NSString *)messageForStatus:(int)status {
-    return [statusMessages objectForKey:[NSNumber numberWithInt:status]];
+    return [statusMessages objectForKey:[NSNumber numberWithInteger:status]];
+}
+
++ (BOOL)checkReachability:(NSURL *)url {
+    Reachability *hostReach = [Reachability reachabilityForInternetConnection];
+	NetworkStatus netStatus = [hostReach currentReachabilityStatus];
+	if (netStatus == NotReachable) {
+        [PRPAlertView showWithTitle:@"Network" message:@"Not connected to the Internet" buttonTitle:@"Continue"];
+        return NO;
+    } else {
+        hostReach = [Reachability reachabilityWithHostName:[url host]];
+        NetworkStatus netStatus = [hostReach currentReachabilityStatus];
+        if (netStatus == NotReachable) {
+            [PRPAlertView showWithTitle:@"Network" message:@"Can't reach server" buttonTitle:@"Continue"];
+            return NO;
+        }
+    }
+    return YES;
 }
 
 + (void)get:(NSString *)requestPath parameters:(NSDictionary *)parameters completionBlock:(PLRestfulAPICompletionBlock)completion {
@@ -90,40 +99,95 @@ static NSDictionary *statusMessages;
 }
 
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        // Initialization code here.
+    }
+    
+    return self;
+}
 
-- (void)get:(NSString *)requestString parameters:(NSDictionary *)parameters completionBlock:(PLRestfulAPICompletionBlock)completion {
+- (void)dealloc {
+    [self.restQueue cancelAllOperations];
+    self.completionBlock = nil;
+}
+
+- (void)callCompletionBlockWithObject:(id)object status:(NSInteger)status error:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] prp_popNetworkActivity];
+        self.completionBlock(self, object, status, error);
+    });
+}
+
+- (void)handleRequest:(NSMutableURLRequest *)request completion:(PLRestfulAPICompletionBlock)completion {
+    
+    if (self.username && self.password && self.useBasicAuthentication) {
+        NSString *authString = [[NSString stringWithFormat:@"%@:%@", username, password] base64];
+        NSString *authHeader = [NSString stringWithFormat:@"Basic %@", authString];
+        [request setValue:authHeader forHTTPHeaderField:@"Authorization"];
+    }
+    //[request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+	[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    self.completionBlock = completion;
     [[UIApplication sharedApplication] prp_pushNetworkActivity];
     
-    if (![[SOEHTTPClient sharedClient] networkReachabilityStatus]) {
+    if (![PLRestful checkReachability:request.URL]) {
         [[UIApplication sharedApplication] prp_popNetworkActivity];
         return;
     }
     
-    [[SOEHTTPClient sharedClient] setUsername:username andPassword:password];
-    
-    [[SOEHTTPClient sharedClient] getPath:requestString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (completion) completion(self, responseObject, operation.response.statusCode, nil);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (completion) completion(self, operation.responseString, operation.response.statusCode, error);
+    self.restQueue = [[NSOperationQueue alloc] init];
+    self.restQueue.name = @"Comet REST Queue";
+    [NSURLConnection sendAsynchronousRequest:request queue:self.restQueue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (error) {
+            NSLog(@"%s %@", __PRETTY_FUNCTION__, error);
+            [self callCompletionBlockWithObject:nil status:httpResponse.statusCode error:error];
+        } else {
+            if ([data length] == 0) {
+                NSLog(@"no data");
+                [self callCompletionBlockWithObject:nil status:httpResponse.statusCode error:[NSError errorWithDomain:@"com.plsys.semaphore.CometAPI" code:1001 userInfo:nil]];
+            } else {
+                NSError *error;
+                id object = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+                if (object) {
+                    [self callCompletionBlockWithObject:object status:httpResponse.statusCode error:nil];
+                } else {
+                    NSLog(@"received bad json: (%d) '%@'", [data length], [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                    [self callCompletionBlockWithObject:nil status:httpResponse.statusCode error:[NSError errorWithDomain:@"com.plsys.semaphore.CometAPI" code:1002 userInfo:nil]];
+                    
+                }
+            }
+        }
     }];
 }
 
-- (void)post:(NSString *)requestString content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion {
-    [[UIApplication sharedApplication] prp_pushNetworkActivity];
+- (void)get:(NSString *)requestString parameters:(NSDictionary *)parameters completionBlock:(PLRestfulAPICompletionBlock)completion {
+    NSURL *requestURL = [[NSURL URLWithString:endpoint] urlByAddingPath:requestString parameters:parameters];
+    NSLog(@"get: '%@'", [requestURL absoluteString]);
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL];
+    [request setHTTPMethod:@"GET"];
     
-    if (![[SOEHTTPClient sharedClient] networkReachabilityStatus]) {
-        [[UIApplication sharedApplication] prp_popNetworkActivity];
+    [self handleRequest:request completion:(PLRestfulAPICompletionBlock)completion];
+}
+
+- (void)post:(NSString *)requestString content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion {
+    NSURL *requestURL = [[NSURL URLWithString:endpoint] urlByAddingPath:requestString parameters:nil];
+    NSLog(@"post: '%@'", [requestURL absoluteString]);
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL];
+    [request setHTTPMethod:@"POST"];
+    
+    NSError *error = nil;
+    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:content options:0 error:&error];
+    if (error) {
+        NSLog(@"json generation failed: %@", error);
+        [self callCompletionBlockWithObject:nil status:0 error:[NSError errorWithDomain:@"com.plsys.semaphore.CometAPI" code:1003 userInfo:nil]];
         return;
     }
-    
-    [[SOEHTTPClient sharedClient] setUsername:username andPassword:password];
-    
-    [[SOEHTTPClient sharedClient] postPath:requestString parameters:content success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (completion) completion(self, responseObject, operation.response.statusCode, nil);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (completion) completion(self, operation.responseString, operation.response.statusCode, error);
-    }];
-
+    [self handleRequest:request completion:completion];
 }
 
 @end
