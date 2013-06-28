@@ -27,48 +27,15 @@ static NSDictionary *statusMessages;
 //TODO: should move to a plist in app wrapper
 +(void)initialize {
     if (self == [PLRestful class]) {
-        statusMessages = [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"Ok", [NSNumber numberWithInteger:200],
-                          @"Created", [NSNumber numberWithInteger:201], // responds to a POST that creates a resource
-                          @"Accepted", [NSNumber numberWithInteger:202], // long running task
-                          @"Non-authoritative information", [NSNumber numberWithInteger:203],
-                          @"No content", [NSNumber numberWithInteger:204],
-                          @"Reset content", [NSNumber numberWithInteger:205],
-                          @"Partial content", [NSNumber numberWithInteger:206],
-                          @"Multiple choices", [NSNumber numberWithInteger:300],
-                          @"Moved permanently", [NSNumber numberWithInteger:301], // new URI in Location header
-                          @"Found", [NSNumber numberWithInteger:302], // temp URI in Location header
-                          @"See other", [NSNumber numberWithInteger:303], // see Location header
-                          @"Not modified", [NSNumber numberWithInteger:304],
-                          @"Use proxy", [NSNumber numberWithInteger:305],
-                          @"Bad request", [NSNumber numberWithInteger:400],
-                          @"Unauthorized", [NSNumber numberWithInteger:401], // WWW-Authenticate header has challenge
-                          @"Forbidden", [NSNumber numberWithInteger:403],
-                          @"Not found", [NSNumber numberWithInteger:404],
-                          @"Not allowed", [NSNumber numberWithInteger:405], // Allow header has list of valid methods
-                          @"Not acceptable", [NSNumber numberWithInteger:406],
-                          @"Authentication required", [NSNumber numberWithInteger:407],
-                          @"Request timeout", [NSNumber numberWithInteger:408],
-                          @"Conflict", [NSNumber numberWithInteger:409],
-                          @"Gone", [NSNumber numberWithInteger:410],
-                          @"Length required", [NSNumber numberWithInteger:411],
-                          @"Precondition failed", [NSNumber numberWithInteger:412],
-                          @"Request entity too large", [NSNumber numberWithInteger:413],
-                          @"Request URI too long", [NSNumber numberWithInteger:414],
-                          @"Unspported media type", [NSNumber numberWithInteger:415],
-                          @"Requested range not satisfiable", [NSNumber numberWithInteger:416],
-                          @"Expectation failed", [NSNumber numberWithInteger:417],
-                          @"Internal server error", [NSNumber numberWithInteger:500],
-                          @"Not implemented", [NSNumber numberWithInteger:501],
-                          @"Bad gateway", [NSNumber numberWithInteger:502],
-                          @"Service unavailable", [NSNumber numberWithInteger:503], // temporary
-                          @"Gateway timeout", [NSNumber numberWithInteger:504],
-                          nil];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"statusMessages.plist" ofType:nil];
+        statusMessages = [NSDictionary dictionaryWithContentsOfFile:path];
+        if (!statusMessages) statusMessages = [NSDictionary dictionary];
     }
 }
 
 + (NSString *)messageForStatus:(int)status {
-    return [statusMessages objectForKey:[NSNumber numberWithInteger:status]];
+    NSString *statusString = [NSString stringWithFormat:@"%d", status];
+    return [statusMessages objectForKey:statusString];
 }
 
 + (BOOL)checkReachability:(NSURL *)url {
