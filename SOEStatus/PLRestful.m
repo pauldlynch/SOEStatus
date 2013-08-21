@@ -65,6 +65,16 @@ static NSDictionary *statusMessages;
     [api post:requestPath content:content completionBlock:completion];
 }
 
++ (void)put:(NSString *)requestPath content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion {
+    PLRestful *api = [[self alloc] init];
+    [api put:requestPath content:content completionBlock:completion];
+}
+
++ (void)delete:(NSString *)requestPath completionBlock:(PLRestfulAPICompletionBlock)completion {
+    PLRestful *api = [[self alloc] init];
+    [api delete:requestPath completionBlock:completion];
+}
+
 
 - (id)init
 {
@@ -132,6 +142,7 @@ static NSDictionary *statusMessages;
     }];
 }
 
+// read
 - (void)get:(NSString *)requestString parameters:(NSDictionary *)parameters completionBlock:(PLRestfulAPICompletionBlock)completion {
     NSURL *requestURL = [[NSURL URLWithString:endpoint] urlByAddingPath:requestString parameters:parameters];
     NSLog(@"get: '%@'", [requestURL absoluteString]);
@@ -141,6 +152,7 @@ static NSDictionary *statusMessages;
     [self handleRequest:request completion:(PLRestfulAPICompletionBlock)completion];
 }
 
+// update
 - (void)post:(NSString *)requestString content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion {
     NSURL *requestURL = [[NSURL URLWithString:endpoint] urlByAddingPath:requestString parameters:nil];
     NSLog(@"post: '%@'", [requestURL absoluteString]);
@@ -155,6 +167,33 @@ static NSDictionary *statusMessages;
         return;
     }
     [self handleRequest:request completion:completion];
+}
+
+// create
+- (void)put:(NSString *)requestPath content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion {
+    NSURL *requestURL = [[NSURL URLWithString:endpoint] urlByAddingPath:requestPath parameters:nil];
+    NSLog(@"put: '%@'", [requestURL absoluteString]);
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL];
+    [request setHTTPMethod:@"PUT"];
+    
+    NSError *error = nil;
+    request.HTTPBody = [NSJSONSerialization dataWithJSONObject:content options:0 error:&error];
+    if (error) {
+        NSLog(@"json generation failed: %@", error);
+        [self callCompletionBlockWithObject:nil status:0 error:[NSError errorWithDomain:@"com.plsys.semaphore.CometAPI" code:1003 userInfo:nil]];
+        return;
+    }
+    [self handleRequest:request completion:completion];
+}
+
+// delete
+- (void)delete:(NSString *)requestPath completionBlock:(PLRestfulAPICompletionBlock)completion {
+    NSURL *requestURL = [[NSURL URLWithString:endpoint] urlByAddingPath:requestPath parameters:nil];
+    NSLog(@"delete: '%@'", [requestURL absoluteString]);
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL];
+    [request setHTTPMethod:@"DELETE"];
+    
+    [self handleRequest:request completion:(PLRestfulAPICompletionBlock)completion];
 }
 
 @end

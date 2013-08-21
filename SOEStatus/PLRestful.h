@@ -24,8 +24,12 @@ typedef void (^PLRestfulAPICompletionBlock)(PLRestful *api, id object, NSInteger
 + (BOOL)checkReachability:(NSURL *)url;
 + (void)get:(NSString *)requestPath parameters:(NSDictionary *)parameters completionBlock:(PLRestfulAPICompletionBlock)completion;
 + (void)post:(NSString *)requestPath content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion;
++ (void)put:(NSString *)requestPath content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion;
++ (void)delete:(NSString *)requestPath completionBlock:(PLRestfulAPICompletionBlock)completion;
 
 - (void)get:(NSString *)requestPath parameters:(NSDictionary *)parameters completionBlock:(PLRestfulAPICompletionBlock)completion;
 - (void)post:(NSString *)requestPath content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion;
+- (void)put:(NSString *)requestPath content:(NSDictionary *)content completionBlock:(PLRestfulAPICompletionBlock)completion;
+- (void)delete:(NSString *)requestPath completionBlock:(PLRestfulAPICompletionBlock)completion;
 
 @end
