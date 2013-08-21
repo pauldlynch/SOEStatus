@@ -11,8 +11,14 @@
 #import "PRPAlertView.h"
 #import "ServerViewController.h"
 #import "PLActionSheet.h"
-#import <Twitter/Twitter.h>
 #import "SOEGame.h"
+#import "PLFeedback.h"
+
+@interface RootViewController ()
+
+@property (nonatomic, strong) PLFeedback *plFeedback;
+
+@end
 
 NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
 
@@ -50,14 +56,15 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
 
 - (IBAction)actions {
     UIBarButtonItem *item = self.navigationItem.leftBarButtonItem;
+    self.plFeedback.viewToPresentSheet = item;
     NSArray *buttons = [NSArray arrayWithObjects:@"Open in Safari", @"Do you like this app?", @"Feedback", nil];
     [PLActionSheet actionSheetWithTitle:nil destructiveButtonTitle:nil buttons:buttons showFrom:item onDismiss:^(int buttonIndex){
         if (buttonIndex == [buttons indexOfObject:@"Open in Safari"]) {
             [self openInSafari];
         } else if (buttonIndex == [buttons indexOfObject:@"Do you like this app?"]) {
-            [self like];
+            [self.plFeedback like];
         } else if (buttonIndex == [buttons indexOfObject:@"Feedback"]) {
-            [self feedback];
+            [self.plFeedback feedback];
         }
     } onCancel:nil finally:nil];
 }
@@ -68,124 +75,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     }];
 }
 
-- (IBAction)like {
-    UIBarButtonItem *item = self.navigationItem.leftBarButtonItem;
-    NSArray *buttons = [NSArray arrayWithObjects:@"Review in App Store", @"Share by Twitter", @"Share by Facebook", @"Share by Email", nil];
-    [PLActionSheet actionSheetWithTitle:nil destructiveButtonTitle:nil buttons:buttons showFrom:item onDismiss:^(int buttonIndex){
-        if (buttonIndex == 0) {
-            [self review];
-        } else if (buttonIndex == 1) {
-            [self shareByTwitter];
-        } else if (buttonIndex == 2) {
-            [self shareByFacebook];
-        } else if (buttonIndex == 3) {
-            [self shareByEmail];
-        }
-    } onCancel:nil finally:nil];
-}
-
-- (IBAction)review {
-    [[UIApplication sharedApplication] 
-     openURL:[NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=463597867"]];
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setInteger:21 forKey:@"launchCount"];
-}
-
-- (IBAction)shareByTwitter {
-    if (NSClassFromString(@"SLComposeViewController")) {
-        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
-            SLComposeViewController *tweetVC =
-            [SLComposeViewController composeViewControllerForServiceType:
-             SLServiceTypeTwitter];
-            [tweetVC setInitialText:@"I like this application and I think you should try it too."];
-            [tweetVC addURL:[NSURL URLWithString:@"http://itunes.com/app/soestatus"]];
-            [self presentViewController:tweetVC animated:YES completion:NULL];
-        } else {
-            [PRPAlertView showWithTitle:@"Twitter" message:@"Unable to send tweet: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
-        }
-    } else {
-        if ([TWTweetComposeViewController canSendTweet]) {
-            TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
-            [tweetSheet setInitialText:@"I like this application and I think you should try it too."];
-            [tweetSheet addURL:[NSURL URLWithString:@"http://itunes.com/app/soestatus"]];
-            tweetSheet.modalPresentationStyle = UIModalPresentationFormSheet;
-            [self presentViewController:tweetSheet animated:YES completion:nil];
-        } else {
-            [PRPAlertView showWithTitle:@"Twitter" message:@"Unable to send tweet: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
-        }
-    }
-}
-
-- (IBAction)shareByFacebook {
-    if (NSClassFromString(@"SLComposeViewController")) {
-        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-            SLComposeViewController *fbVC =
-            [SLComposeViewController composeViewControllerForServiceType:
-             SLServiceTypeFacebook];
-            [fbVC setInitialText:@"I like this application and I think you should try it too."];
-            [fbVC addURL:[NSURL URLWithString:@"http://itunes.com/app/soestatus"]];
-            [self presentViewController:fbVC animated:YES completion:NULL];
-        } else {
-            [PRPAlertView showWithTitle:@"Facebook" message:@"Unable to post to Facebook: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
-        }
-    } else {
-        [PRPAlertView showWithTitle:@"Facebook" message:@"Posting to Facebook isn't available on this version of iOS" buttonTitle:@"Continue"];
-    }
-}
-
-- (IBAction)shareByEmail {
-    if (![MFMailComposeViewController canSendMail]) {
-        [PRPAlertView showWithTitle:@"Mail error" message:@"This device is not configured to send email" buttonTitle:@"Continue"];
-        return;
-    }
-    
-    MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
-    mailer.modalPresentationStyle = UIModalPresentationFormSheet;
-    mailer.mailComposeDelegate = self;
-    
-    NSString *bundleId = [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleIdentifierKey];
-    NSString *appName = [bundleId pathExtension];
-    appName = [appName capitalizedString];
-        
-    [mailer setSubject:appName];
-    
-    [mailer setMessageBody:@"I like this application and I think you should try it too. http://itunes.com/app/soestatus" isHTML:NO];
-    
-    // Present the mail composition interface.
-    mailer.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self presentViewController:mailer animated:YES completion:nil];
-
-}
-
-- (IBAction)feedback {
-    if (![MFMailComposeViewController canSendMail]) {
-        [PRPAlertView showWithTitle:@"Mail error" message:@"This device is not configured to send email" buttonTitle:@"Continue"];
-        return;
-    }
-    
-    MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
-    mailer.modalPresentationStyle = UIModalPresentationFormSheet;
-    mailer.mailComposeDelegate = self;
-    
-    NSString *bundleId = [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleIdentifierKey];
-    NSString *appName = [bundleId pathExtension];
-    appName = [appName capitalizedString];
-
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleVersionKey];
-    
-    [mailer setSubject:[@"Feedback About " stringByAppendingString:appName]];
-    [mailer setToRecipients:[NSArray arrayWithObject:@"support@plsys.co.uk"]];
-    
-    NSString *body = [NSString stringWithFormat:@"AppID: %@\nVersion: %@\nLocale: %@\nDevice: %@\nOS: %@", bundleId, version, ((NSLocale *)[NSLocale currentLocale]).localeIdentifier, [UIDevice currentDevice].model, [UIDevice currentDevice].systemVersion];
-    [mailer setMessageBody:body isHTML:NO];
-    
-    // Present the mail composition interface.
-    mailer.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self presentViewController:mailer animated:YES completion:nil];
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"Games";
@@ -200,23 +90,8 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     
     // rater
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSInteger launchCount = [prefs integerForKey:@"launchCount"];
-    if (launchCount == 20) {
-        launchCount++;
-        [prefs setInteger:launchCount forKey:@"launchCount"];
-        PRPAlertView *alert = [[PRPAlertView alloc] initWithTitle:@"Do you like this app?" message:@"Please rate it on the App Store!" cancelTitle:@"Never" cancelBlock:^(NSString *title){
-            [prefs setInteger:21 forKey:@"launchCount"];
-        } otherTitle:@"Rate now" otherBlock:^(NSString *title){
-            if ([title isEqualToString:@"Rate now"]) {
-                [self review];
-            } else if ([title isEqualToString:@"Later"]) {
-                [prefs setInteger:0 forKey:@"launchCount"];
-            }
-        }];
-        [alert addButtonWithTitle:@"Later"];
-        [alert show];
-    }
+    self.plFeedback = [[PLFeedback alloc] initWithViewController:self];
+    [self.plFeedback checkForRating];
     
     self.contentSizeForViewInPopover = CGSizeMake(self.contentSizeForViewInPopover.width, 44.0 * [[SOEGame games] count]);
 }
@@ -345,16 +220,6 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
 
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
     // For example: self.myOutlet = nil;
-}
-
-
-#pragma mark MFMailComposeViewControllerDelegate
-
-- (void)mailComposeController:(MFMailComposeViewController *)controller
-          didFinishWithResult:(MFMailComposeResult)result
-                        error:(NSError *)error {
-    if (error) NSLog(@"%s error sending email, result %d: %@", __PRETTY_FUNCTION__, result, [error localizedDescription]);
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

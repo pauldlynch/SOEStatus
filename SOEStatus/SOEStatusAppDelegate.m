@@ -7,6 +7,7 @@
 //
 
 #import "SOEStatusAppDelegate.h"
+#import "PLFeedback.h"
 
 @implementation SOEStatusAppDelegate
 
@@ -16,11 +17,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSInteger launchCount = [prefs integerForKey:@"launchCount"];
-    launchCount++;
-    [prefs setInteger:launchCount  forKey:@"launchCount"];  
-
+    [[[PLFeedback alloc] init] setup];
+    
     // Add the navigation controller's view to the window and display.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         self.window.rootViewController = self.navigationController;

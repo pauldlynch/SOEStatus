@@ -62,6 +62,8 @@
 		DAA66ED41416BF7C00C0287A /* Server_114.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA66ED31416BF7C00C0287A /* Server_114.png */; };
 		DAA66ED81416C00B00C0287A /* Server_72.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA66ED71416C00B00C0287A /* Server_72.png */; };
 		DAB132B214410229006426E0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB132B114410229006426E0 /* libz.dylib */; };
+		DAB2E099179061440000209D /* PLFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB2E098179061440000209D /* PLFeedback.m */; };
+		DAB2E09B179061560000209D /* PLFeedback_settings.json in Resources */ = {isa = PBXBuildFile; fileRef = DAB2E09A179061560000209D /* PLFeedback_settings.json */; };
 		DABABDB2177743660091AE0E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DABABDB0177743660091AE0E /* Reachability.m */; };
 		DABABDB5177743950091AE0E /* PLCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = DABABDB4177743950091AE0E /* PLCategories.m */; };
 		DAEBA9581511127600EBB52A /* PLActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEBA9571511127600EBB52A /* PLActionSheet.m */; };
@@ -151,6 +153,9 @@
 		DAA66ED71416C00B00C0287A /* Server_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Server_72.png; path = ../Server_72.png; sourceTree = "<group>"; };
 		DAA66ED91416CB9B00C0287A /* Server_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Server_512.png; sourceTree = "<group>"; };
 		DAB132B114410229006426E0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		DAB2E097179061440000209D /* PLFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLFeedback.h; sourceTree = "<group>"; };
+		DAB2E098179061440000209D /* PLFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLFeedback.m; sourceTree = "<group>"; };
+		DAB2E09A179061560000209D /* PLFeedback_settings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PLFeedback_settings.json; sourceTree = "<group>"; };
 		DABABDAF177743660091AE0E /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		DABABDB0177743660091AE0E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		DABABDB3177743950091AE0E /* PLCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCategories.h; sourceTree = "<group>"; };
@@ -259,6 +264,8 @@
 				DAA66EBE141612E500C0287A /* ServerCell.xib */,
 				DAEBA9561511127600EBB52A /* PLActionSheet.h */,
 				DAEBA9571511127600EBB52A /* PLActionSheet.m */,
+				DAB2E097179061440000209D /* PLFeedback.h */,
+				DAB2E098179061440000209D /* PLFeedback.m */,
 				DA4D8E001750C91B00E61232 /* FlickrAPIKey.h */,
 				DA13724F141116B800A1BFCC /* Supporting Files */,
 			);
@@ -280,6 +287,7 @@
 				DA137256141116B800A1BFCC /* SOEStatus-Prefix.pch */,
 				DA1372F614113B6200A1BFCC /* games.plist */,
 				DA227D5E177DBB8700FE8B5E /* statusMessages.plist */,
+				DAB2E09A179061560000209D /* PLFeedback_settings.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -420,6 +428,7 @@
 				DA78892D1611C2BD00A426F6 /* Default-Landscape@2x~ipad.png in Resources */,
 				DA7889301611EE7C00A426F6 /* Server_144.png in Resources */,
 				DA227D5F177DBB8700FE8B5E /* statusMessages.plist in Resources */,
+				DAB2E09B179061560000209D /* PLFeedback_settings.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +460,7 @@
 				DA4D8E05175109E900E61232 /* SOEGame.m in Sources */,
 				DABABDB2177743660091AE0E /* Reachability.m in Sources */,
 				DABABDB5177743950091AE0E /* PLCategories.m in Sources */,
+				DAB2E099179061440000209D /* PLFeedback.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

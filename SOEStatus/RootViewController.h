@@ -7,20 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MessageUI/MessageUI.h>
 
 extern NSString *SOEGameSelectedNotification;
 
-@interface RootViewController : UITableViewController <MFMailComposeViewControllerDelegate>
+@interface RootViewController : UITableViewController
 
 @property (nonatomic, strong) NSDictionary *statuses;
 
 - (IBAction)actions;
 - (IBAction)openInSafari;
-- (IBAction)like;
-- (IBAction)review;
-- (IBAction)shareByTwitter;
-- (IBAction)shareByEmail;
-- (IBAction)feedback;
 
 @end
