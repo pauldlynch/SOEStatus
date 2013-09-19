@@ -14,6 +14,16 @@ Needs:
 - Possibility to register for notifications of server status changes;
 - Reachability checks for known SOE servers to identify network outages vs server status.
 
+1.6.1
+_____
+
+Handle iOS7's very awkward status bar clash with top toolbars, by using the iOS6/7 delta values.
+
+1.6
+___
+
+Update for iOS7.  Still supports iOS6.  A lot of the changes are just launch images and icons in additional resolutions.  The popovers are now smarter at sizing themselves for their content.
+
 1.5
 ---
 
