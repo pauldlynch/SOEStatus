@@ -60,7 +60,9 @@
         } else {
             self.game = [object valueForKey:@"game"];
             self.servers = [object valueForKey:@"regionServers"];
-            self.contentSizeForViewInPopover = CGSizeMake(self.contentSizeForViewInPopover.width, 44.0 * [self.servers count]);
+            CGFloat width = self.contentSizeForViewInPopover.width;
+            if (width == 0) width = 320.0;
+            self.contentSizeForViewInPopover = CGSizeMake(width, 44.0 * [self.servers count]);
             [self.tableView reloadData];
             [self.refreshControl endRefreshing];
         }

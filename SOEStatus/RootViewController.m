@@ -36,7 +36,9 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
         }
         [SOEGame updateWithStatuses:object];
         
-        self.contentSizeForViewInPopover = CGSizeMake(self.contentSizeForViewInPopover.width, 44.0 * [[SOEGame games] count]);
+        CGFloat width = self.contentSizeForViewInPopover.width;
+        if (width == 0) width = 320.0;
+        self.contentSizeForViewInPopover = CGSizeMake(width, 44.0 * [[SOEGame games] count]);
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
     }];
@@ -93,7 +95,9 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     self.plFeedback = [[PLFeedback alloc] initWithViewController:self];
     [self.plFeedback checkForRating];
     
-    self.contentSizeForViewInPopover = CGSizeMake(self.contentSizeForViewInPopover.width, 44.0 * [[SOEGame games] count]);
+    CGFloat width = self.contentSizeForViewInPopover.width;
+    if (width == 0) width = 320.0;
+    self.contentSizeForViewInPopover = CGSizeMake(width, 44.0 * [[SOEGame games] count]);
 }
 
 - (void)viewWillAppear:(BOOL)animated
