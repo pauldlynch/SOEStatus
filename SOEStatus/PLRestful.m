@@ -126,7 +126,7 @@ static NSDictionary *statusMessages;
         } else {
             if ([data length] == 0) {
                 NSLog(@"no data");
-                [self callCompletionBlockWithObject:nil status:httpResponse.statusCode error:[NSError errorWithDomain:@"com.plsys.semaphore.CometAPI" code:1001 userInfo:nil]];
+                [self callCompletionBlockWithObject:nil status:httpResponse.statusCode error:[NSError errorWithDomain:@"com.plsys.SOEStatus" code:1001 userInfo:nil]];
             } else {
                 NSError *error;
                 id object = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
@@ -134,7 +134,7 @@ static NSDictionary *statusMessages;
                     [self callCompletionBlockWithObject:object status:httpResponse.statusCode error:nil];
                 } else {
                     NSLog(@"received bad json: (%d) '%@'", [data length], [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-                    [self callCompletionBlockWithObject:nil status:httpResponse.statusCode error:[NSError errorWithDomain:@"com.plsys.semaphore.CometAPI" code:1002 userInfo:nil]];
+                    [self callCompletionBlockWithObject:nil status:httpResponse.statusCode error:[NSError errorWithDomain:@"com.plsys.SOEStatus" code:1002 userInfo:nil]];
                     
                 }
             }
@@ -163,7 +163,7 @@ static NSDictionary *statusMessages;
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:content options:0 error:&error];
     if (error) {
         NSLog(@"json generation failed: %@", error);
-        [self callCompletionBlockWithObject:nil status:0 error:[NSError errorWithDomain:@"com.plsys.semaphore.CometAPI" code:1003 userInfo:nil]];
+        [self callCompletionBlockWithObject:nil status:0 error:[NSError errorWithDomain:@"com.plsys.SOEStatus" code:1003 userInfo:nil]];
         return;
     }
     [self handleRequest:request completion:completion];
@@ -180,7 +180,7 @@ static NSDictionary *statusMessages;
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:content options:0 error:&error];
     if (error) {
         NSLog(@"json generation failed: %@", error);
-        [self callCompletionBlockWithObject:nil status:0 error:[NSError errorWithDomain:@"com.plsys.semaphore.CometAPI" code:1003 userInfo:nil]];
+        [self callCompletionBlockWithObject:nil status:0 error:[NSError errorWithDomain:@"com.plsys.SOEStatus" code:1003 userInfo:nil]];
         return;
     }
     [self handleRequest:request completion:completion];
