@@ -71,12 +71,12 @@ NSDictionary *sizeCodes;
     self.photoURLStrings = [NSMutableArray array];
     self.photoNames = [NSMutableArray array];
     
-    NSString *urlString = [NSString stringWithFormat:@"http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%@&tags=%@&per_page=20&format=json&nojsoncallback=1&content_type=7&safe_search=2", apiKey, [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%@&tags=%@&per_page=20&format=json&nojsoncallback=1&content_type=7&safe_search=2", apiKey, [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [BackgroundViewController callFlickr:urlString completion:^(NSDictionary *results){
         NSArray *photos = [results valueForKeyPath:@"photos.photo"];
         NSLog(@"flickr returned %d for %@", [photos count], searchString);
         for (NSDictionary *photo in photos) {
-            NSString *urlString = [NSString stringWithFormat:@"http://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=%@&format=json&nojsoncallback=1&photo_id=%@", apiKey, [photo objectForKey:@"id"]];
+            NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=%@&format=json&nojsoncallback=1&photo_id=%@", apiKey, [photo objectForKey:@"id"]];
             [BackgroundViewController callFlickr:urlString completion:^(NSDictionary *results){
                 NSString *photoURLString = [[results valueForKeyPath:@"sizes.size.source"] lastObject];
                 [self.photoURLStrings addObject:photoURLString];
