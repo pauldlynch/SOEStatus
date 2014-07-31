@@ -2,6 +2,7 @@
 	{ key = lm; name = "Landmark™";  search = "landmark"; },
 	{ key = eq2; name = "Everquest® II"; search = "everquest2"; },
 	{ key = eq; name = "Everquest®"; search = "everquest"; },
+	{ key = eqmac; name = "Everquest® (Mac)"; search = "everquest"; },
 	{ key = dcuo; name = "DC Universe™ Online"; search = "dcuo"; },
 	{ key = vgd; name = "Vanguard: Saga of Heroes®";  search = "soe vanguard"; },
 	{ key = ps; name = "Planetside®";  search = "planetside"; },
