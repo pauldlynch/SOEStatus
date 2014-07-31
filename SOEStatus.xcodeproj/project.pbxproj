@@ -71,6 +71,9 @@
 		DAB2E09B179061560000209D /* PLFeedback_settings.json in Resources */ = {isa = PBXBuildFile; fileRef = DAB2E09A179061560000209D /* PLFeedback_settings.json */; };
 		DABABDB2177743660091AE0E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DABABDB0177743660091AE0E /* Reachability.m */; };
 		DABABDB5177743950091AE0E /* PLCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = DABABDB4177743950091AE0E /* PLCategories.m */; };
+		DABF25CF1959A3F40032F056 /* ChartController.m in Sources */ = {isa = PBXBuildFile; fileRef = DABF25CD1959A3F40032F056 /* ChartController.m */; };
+		DABF25D01959A3F40032F056 /* ChartController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DABF25CE1959A3F40032F056 /* ChartController.xib */; };
+		DABF25D5195B77C70032F056 /* HTML in Resources */ = {isa = PBXBuildFile; fileRef = DABF25D4195B77C70032F056 /* HTML */; };
 		DAEBA9581511127600EBB52A /* PLActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEBA9571511127600EBB52A /* PLActionSheet.m */; };
 		DAEBA95A1511132600EBB52A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEBA9591511132600EBB52A /* Twitter.framework */; };
 		DAEDBBDA17E4A1500072EEF6 /* Default@2xX.png in Resources */ = {isa = PBXBuildFile; fileRef = DAEDBBD917E4A1500072EEF6 /* Default@2xX.png */; };
@@ -175,6 +178,10 @@
 		DABABDB0177743660091AE0E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		DABABDB3177743950091AE0E /* PLCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCategories.h; sourceTree = "<group>"; };
 		DABABDB4177743950091AE0E /* PLCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLCategories.m; sourceTree = "<group>"; };
+		DABF25CC1959A3F40032F056 /* ChartController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartController.h; sourceTree = "<group>"; };
+		DABF25CD1959A3F40032F056 /* ChartController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartController.m; sourceTree = "<group>"; };
+		DABF25CE1959A3F40032F056 /* ChartController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChartController.xib; sourceTree = "<group>"; };
+		DABF25D4195B77C70032F056 /* HTML */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HTML; sourceTree = "<group>"; };
 		DAEBA9561511127600EBB52A /* PLActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLActionSheet.h; sourceTree = "<group>"; };
 		DAEBA9571511127600EBB52A /* PLActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLActionSheet.m; sourceTree = "<group>"; };
 		DAEBA9591511132600EBB52A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -212,24 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				DA1D544B1442F44E006E652A /* README.md */,
-				DA26A5A917E49EFA005F4C94 /* Default~iphone.png */,
-				DA26A5AA17E49EFA005F4C94 /* Default.png */,
-				DA26A5AB17E49EFA005F4C94 /* Default@2x~iphone.png */,
-				DAEDBBE317E4BE1F0072EEF6 /* Default-Portrait~ipadPNonRet.png */,
-				DAEDBBDB17E4A3520072EEF6 /* Default-568h@2x70.png */,
-				DAEDBBDD17E4BC800072EEF6 /* Default-Portrait~ipad70.png */,
-				DA60941017E4C0C2001EE311 /* Default-Landscape@2x70LRet.png */,
-				DAEDBBDF17E4BCEE0072EEF6 /* Default-Portrait~ipad@2x70.png */,
-				DA26A5A417E49EC0005F4C94 /* Default~ipad.png */,
-				DA78892C1611C2BD00A426F6 /* Default-Landscape@2x~ipad.png */,
-				DA60940E17E4C08B001EE311 /* Default-Landscape~ipad70LNonRet.png */,
-				DAEDBBD917E4A1500072EEF6 /* Default@2xX.png */,
-				DA78892A1611C26A00A426F6 /* Default-Landscape~ipad.png */,
-				DA7889241611C19200A426F6 /* Default-Portrait@2x~ipad.png */,
-				DAA66ECF1416B9A000C0287A /* Server_olivier_boyer_04.svg */,
-				DAA66ED51416BFAA00C0287A /* Server_2.svg */,
-				DAA66ED91416CB9B00C0287A /* Server_512.png */,
-				DA78892F1611EE7C00A426F6 /* Server_1024.png */,
+				DABF25CB19599AAB0032F056 /* Icons & Screenshots */,
 				DA13724E141116B800A1BFCC /* SOEStatus */,
 				DA13726C1411172B00A1BFCC /* Third Party Code */,
 				DA137247141116B800A1BFCC /* Frameworks */,
@@ -289,6 +279,9 @@
 				DAA66EBA141612C500C0287A /* ServerCell.h */,
 				DAA66EBB141612C600C0287A /* ServerCell.m */,
 				DAA66EBE141612E500C0287A /* ServerCell.xib */,
+				DABF25CC1959A3F40032F056 /* ChartController.h */,
+				DABF25CD1959A3F40032F056 /* ChartController.m */,
+				DABF25CE1959A3F40032F056 /* ChartController.xib */,
 				DAEBA9561511127600EBB52A /* PLActionSheet.h */,
 				DAEBA9571511127600EBB52A /* PLActionSheet.m */,
 				DAB2E097179061440000209D /* PLFeedback.h */,
@@ -313,6 +306,7 @@
 				DA78892E1611EE7B00A426F6 /* Server_144.png */,
 				DA137268141116C900A1BFCC /* iPad */,
 				DA1373041412017D00A1BFCC /* UI Images */,
+				DABF25D4195B77C70032F056 /* HTML */,
 				DA137254141116B800A1BFCC /* main.m */,
 				DA137256141116B800A1BFCC /* SOEStatus-Prefix.pch */,
 				DA1372F614113B6200A1BFCC /* games.plist */,
@@ -381,6 +375,31 @@
 			name = "UI Images";
 			sourceTree = "<group>";
 		};
+		DABF25CB19599AAB0032F056 /* Icons & Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				DA26A5A917E49EFA005F4C94 /* Default~iphone.png */,
+				DA26A5AA17E49EFA005F4C94 /* Default.png */,
+				DA26A5AB17E49EFA005F4C94 /* Default@2x~iphone.png */,
+				DAEDBBE317E4BE1F0072EEF6 /* Default-Portrait~ipadPNonRet.png */,
+				DAEDBBDB17E4A3520072EEF6 /* Default-568h@2x70.png */,
+				DAEDBBDD17E4BC800072EEF6 /* Default-Portrait~ipad70.png */,
+				DA60941017E4C0C2001EE311 /* Default-Landscape@2x70LRet.png */,
+				DAEDBBDF17E4BCEE0072EEF6 /* Default-Portrait~ipad@2x70.png */,
+				DA26A5A417E49EC0005F4C94 /* Default~ipad.png */,
+				DA78892C1611C2BD00A426F6 /* Default-Landscape@2x~ipad.png */,
+				DA60940E17E4C08B001EE311 /* Default-Landscape~ipad70LNonRet.png */,
+				DAEDBBD917E4A1500072EEF6 /* Default@2xX.png */,
+				DA78892A1611C26A00A426F6 /* Default-Landscape~ipad.png */,
+				DA7889241611C19200A426F6 /* Default-Portrait@2x~ipad.png */,
+				DAA66ECF1416B9A000C0287A /* Server_olivier_boyer_04.svg */,
+				DAA66ED51416BFAA00C0287A /* Server_2.svg */,
+				DAA66ED91416CB9B00C0287A /* Server_512.png */,
+				DA78892F1611EE7C00A426F6 /* Server_1024.png */,
+			);
+			name = "Icons & Screenshots";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -434,6 +453,7 @@
 			files = (
 				DA137253141116B800A1BFCC /* InfoPlist.strings in Resources */,
 				DA13725C141116B800A1BFCC /* MainWindow.xib in Resources */,
+				DABF25D01959A3F40032F056 /* ChartController.xib in Resources */,
 				DA137262141116B800A1BFCC /* RootViewController.xib in Resources */,
 				DA26A5AC17E49EFA005F4C94 /* Default~iphone.png in Resources */,
 				DA13726B141116CB00A1BFCC /* MainWindow-iPad.xib in Resources */,
@@ -462,6 +482,7 @@
 				DA26A5AE17E49EFA005F4C94 /* Default@2x~iphone.png in Resources */,
 				DA7889251611C19200A426F6 /* Default-Portrait@2x~ipad.png in Resources */,
 				DAEDBBDA17E4A1500072EEF6 /* Default@2xX.png in Resources */,
+				DABF25D5195B77C70032F056 /* HTML in Resources */,
 				DAEDBBE017E4BCEE0072EEF6 /* Default-Portrait~ipad@2x70.png in Resources */,
 				DA78892B1611C26A00A426F6 /* Default-Landscape~ipad.png in Resources */,
 				DA78892D1611C2BD00A426F6 /* Default-Landscape@2x~ipad.png in Resources */,
@@ -487,6 +508,7 @@
 				DA1372A9141117B100A1BFCC /* UIApplication+PRPNetworkActivity.m in Sources */,
 				DA1372C6141119BF00A1BFCC /* PRPNibBasedTableViewCell.m in Sources */,
 				DA1372C7141119BF00A1BFCC /* PRPSmartTableViewCell.m in Sources */,
+				DABF25CF1959A3F40032F056 /* ChartController.m in Sources */,
 				DA1372C8141119BF00A1BFCC /* PRPWebViewController.m in Sources */,
 				DA1372C9141119BF00A1BFCC /* UITableView+PRPSubviewAdditions.m in Sources */,
 				DA1372E914111AAA00A1BFCC /* SOEStatusAPI.m in Sources */,
@@ -599,6 +621,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

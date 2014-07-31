@@ -3,8 +3,6 @@ README for SOE Status
 
 An iPhone/iPad app to check the status of SOE game servers.
 
-This release for the iPhone tidies up some old code, and shouldn't have any obvious changes.  On the iPad, however, I was bored with the oversized iPhone UI.  This release moves the status information to a popover window, and fills the background with an animated, "Ken Burns" style, game appropriate, rotating set of images selected from Flickr.  Enjoy them while waiting for servers up!
-
 If you find any problems, please use the Feedback menu to report them to me directly.  Or fix them yourself - the code is, as ever, available for you on github at https://github.com/pauldlynch/SOEStatus.
 
 
@@ -13,19 +11,33 @@ Needs:
 
 - Possibility to register for notifications of server status changes;
 - Reachability checks for known SOE servers to identify network outages vs server status.
+- Population history (charts, perhaps).
+
+1.9
+---
+First version including population charts.  For every game and every server, shows a 30 day history of population, and an averaged population by hour.  Subsequent releases may change this to an In App Purchase.  However, source code will always be available on GitHub.
+
+
+1.6.2
+-----
+
+Update messages for when SOE servers are unavailable.
+
 
 1.6.1
-_____
+-----
 
 Handle iOS7's very awkward status bar clash with top toolbars, by using the iOS6/7 delta values.
 
 1.6
-___
+---
 
 Update for iOS7.  Still supports iOS6.  A lot of the changes are just launch images and icons in additional resolutions.  The popovers are now smarter at sizing themselves for their content.
 
 1.5
 ---
+
+This release for the iPhone tidies up some old code, and shouldn't have any obvious changes.  On the iPad, however, I was bored with the oversized iPhone UI.  This release moves the status information to a popover window, and fills the background with an animated, "Ken Burns" style, game appropriate, rotating set of images selected from Flickr.  Enjoy them while waiting for servers up!
 
 Update iPad version to present the status information in a popover, and present a Ken Burns animation of relevant images from Flickr in the background.
 
@@ -85,3 +97,16 @@ http://www.leniel.net/2011/08/xcode-iphone-beginner-projects-git.html
 Response is a JSON object, containing keys representing games.  The game object contains regions, which contain servers.  
 Servers have age (time, as hh:mm:ss) and status (low, medium, high, locked). I create in the server controller 
 extra keys for sortKey (region/server) and date (actual NSDate timestamp).
+
+Can download the json into unique timestamped files via:
+
+/usr/bin/curl http://data.soe.com/json/status/ file_$(date +'%Y%m%d%H%M%S').json
+
+e.g.
+
+sudo touch /etc/crontab
+crontab -e
+MAILTO="paul@plsys.co.uk"
+0 * * * * /usr/bin/curl http://data.soe.com/json/status/ > /Volumes/Macintosh_HD_2/Projects/SOE_logs/file_$(date +'%Y%m%d%H%M%S').json
+
+

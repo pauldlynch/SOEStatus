@@ -10,6 +10,8 @@
 #import "SOEStatusAPI.h"
 #import "PRPAlertView.h"
 #import "ServerCell.h"
+#import "ChartController.h"
+#import "SOEGame.h"
 
 @implementation ServerViewController
 
@@ -134,6 +136,19 @@
         cell.imageView.image = [UIImage imageNamed:@"down_icon"];
     }
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ChartController *chartController = [[ChartController alloc] initWithNibName:@"ChartController" bundle:nil];
+    chartController.gameCode = self.gameId;
+    NSDictionary *server = [self.servers objectAtIndex:indexPath.row];
+    chartController.server = [server valueForKey:@"name"];
+    [self.navigationController pushViewController:chartController animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    [self tableView:tableView didDeselectRowAtIndexPath:indexPath];
 }
 
 @end

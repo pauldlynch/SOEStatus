@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link type="text/css" rel="stylesheet" href="http://code.shutterstock.com/rickshaw/src/css/graph.css">
+<!--<link type="text/css" rel="stylesheet" href="http://code.shutterstock.com/rickshaw/src/css/lines.css">-->
+        
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<!--<script src="http://d3js.org/d3.layout.min.js"></script>-->
+<script src="http://code.shutterstock.com/rickshaw/rickshaw.min.js"></script>
+        
+<style>
+@font-face {
+    font-family: 'xkcd';
+    src: url('Humor-Sans.ttf');
+}
+p {
+    font-family: 'Avenir-Light', sans-serif;
+    font-size: 36px;
+}
+#summary_container {
+    position: relative;
+    top: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#summary {
+    position: relative;
+    left: 60px;
+}
+#summary_y_axis {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+}
+#summary_x_axis {
+    position: relative;
+    left: 40px;
+    height: 40px;
+}
+
+#chart_container {
+    position: relative;
+    top: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#chart {
+    position: relative;
+    left: 60px;
+}
+#y_axis {
+    position: absolute;
+    top: 0;
+    bottom: -10px;
+    width: 60px;
+}
+</style>
+</head>
+
+<body>
+<p>Population averaged over last 30 days (GMT)</p>
+<div id="summary_container">
+    <div id="summary_y_axis"></div>
+    <div id="summary"></div>
+	<div id="summary_x_axis"></div>
+</div>
+
+</br></br></br></br>
+<p>Population for last 30 days</p>
+<div id="chart_container">
+    <div id="y_axis"></div>
+    <div id="chart"></div>
+</div>
+        
+<script>
+
+// Y axis formatter
+
+var popFormat = function(y) {
+    var map = {
+        0: 'missing',
+        1: 'low',
+        2: 'medium',
+        3: 'high'
+    }
+    return map[y];
+}
+
+// summary by hour
+
+var summary = new Rickshaw.Graph( {
+    element: document.getElementById("summary"),
+    renderer: 'area',
+    height: 450,
+    width: 800,
+    series: [
+        %summary%
+    ]
+} );
+
+var summary_x_axis = new Rickshaw.Graph.Axis.X( {
+    graph: summary,
+    orientation: 'bottom',
+    element: document.getElementById('summary_x_axis'),
+    ticks: 24,
+    tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+} );
+
+var summary_y_ticks = new Rickshaw.Graph.Axis.Y( {
+    graph: summary,
+    orientation: 'left',
+    tickFormat: popFormat,
+    element: document.getElementById('summary_y_axis')
+} );
+
+summary.render();
+
+// month line
+
+var graph = new Rickshaw.Graph( {
+    element: document.getElementById("chart"),
+    renderer: 'line',
+    height: 450,
+    width: 768,
+    series: [
+        %data%
+    ]
+} );
+
+var x_axis = new Rickshaw.Graph.Axis.Time( {
+    graph: graph,
+} );
+
+var y_ticks = new Rickshaw.Graph.Axis.Y( {
+    graph: graph,
+    orientation: 'left',
+    tickFormat: popFormat,
+    element: document.getElementById('y_axis')
+} );
+
+
+graph.render();
+           
+</script>
+</body>
+</html>
