@@ -47,23 +47,23 @@
             [self loadDataIntoChart:data];
         } else if ([data length] == 0 && error == nil) {
             NSLog(@"No data received from server: %@", request);
-            [[[UIAlertView alloc] initWithTitle:@"Unable to load Server History" message:@"Request returned no data." delegate:nil cancelButtonTitle:@"Continue" otherButtonTitles:nil] show];
+            [[[UIAlertView alloc] initWithTitle:@"Unable to load server history" message:@"Request returned no data." delegate:nil cancelButtonTitle:@"Continue" otherButtonTitles:nil] show];
         } else if (error != nil && error.code == NSURLErrorTimedOut) {
-            [[[UIAlertView alloc] initWithTitle:@"Unable to load Server History" message:@"Request timed out." delegate:nil cancelButtonTitle:@"Continue" otherButtonTitles:nil] show];
+            [[[UIAlertView alloc] initWithTitle:@"Unable to load server history" message:@"Request timed out." delegate:nil cancelButtonTitle:@"Continue" otherButtonTitles:nil] show];
         } else if (error != nil) {
-            [[[UIAlertView alloc] initWithTitle:@"Unable to load Server History" message:[error description] delegate:nil cancelButtonTitle:@"Continue" otherButtonTitles:nil] show];
+            NSString *message = [error localizedDescription];
+            [[[UIAlertView alloc] initWithTitle:@"Unable to load server history" message:message delegate:nil cancelButtonTitle:@"Continue" otherButtonTitles:nil] show];
         }
     }];
 }
 
 - (NSString *)chartHtml {
-    //[self.webView loadRequest:[NSURLRequest requestWithURL:[[NSBundle mainBundle] URLForResource:@"chart.html" withExtension:nil]]];
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"line-chart" withExtension:@"html" subdirectory:@"HTML"];
     NSError *error;
     NSString *htmlString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
     if (!htmlString) {
         NSLog(@"%s %@", __PRETTY_FUNCTION__, error);
-        [[[UIAlertView alloc] initWithTitle:@"Unable to load HTML" message:[error description] delegate:nil cancelButtonTitle:@"Continue" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Unable to load HTML" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"Continue" otherButtonTitles:nil] show];
     }
     return htmlString;
 }
