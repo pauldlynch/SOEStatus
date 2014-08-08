@@ -11,8 +11,12 @@ Needs:
 
 - Possibility to register for notifications of server status changes;
 - Reachability checks for known SOE servers to identify network outages vs server status.
-- Population history (charts, perhaps).
 
+
+1.9.1
+-----
+Improve chart label sizes, fix some missing values caused by a new server status code from SOE, and fix the summary hour average; the old calculation gave plausible looking numbers that were horribly wrong.
+ 
 1.9
 ---
 First version including population charts.  For every game and every server, shows a 30 day history of population, and an averaged population by hour.  Subsequent releases may change this to an In App Purchase.  However, source code will always be available on GitHub.
