@@ -48,6 +48,7 @@
 		DA26A5AC17E49EFA005F4C94 /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = DA26A5A917E49EFA005F4C94 /* Default~iphone.png */; };
 		DA26A5AD17E49EFA005F4C94 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DA26A5AA17E49EFA005F4C94 /* Default.png */; };
 		DA26A5AE17E49EFA005F4C94 /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = DA26A5AB17E49EFA005F4C94 /* Default@2x~iphone.png */; };
+		DA280828198A7427009DF07F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA280827198A7427009DF07F /* Default-568h@2x.png */; };
 		DA3908CB16B9D4F300FE7286 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3908CA16B9D4F300FE7286 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DA4D8DF9174E65FE00E61232 /* JBKenBurnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4D8DF8174E65FE00E61232 /* JBKenBurnsView.m */; };
 		DA4D8DFF1750C5D800E61232 /* BackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4D8DFE1750C5D800E61232 /* BackgroundViewController.m */; };
@@ -142,6 +143,7 @@
 		DA26A5A917E49EFA005F4C94 /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = "<group>"; };
 		DA26A5AA17E49EFA005F4C94 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		DA26A5AB17E49EFA005F4C94 /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
+		DA280827198A7427009DF07F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		DA3908CA16B9D4F300FE7286 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		DA4D8DF7174E65FE00E61232 /* JBKenBurnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBKenBurnsView.h; sourceTree = "<group>"; };
 		DA4D8DF8174E65FE00E61232 /* JBKenBurnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBKenBurnsView.m; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 				DA26A5AA17E49EFA005F4C94 /* Default.png */,
 				DA26A5AB17E49EFA005F4C94 /* Default@2x~iphone.png */,
 				DAEDBBE317E4BE1F0072EEF6 /* Default-Portrait~ipadPNonRet.png */,
+				DA280827198A7427009DF07F /* Default-568h@2x.png */,
 				DAEDBBDB17E4A3520072EEF6 /* Default-568h@2x70.png */,
 				DAEDBBDD17E4BC800072EEF6 /* Default-Portrait~ipad70.png */,
 				DA60941017E4C0C2001EE311 /* Default-Landscape@2x70LRet.png */,
@@ -464,6 +467,7 @@
 				DA60940F17E4C08B001EE311 /* Default-Landscape~ipad70LNonRet.png in Resources */,
 				DA26A5A817E49EC0005F4C94 /* Default~ipad.png in Resources */,
 				DA137306141205C500A1BFCC /* medium_icon.png in Resources */,
+				DA280828198A7427009DF07F /* Default-568h@2x.png in Resources */,
 				DA137308141205CC00A1BFCC /* high_icon.png in Resources */,
 				DA13730A141205D300A1BFCC /* low_icon.png in Resources */,
 				DA26A5AD17E49EFA005F4C94 /* Default.png in Resources */,
