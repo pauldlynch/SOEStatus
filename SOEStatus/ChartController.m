@@ -85,7 +85,7 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
     NSInteger x = 0;
     NSInteger increment = 5;
-    NSArray *populationLevels = @[@"missing", @"low", @"medium", @"high"];
+    NSDictionary *populationLevels = @{@"locked": @0, @"missing": @0, @"low": @1, @"medium": @2, @"high": @3};
     NSMutableArray *series = [NSMutableArray array];
     NSMutableDictionary *summary = [NSMutableDictionary dictionary];
     for (NSDictionary *sample in jsonData) {
@@ -96,7 +96,11 @@
         }
         NSNumber *unixDate = [NSNumber numberWithDouble:[sampleDate timeIntervalSince1970]];
         // @"x": [NSNumber numberWithInteger:x]
-        NSNumber *population = [NSNumber numberWithInteger:[populationLevels indexOfObject:[sample valueForKey:@"status"]]];
+        NSNumber *population = populationLevels[[sample valueForKey:@"status"]];
+        if (!population) {
+            NSLog(@"missing population type: %@", [sample valueForKey:@"status"]);
+            population = @0;
+        }
         [series addObject:@{@"x": unixDate, @"y": population}];
         //NSLog(@"%@", [series lastObject]);
         x += increment;
@@ -105,9 +109,11 @@
         NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:sampleDate];
         NSNumber *hour = [NSNumber numberWithInteger:[components hour]];
         if (summary[hour]) {
-            summary[hour] = [NSNumber numberWithInteger:([summary[hour] integerValue] + [population integerValue])];
+            NSDictionary *oldHour = summary[hour];
+            summary[hour] = @{@"y": [NSNumber numberWithInteger:[oldHour[@"y"] integerValue] + [population integerValue]],
+                              @"n": [NSNumber numberWithInteger:[oldHour[@"n"] integerValue] + 1]};
         } else {
-            summary[hour] = population;
+            summary[hour] = @{@"y": population, @"n": @0};
         }
     }
     NSDictionary *newSeries = @{@"data": series, @"color": @"palevioletred", @"name": self.server};
@@ -120,8 +126,8 @@
     // now convert summary to a series (don't really need to sort the keys, Rickshaw will take care of that)
     NSMutableArray *summaryHours = [NSMutableArray array];
     for (NSNumber *hour in [[summary allKeys] sortedArrayUsingSelector:@selector(compare:)]) {
-        NSNumber *hourTotal = [summary objectForKey:hour];
-        [summaryHours addObject:@{@"x": hour, @"y": [NSNumber numberWithDouble:([hourTotal doubleValue] / [summary count])]}];
+        NSNumber *hourTotal = [summary objectForKey:hour][@"y"];
+        [summaryHours addObject:@{@"x": hour, @"y": [NSNumber numberWithDouble:([hourTotal doubleValue] / [[summary objectForKey:hour][@"n"] integerValue])]}];
     }
     NSDictionary *summarySeries = @{@"data": summaryHours, @"color": @"steelblue", @"name": self.server};
     
