@@ -12,6 +12,9 @@ Needs:
 - Possibility to register for notifications of server status changes;
 - Reachability checks for known SOE servers to identify network outages vs server status.
 
+1.9.2
+-----
+No changes to binary: update needed in app store to show new screenshots.
 
 1.9.1
 -----
