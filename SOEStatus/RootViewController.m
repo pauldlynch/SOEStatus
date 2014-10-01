@@ -39,6 +39,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
         CGFloat width = self.contentSizeForViewInPopover.width;
         if (width == 0) width = 320.0;
         self.contentSizeForViewInPopover = CGSizeMake(width, 44.0 * [[SOEGame games] count]);
+        self.preferredContentSize = self.contentSizeForViewInPopover;
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
     }];
@@ -98,6 +99,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     CGFloat width = self.contentSizeForViewInPopover.width;
     if (width == 0) width = 320.0;
     self.contentSizeForViewInPopover = CGSizeMake(width, 44.0 * [[SOEGame games] count]);
+    self.preferredContentSize = self.contentSizeForViewInPopover;
 }
 
 - (void)viewWillAppear:(BOOL)animated
