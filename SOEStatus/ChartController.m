@@ -9,9 +9,12 @@
 #import "ChartController.h"
 #import "SOEGame.h"
 
-@interface ChartController ()<UIWebViewDelegate>
+@interface ChartController ()<UIWebViewDelegate, UIDocumentInteractionControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIWebView *webView;
+@property (nonatomic, strong) UIDocumentInteractionController *shareController;
+
+- (IBAction)shareAsImage:(id)sender;
 
 @end
 
@@ -146,10 +149,64 @@
     [self.webView loadHTMLString:htmlString baseURL:baseURL];
 }
 
+-(NSURL *)createPDFfromUIView:(UIView*)aView saveToDocumentsWithFileName:(NSString*)aFilename {
+    // Creates a mutable data object for updating with binary data, like a byte array
+    UIWebView *webView = (UIWebView*)aView;
+    NSString *heightStr = [webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"];
+    
+    int height = [heightStr intValue];
+    //  CGRect screenRect = [[UIScreen mainScreen] bounds];
+    //  CGFloat screenHeight = (self.contentWebView.hidden)?screenRect.size.width:screenRect.size.height;
+    CGFloat screenHeight = webView.bounds.size.height;
+    int pages = ceil(height / screenHeight);
+    
+    NSMutableData *pdfData = [NSMutableData data];
+    UIGraphicsBeginPDFContextToData(pdfData, webView.bounds, nil);
+    CGRect frame = [webView frame];
+    for (int i = 0; i < pages; i++) {
+        // Check to screenHeight if page draws more than the height of the UIWebView
+        if ((i+1) * screenHeight  > height) {
+            CGRect f = [webView frame];
+            f.size.height -= (((i+1) * screenHeight) - height);
+            [webView setFrame: f];
+        }
+        
+        UIGraphicsBeginPDFPage();
+        CGContextRef currentContext = UIGraphicsGetCurrentContext();
+        //      CGContextTranslateCTM(currentContext, 72, 72); // Translate for 1" margins
+        
+        [[[webView subviews] lastObject] setContentOffset:CGPointMake(0, screenHeight * i) animated:NO];
+        [webView.layer renderInContext:currentContext];
+    }
+    
+    UIGraphicsEndPDFContext();
+    // Retrieves the document directories from the iOS device
+    NSArray* documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
+    
+    NSString* documentDirectory = [documentDirectories objectAtIndex:0];
+    NSString* documentDirectoryFilename = [documentDirectory stringByAppendingPathComponent:aFilename];
+    
+    // instructs the mutable data object to write its context to a file on disk
+    [pdfData writeToFile:documentDirectoryFilename atomically:YES];
+    [webView setFrame:frame];
+    
+    return [NSURL fileURLWithPath:documentDirectoryFilename];
+}
+
+- (IBAction)shareAsImage:(id)sender {
+    NSString *fileName = [NSString stringWithFormat:@"%@ %@", self.gameCode, self.server];
+    NSURL *pdfURL = [self createPDFfromUIView:self.webView saveToDocumentsWithFileName:fileName];
+    self.shareController = [UIDocumentInteractionController interactionControllerWithURL:pdfURL];
+    self.shareController.delegate = self;
+    self.shareController.UTI = @"com.adobe.pdf";
+    [self.shareController presentOpenInMenuFromBarButtonItem:sender animated:YES];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAsImage:)];
     
     NSURL *historyUrlLocation = [NSURL URLWithString:@"http://paullynch.org/soe-status-url.txt"];
     NSString *historyUrl = @"http://54.88.120.46:3000";
@@ -188,6 +245,18 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     NSLog(@"%s %@", __PRETTY_FUNCTION__, error);
+}
+
+#pragma mark UIDocumentInteractionControllerDelegate
+
+- (UIViewController *)documentInteractionControllerViewControllerForPreview: (UIDocumentInteractionController *) controller {
+    return self;
+}
+
+- (void)documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *) controller {
+}
+
+- (void)documentInteractionControllerDidDismissOptionsMenu:(UIDocumentInteractionController *) controller {
 }
 
 @end

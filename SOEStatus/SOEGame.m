@@ -21,7 +21,7 @@ NSMutableArray *_gameKeys;
     if (!_games) {        
         NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
         NSString *filePath = [documentsPath stringByAppendingPathComponent:@"rows.plist"];
-        _gameKeys = [NSArray arrayWithContentsOfFile:filePath];
+        _gameKeys = (NSMutableArray *)[NSArray arrayWithContentsOfFile:filePath];
         if ([[_gameKeys lastObject] isKindOfClass:[NSDictionary class]]) {
             // old format, must convert
             _gameKeys = [_gameKeys valueForKey:@"key"];
