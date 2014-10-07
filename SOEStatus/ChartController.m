@@ -149,9 +149,9 @@
     [self.webView loadHTMLString:htmlString baseURL:baseURL];
 }
 
--(NSURL *)createPDFfromUIView:(UIView*)aView saveToDocumentsWithFileName:(NSString*)aFilename {
+-(NSURL *)createPDFfromUIView:(UIView *)aView saveToDocumentsWithFileName:(NSString*)aFilename {
     // Creates a mutable data object for updating with binary data, like a byte array
-    UIWebView *webView = (UIWebView*)aView;
+    UIWebView *webView = (UIWebView *)aView;
     NSString *heightStr = [webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"];
     
     int height = [heightStr intValue];
@@ -189,6 +189,50 @@
     // instructs the mutable data object to write its context to a file on disk
     [pdfData writeToFile:documentDirectoryFilename atomically:YES];
     [webView setFrame:frame];
+    
+    return [NSURL fileURLWithPath:documentDirectoryFilename];
+}
+
+- (UIImage *)imageFromScrollView:(UIScrollView *)scrollView {
+    UIImage *img = nil;
+    UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, scrollView.opaque, 0.0);
+    {
+        CGPoint savedContentOffset = scrollView.contentOffset;
+        CGRect savedFrame = scrollView.frame;
+        
+        scrollView.contentOffset = CGPointZero;
+        scrollView.frame = CGRectMake(0, 0, scrollView.contentSize.width, scrollView.contentSize.height);
+        [scrollView.layer renderInContext:UIGraphicsGetCurrentContext()];
+        img = UIGraphicsGetImageFromCurrentImageContext();
+        
+        scrollView.contentOffset = savedContentOffset;
+        scrollView.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    return img;
+}
+
+-(NSURL *)createImagefromUIView:(UIView *)aView saveToDocumentsWithFileName:(NSString*)aFilename {
+    UIImage *img = nil;
+    // iOS version >= 5.0
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"5.0" options:NSNumericSearch] != NSOrderedAscending) {
+        [self imageFromScrollView:self.webView.scrollView];
+    } else {
+        for (id subview in self.webView.subviews) {
+            if ([subview isKindOfClass:[UIScrollView class]]) {
+                [self imageFromScrollView:subview];
+            }
+        }
+    }
+    
+    // Retrieves the document directories from the iOS device
+    NSArray* documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
+    
+    NSString* documentDirectory = [documentDirectories objectAtIndex:0];
+    NSString* documentDirectoryFilename = [documentDirectory stringByAppendingPathComponent:aFilename];
+    
+    // instructs the mutable data object to write its context to a file on disk
+    [UIImagePNGRepresentation(img) writeToFile:documentDirectoryFilename atomically:YES];
     
     return [NSURL fileURLWithPath:documentDirectoryFilename];
 }
