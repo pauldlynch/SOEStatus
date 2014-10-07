@@ -153,8 +153,8 @@
     // Creates a mutable data object for updating with binary data, like a byte array
     UIWebView *webView = (UIWebView *)aView;
     NSString *heightStr = [webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"];
-    
     int height = [heightStr intValue];
+    height = 660;
     //  CGRect screenRect = [[UIScreen mainScreen] bounds];
     //  CGFloat screenHeight = (self.contentWebView.hidden)?screenRect.size.width:screenRect.size.height;
     CGFloat screenHeight = webView.bounds.size.height;
