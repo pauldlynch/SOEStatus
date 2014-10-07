@@ -65,6 +65,7 @@
             CGFloat width = self.contentSizeForViewInPopover.width;
             if (width == 0) width = 320.0;
             self.contentSizeForViewInPopover = CGSizeMake(width, 44.0 * [self.servers count]);
+            self.preferredContentSize = self.contentSizeForViewInPopover;
             [self.tableView reloadData];
             [self.refreshControl endRefreshing];
         }
