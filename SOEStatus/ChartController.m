@@ -243,7 +243,7 @@
     self.shareController = [UIDocumentInteractionController interactionControllerWithURL:pdfURL];
     self.shareController.delegate = self;
     self.shareController.UTI = @"com.adobe.pdf";
-    [self.shareController presentOpenInMenuFromBarButtonItem:sender animated:YES];
+    [self.shareController presentOptionsMenuFromBarButtonItem:sender animated:YES];
 }
 
 - (void)viewDidLoad
