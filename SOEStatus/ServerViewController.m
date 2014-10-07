@@ -62,9 +62,15 @@
         } else {
             self.game = [object valueForKey:@"game"];
             self.servers = [object valueForKey:@"regionServers"];
+            
             CGFloat width = self.contentSizeForViewInPopover.width;
             if (width == 0) width = 320.0;
-            self.contentSizeForViewInPopover = CGSizeMake(width, 44.0 * [self.servers count]);
+            CGFloat height = 44.0 * [self.servers count];
+            CGFloat maxHeight = self.tableView.superview.frame.size.height - self.tableView.frame.origin.y;
+            maxHeight = [UIScreen mainScreen].bounds.size.height - self.navigationController.navigationBar.bounds.size.height - 100.0f;
+            if (height > maxHeight) height = maxHeight;
+
+            self.contentSizeForViewInPopover = CGSizeMake(width, height);
             self.preferredContentSize = self.contentSizeForViewInPopover;
             [self.tableView reloadData];
             [self.refreshControl endRefreshing];
