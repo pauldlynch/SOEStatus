@@ -7,4 +7,5 @@
 	{ key = vgd; name = "Vanguard: Saga of Heroes®";  search = "soe vanguard"; },
 	{ key = ps; name = "Planetside®";  search = "planetside"; },
 	{ key = ps2; name = "Planetside®2";  search = "planetside2"; },
+	{ key = dpt; name = "Dragon's Prophet";  search = "dragonsprophet"; },
 )
