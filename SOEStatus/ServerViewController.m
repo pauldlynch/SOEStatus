@@ -101,6 +101,13 @@
     [self loadGame];
 }
 
+- (NSUInteger)supportedInterfaceOrientations {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return UIInterfaceOrientationMaskAll;
+    }
+    return UIInterfaceOrientationPortrait;
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
