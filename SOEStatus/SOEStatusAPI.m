@@ -27,7 +27,7 @@
 
 +(id)mockStatus {
     NSInteger random = arc4random() % 2;
-    NSLog(@"random %d", random);
+    NSLog(@"random %ld", (long)random);
     if (random) {
         NSLog(@"low");
         return @{@"lm":
@@ -56,7 +56,7 @@
 }
 
 + (void)getStatuses:(PLRestfulAPICompletionBlock)completion {
-    [SOEStatusAPI get:@"" parameters:nil completionBlock:^(PLRestful *api, id object, int status, NSError *error){
+    [SOEStatusAPI get:@"" parameters:nil completionBlock:^(PLRestful *api, id object, NSInteger status, NSError *error){
         // object is JSON; convert to array of SOEGames
         if (DEBUG_NOTIFICATIONS) object = [SOEStatusAPI mockStatus];
         [SOEGame updateWithStatuses:object];
@@ -65,7 +65,7 @@
 }
 
 + (void)getGameStatus:(NSString *)gameId completion:(PLRestfulAPICompletionBlock)completion {
-    [SOEStatusAPI get:gameId parameters:nil completionBlock:^(PLRestful *api, id object, int status, NSError *error){
+    [SOEStatusAPI get:gameId parameters:nil completionBlock:^(PLRestful *api, id object, NSInteger status, NSError *error){
         if (DEBUG_NOTIFICATIONS) object = [SOEStatusAPI mockStatus];
         // object is JSON; convert to array of SOEGames
         [SOEGame updateWithStatuses:object];

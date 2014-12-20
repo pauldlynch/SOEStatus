@@ -28,7 +28,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
 @synthesize statuses;
 
 - (void)refresh {    
-    [SOEStatusAPI getStatuses:^(PLRestful *api, id object, int status, NSError *error){
+    [SOEStatusAPI getStatuses:^(PLRestful *api, id object, NSInteger status, NSError *error){
         if (error) {
             NSLog(@"API Error: %@", error);
             NSString *message = [NSString stringWithFormat:@"%@", [error localizedDescription]];
@@ -67,7 +67,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     UIBarButtonItem *item = self.navigationItem.leftBarButtonItem;
     self.plFeedback.viewToPresentSheet = item;
     NSArray *buttons = [NSArray arrayWithObjects:@"Open in Safari", @"Do you like this app?", @"Feedback", nil];
-    [PLActionSheet actionSheetWithTitle:nil destructiveButtonTitle:nil buttons:buttons showFrom:item onDismiss:^(int buttonIndex){
+    [PLActionSheet actionSheetWithTitle:nil destructiveButtonTitle:nil buttons:buttons showFrom:item onDismiss:^(NSInteger buttonIndex){
         if (buttonIndex == [buttons indexOfObject:@"Open in Safari"]) {
             [self openInSafari];
         } else if (buttonIndex == [buttons indexOfObject:@"Do you like this app?"]) {

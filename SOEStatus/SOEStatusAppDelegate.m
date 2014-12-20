@@ -60,7 +60,7 @@
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
     [self application:application performFetchWithCompletionHandler:^(UIBackgroundFetchResult result){
-        NSLog(@"forced background fetch: %d", result);
+        NSLog(@"forced background fetch: %lu", (unsigned long)result);
     }];
 }
 
@@ -91,7 +91,7 @@
     if ([[WatchServer sharedInstance] watching]) {
         completionHandler(UIBackgroundFetchResultNoData);
     }
-    [SOEStatusAPI getStatuses:^(PLRestful *api, id object, int status, NSError *error){
+    [SOEStatusAPI getStatuses:^(PLRestful *api, id object, NSInteger status, NSError *error){
         if (error) {
             NSLog(@"API Error: %@", error);
             completionHandler(UIBackgroundFetchResultFailed);
