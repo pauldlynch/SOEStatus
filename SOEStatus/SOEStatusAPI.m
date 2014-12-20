@@ -10,7 +10,7 @@
 #import "SOEServer.h"
 #import "SOEGame.h"
 
-#define DEBUG_NOTIFICATIONS (YES)
+#define DEBUG_NOTIFICATIONS (NO)
 
 @implementation SOEStatusAPI
 

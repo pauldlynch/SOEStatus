@@ -44,7 +44,6 @@ NSMutableArray *_gameKeys;
         for (NSString *key in _gameKeys) {
             for (NSDictionary *gameDictionary in gameDictionaries) {
                 if ([key isEqualToString:[gameDictionary objectForKey:@"key"]]) {
-                    //SOEGame *game = [[SOEGame alloc] initWithKey:key values:gameDictionary];
                     [newGames addObject:gameDictionary];
                 }
             }
@@ -54,7 +53,6 @@ NSMutableArray *_gameKeys;
         for (NSDictionary *gameDictionary in gameDictionaries) {
             NSString *key = [gameDictionary objectForKey:@"key"];
             if (![_gameKeys containsObject:key]) {
-                //SOEGame *game = [[SOEGame alloc] initWithKey:key values:gameDictionary];
                 [newGames addObject:gameDictionary];
             }
         }

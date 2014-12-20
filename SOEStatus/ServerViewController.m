@@ -79,8 +79,6 @@
     // Do any additional setup after loading the view from its nib.
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    
-    [[WatchServer sharedInstance] reportWatching];
 }
 
 - (void)viewDidUnload

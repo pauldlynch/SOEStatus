@@ -27,7 +27,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    //[[[PLFeedback alloc] init] setup];
     
 #if TARGET_IPHONE_SIMULATOR
     // where are you?

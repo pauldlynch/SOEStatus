@@ -69,7 +69,6 @@
 
 - (void)notify {
     NSLog(@"%s", __PRETTY_FUNCTION__);
-    [self reportSavedStatuses];
     // loop through servers; if watched, compare status and create notification if changed and update watch status
     for (SOEGame *game in [SOEGame games]) {
         for (SOEServer *server in game.servers) {
