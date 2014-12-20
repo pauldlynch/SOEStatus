@@ -13,6 +13,7 @@
 #import "PLActionSheet.h"
 #import "SOEGame.h"
 #import "PLFeedback.h"
+#import "WatchServer.h"
 
 @interface RootViewController ()
 
@@ -32,9 +33,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
             NSLog(@"API Error: %@", error);
             NSString *message = [NSString stringWithFormat:@"%@", [error localizedDescription]];
             [PRPAlertView showWithTitle:@"API Error" message:[NSString stringWithFormat:@"The SOE Status server isn't responding (%@).", message] buttonTitle:@"Continue"];
-            //return;
         }
-        [SOEGame updateWithStatuses:object];
         
         CGFloat height = 44.0 * [[SOEGame games] count];
         CGFloat maxHeight = self.tableView.superview.frame.size.height - self.tableView.frame.origin.y;
@@ -47,6 +46,8 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
         self.preferredContentSize = self.contentSizeForViewInPopover;
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
+        
+        if (!error) [[WatchServer sharedInstance] notify];
     }];
 }
 
@@ -129,10 +130,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        return UIInterfaceOrientationMaskAll;
-    }
-    return UIInterfaceOrientationPortrait;
+    return UIInterfaceOrientationMaskAll;
 }
 
  // Override to allow orientations other than the default portrait orientation.

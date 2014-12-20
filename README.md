@@ -3,7 +3,13 @@ README for SOE Status
 
 An iPhone/iPad app to check the status of SOE game servers.
 
+If you use this app and find it helpful, please take the time to give us a good review.  Good reviews encourage us to keep adding new features!
+
 If you find any problems, please use the Feedback menu to report them to me directly.  Or fix them yourself - the code is, as ever, available for you on github at https://github.com/pauldlynch/SOEStatus.
+
+If you want to receive notifications when your servers go up or down, just tap on the icon at the right of the server cell.  You will see a green tick mark before the server name if this is active.  Notifications will only be sent when the app isn't currently active, and only if you have given the app permission to send you notifications.  If you want to change your mind for any reason, look in Settings->Notifications.
+
+We added a great new tool to get information about your server: just tap on the server name to see a chart of the last thirty days, and a 24 hour average population by hour.  This lets you see when any server is most active, and how much downtime there has been in the past month.
 
 
 Needs:
@@ -11,6 +17,12 @@ Needs:
 
 - Possibility to register for notifications of server status changes;
 - Reachability checks for known SOE servers to identify network outages vs server status.
+
+
+2.0
+---
+
+Further changes to better support iOS 8 and the forced updates to nibs for the latest builds of Xcode.  General refactoring to create an SOEServer class.  Code to support local notifications for changes in server status (up/down).
 
 1.9.3
 -----

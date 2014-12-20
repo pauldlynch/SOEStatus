@@ -9,12 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "PRPNibBasedTableViewCell.h"
 
+@class SOEServer;
+
 @interface ServerCell : PRPNibBasedTableViewCell
 
-@property (nonatomic, strong) IBOutlet UILabel *serverName;
-@property (nonatomic, strong) IBOutlet UILabel *region;
-@property (nonatomic, strong) IBOutlet UILabel *age;
-@property (nonatomic, strong) IBOutlet UILabel *status;
-@property (nonatomic, strong) IBOutlet UIImageView *imageView;
+@property (nonatomic, weak) IBOutlet UILabel *serverName;
+@property (nonatomic, weak) IBOutlet UILabel *region;
+@property (nonatomic, weak) IBOutlet UILabel *age;
+@property (nonatomic, weak) IBOutlet UILabel *status;
+@property (nonatomic, weak) IBOutlet UIButton *statusImage;
+@property (nonatomic, weak) IBOutlet UIImageView *watchStatus;
+
+@property (nonatomic, strong) SOEServer *server;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
+
+- (IBAction)toggleWatch:(id)sender;
 
 @end

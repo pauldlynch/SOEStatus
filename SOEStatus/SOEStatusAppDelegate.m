@@ -8,17 +8,34 @@
 
 #import "SOEStatusAppDelegate.h"
 #import "PLFeedback.h"
+#import "SOEStatusAPI.h"
+#import "SOEGame.h"
+#import "WatchServer.h"
 
 @implementation SOEStatusAppDelegate
 
 @synthesize window = _window;
 @synthesize navigationController = _navigationController;
 
++ (void)initialize {
+    if ([self class] == [SOEStatusAppDelegate class]) {
+        //NSLog(@"%s", __PRETTY_FUNCTION__);
+        [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"NotificationPermissionRequested": [NSNumber numberWithBool:NO]}];
+    }
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [[[PLFeedback alloc] init] setup];
+    //[[[PLFeedback alloc] init] setup];
     
+#if TARGET_IPHONE_SIMULATOR
+    // where are you?
+    NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
+#endif
+    
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+
     // Add the navigation controller's view to the window and display.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         self.window.rootViewController = self.navigationController;
@@ -43,6 +60,9 @@
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
+    [self application:application performFetchWithCompletionHandler:^(UIBackgroundFetchResult result){
+        NSLog(@"forced background fetch: %d", result);
+    }];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -68,5 +88,19 @@
      */
 }
 
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    if ([[WatchServer sharedInstance] watching]) {
+        completionHandler(UIBackgroundFetchResultNoData);
+    }
+    [SOEStatusAPI getStatuses:^(PLRestful *api, id object, int status, NSError *error){
+        if (error) {
+            NSLog(@"API Error: %@", error);
+            completionHandler(UIBackgroundFetchResultFailed);
+        } else {
+            [[WatchServer sharedInstance] notify];
+            completionHandler(UIBackgroundFetchResultNewData);
+        }
+    }];
+}
 
 @end

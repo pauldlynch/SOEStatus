@@ -117,7 +117,7 @@ static NSDictionary *statusMessages;
     }
     
     self.restQueue = [[NSOperationQueue alloc] init];
-    self.restQueue.name = @"Comet REST Queue";
+    self.restQueue.name = @"SOE REST Queue";
     [NSURLConnection sendAsynchronousRequest:request queue:self.restQueue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (error) {

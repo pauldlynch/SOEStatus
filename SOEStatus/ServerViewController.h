@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class SOEGame;
+
 @interface ServerViewController : UITableViewController
 
 @property (nonatomic, copy) NSString *gameId;
-@property (nonatomic, strong) NSDictionary *game;
+@property (nonatomic, strong) SOEGame *game;
 @property (nonatomic, strong) NSArray *servers;
 @property (nonatomic, strong) UINib *serverCellNib;
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 - (void)loadGame;
 

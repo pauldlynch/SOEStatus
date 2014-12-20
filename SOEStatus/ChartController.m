@@ -88,7 +88,7 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
     NSInteger x = 0;
     NSInteger increment = 5;
-    NSDictionary *populationLevels = @{@"locked": @0, @"missing": @0, @"low": @1, @"medium": @2, @"high": @3};
+    NSDictionary *populationLevels = @{@"locked": @0, @"missing": @0, @"down": @0, @"low": @1, @"medium": @2, @"high": @3};
     NSMutableArray *series = [NSMutableArray array];
     NSMutableDictionary *summary = [NSMutableDictionary dictionary];
     for (NSDictionary *sample in jsonData) {
@@ -268,6 +268,16 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark UIWebViewDelegate

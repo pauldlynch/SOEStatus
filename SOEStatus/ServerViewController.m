@@ -12,10 +12,10 @@
 #import "ServerCell.h"
 #import "ChartController.h"
 #import "SOEGame.h"
+#import "SOEServer.h"
+#import "WatchServer.h"
 
 @implementation ServerViewController
-
-@synthesize gameId, game, servers, serverCellNib, dateFormatter;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,19 +36,10 @@
 }
 
 - (UINib *)serverCellNib {
-    if (!serverCellNib) {
+    if (!_serverCellNib) {
         self.serverCellNib = [ServerCell nib];
     }
-    return serverCellNib;
-}
-
-- (NSDateFormatter *)dateFormatter {
-    if (!dateFormatter) {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterNoStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
-    }
-    return dateFormatter;
+    return _serverCellNib;
 }
 
 - (void)refresh {
@@ -56,12 +47,12 @@
 }
 
 - (void)loadGame {
-    [SOEStatusAPI getGameStatus:gameId completion:^(PLRestful *api, id object, int status, NSError *error) {
+    [SOEStatusAPI getGameStatus:self.gameId completion:^(PLRestful *api, id object, int status, NSError *error) {
         if (error) {
             [PRPAlertView showWithTitle:@"Error" message:[error localizedDescription] buttonTitle:@"Continue"];
         } else {
-            self.game = [object valueForKey:@"game"];
-            self.servers = [object valueForKey:@"regionServers"];
+            self.game = [SOEGame gameForKey:self.gameId];
+            self.servers = self.game.servers;
             
             CGFloat width = self.contentSizeForViewInPopover.width;
             if (width == 0) width = 320.0;
@@ -74,6 +65,8 @@
             self.preferredContentSize = self.contentSizeForViewInPopover;
             [self.tableView reloadData];
             [self.refreshControl endRefreshing];
+            
+            [[WatchServer sharedInstance] notify];
         }
     }];
 }
@@ -86,6 +79,8 @@
     // Do any additional setup after loading the view from its nib.
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    
+    [[WatchServer sharedInstance] reportWatching];
 }
 
 - (void)viewDidUnload
@@ -102,10 +97,7 @@
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        return UIInterfaceOrientationMaskAll;
-    }
-    return UIInterfaceOrientationPortrait;
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -130,39 +122,23 @@
     ServerCell *cell = [ServerCell cellForTableView:tableView fromNib:self.serverCellNib];
     
     // Configure the cell.
-    NSDictionary *server = [self.servers objectAtIndex:indexPath.row];
-    NSString *status = [server valueForKey:@"status"];
-    
-    cell.serverName.text = [server valueForKey:@"name"];
-    cell.region.text = [server valueForKey:@"region"];
-    cell.age.text = [self.dateFormatter stringFromDate:[server valueForKey:@"date"]];
-    cell.status.text = status;
-    
-    if ([status isEqualToString:@"low"]) {
-        cell.imageView.image = [UIImage imageNamed:@"low_icon"];
-    } else if ([status isEqualToString:@"medium"]) {
-        cell.imageView.image = [UIImage imageNamed:@"medium_icon"];
-    } else if ([status isEqualToString:@"high"]) {
-        cell.imageView.image = [UIImage imageNamed:@"high_icon"];
-    } else if ([status isEqualToString:@"locked"]) {
-        cell.imageView.image = [UIImage imageNamed:@"lock_icon"];
-    } else if ([status isEqualToString:@"down"]) {
-        cell.imageView.image = [UIImage imageNamed:@"down_icon"];
-    }
+    SOEServer *server = [self.servers objectAtIndex:indexPath.row];
+    cell.server = server;
+
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ChartController *chartController = [[ChartController alloc] initWithNibName:@"ChartController" bundle:nil];
-    chartController.gameCode = self.gameId;
-    NSDictionary *server = [self.servers objectAtIndex:indexPath.row];
-    chartController.server = [server valueForKey:@"name"];
+    SOEServer *server = [self.servers objectAtIndex:indexPath.row];
+    chartController.gameCode = server.game;
+    chartController.server = server.name;
     [self.navigationController pushViewController:chartController animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    [self tableView:tableView didDeselectRowAtIndexPath:indexPath];
+    //SOEServer *server = [self.servers objectAtIndex:indexPath.row];
 }
 
 @end

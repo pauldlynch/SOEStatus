@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *key;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *search;
+@property (nonatomic, copy) NSArray *servers;
 
 + (NSArray *)games;
 + (SOEGame *)gameForKey:(NSString *)key;
@@ -21,6 +22,6 @@
 + (void)moveGameFromIndex:(NSInteger)from to:(NSInteger)to;
 + (void)save;
 
-- (id)initWithDictionary:(NSDictionary *)dictionary;
+- (id)initWithKey:(NSString *)key values:(NSDictionary *)dictionary;
 
 @end

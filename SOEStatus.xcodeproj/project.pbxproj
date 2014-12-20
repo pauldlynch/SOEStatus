@@ -75,6 +75,9 @@
 		DABF25CF1959A3F40032F056 /* ChartController.m in Sources */ = {isa = PBXBuildFile; fileRef = DABF25CD1959A3F40032F056 /* ChartController.m */; };
 		DABF25D01959A3F40032F056 /* ChartController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DABF25CE1959A3F40032F056 /* ChartController.xib */; };
 		DABF25D5195B77C70032F056 /* HTML in Resources */ = {isa = PBXBuildFile; fileRef = DABF25D4195B77C70032F056 /* HTML */; };
+		DAC1C0261A2F770A0092036C /* WatchServer.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1C0251A2F770A0092036C /* WatchServer.m */; };
+		DAC1C0291A30B4700092036C /* SOEServer.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1C0281A30B4700092036C /* SOEServer.m */; };
+		DAE250D91A34B0630077BC9C /* tick.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE250D81A34B0630077BC9C /* tick.png */; };
 		DAEBA9581511127600EBB52A /* PLActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEBA9571511127600EBB52A /* PLActionSheet.m */; };
 		DAEBA95A1511132600EBB52A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEBA9591511132600EBB52A /* Twitter.framework */; };
 		DAEDBBDA17E4A1500072EEF6 /* Default@2xX.png in Resources */ = {isa = PBXBuildFile; fileRef = DAEDBBD917E4A1500072EEF6 /* Default@2xX.png */; };
@@ -184,6 +187,11 @@
 		DABF25CD1959A3F40032F056 /* ChartController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartController.m; sourceTree = "<group>"; };
 		DABF25CE1959A3F40032F056 /* ChartController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChartController.xib; sourceTree = "<group>"; };
 		DABF25D4195B77C70032F056 /* HTML */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HTML; sourceTree = "<group>"; };
+		DAC1C0241A2F770A0092036C /* WatchServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchServer.h; sourceTree = "<group>"; };
+		DAC1C0251A2F770A0092036C /* WatchServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchServer.m; sourceTree = "<group>"; };
+		DAC1C0271A30B4700092036C /* SOEServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEServer.h; sourceTree = "<group>"; };
+		DAC1C0281A30B4700092036C /* SOEServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEServer.m; sourceTree = "<group>"; };
+		DAE250D81A34B0630077BC9C /* tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick.png; sourceTree = "<group>"; };
 		DAEBA9561511127600EBB52A /* PLActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLActionSheet.h; sourceTree = "<group>"; };
 		DAEBA9571511127600EBB52A /* PLActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLActionSheet.m; sourceTree = "<group>"; };
 		DAEBA9591511132600EBB52A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -259,14 +267,18 @@
 		DA13724E141116B800A1BFCC /* SOEStatus */ = {
 			isa = PBXGroup;
 			children = (
+				DA137257141116B800A1BFCC /* SOEStatusAppDelegate.h */,
+				DA137258141116B800A1BFCC /* SOEStatusAppDelegate.m */,
 				DA96DB901421FA6C00F0CE7E /* PLRestful.h */,
 				DA96DB911421FA6C00F0CE7E /* PLRestful.m */,
 				DA1372E714111AAA00A1BFCC /* SOEStatusAPI.h */,
 				DA1372E814111AAA00A1BFCC /* SOEStatusAPI.m */,
 				DA4D8E03175109E800E61232 /* SOEGame.h */,
 				DA4D8E04175109E900E61232 /* SOEGame.m */,
-				DA137257141116B800A1BFCC /* SOEStatusAppDelegate.h */,
-				DA137258141116B800A1BFCC /* SOEStatusAppDelegate.m */,
+				DAC1C0271A30B4700092036C /* SOEServer.h */,
+				DAC1C0281A30B4700092036C /* SOEServer.m */,
+				DAC1C0241A2F770A0092036C /* WatchServer.h */,
+				DAC1C0251A2F770A0092036C /* WatchServer.m */,
 				DA13725A141116B800A1BFCC /* MainWindow.xib */,
 				DA1372FC1411935D00A1BFCC /* MoveArray.h */,
 				DA1372FD1411935D00A1BFCC /* MoveArray.m */,
@@ -297,6 +309,7 @@
 		DA13724F141116B800A1BFCC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DAE250D81A34B0630077BC9C /* tick.png */,
 				DA137250141116B800A1BFCC /* SOEStatus-Info.plist */,
 				DA137251141116B800A1BFCC /* InfoPlist.strings */,
 				DA60941217E4C274001EE311 /* Server_152.png */,
@@ -429,11 +442,16 @@
 		DA13723B141116B800A1BFCC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "P & L Systems";
 				TargetAttributes = {
 					DA137243141116B800A1BFCC = {
 						DevelopmentTeam = D37Z6FSLLW;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -462,6 +480,7 @@
 				DA137253141116B800A1BFCC /* InfoPlist.strings in Resources */,
 				DA13725C141116B800A1BFCC /* MainWindow.xib in Resources */,
 				DABF25D01959A3F40032F056 /* ChartController.xib in Resources */,
+				DAE250D91A34B0630077BC9C /* tick.png in Resources */,
 				DA137262141116B800A1BFCC /* RootViewController.xib in Resources */,
 				DA26A5AC17E49EFA005F4C94 /* Default~iphone.png in Resources */,
 				DA13726B141116CB00A1BFCC /* MainWindow-iPad.xib in Resources */,
@@ -522,11 +541,13 @@
 				DA1372C9141119BF00A1BFCC /* UITableView+PRPSubviewAdditions.m in Sources */,
 				DA1372E914111AAA00A1BFCC /* SOEStatusAPI.m in Sources */,
 				DA1372FE1411935E00A1BFCC /* MoveArray.m in Sources */,
+				DAC1C0261A2F770A0092036C /* WatchServer.m in Sources */,
 				DA1373021411968500A1BFCC /* ServerViewController.m in Sources */,
 				DAA66EBC141612C600C0287A /* ServerCell.m in Sources */,
 				DA96DB921421FA6C00F0CE7E /* PLRestful.m in Sources */,
 				DAEBA9581511127600EBB52A /* PLActionSheet.m in Sources */,
 				DA4D8DF9174E65FE00E61232 /* JBKenBurnsView.m in Sources */,
+				DAC1C0291A30B4700092036C /* SOEServer.m in Sources */,
 				DA4D8DFF1750C5D800E61232 /* BackgroundViewController.m in Sources */,
 				DA4D8E05175109E900E61232 /* SOEGame.m in Sources */,
 				DABABDB2177743660091AE0E /* Reachability.m in Sources */,
@@ -592,7 +613,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "EF8EE5E3-89E7-4637-8F68-749F2058EDE9";
 				SDKROOT = iphoneos;
@@ -612,7 +633,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "57AFFDA2-2875-4DD9-916B-FC8F5202261C";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "57AFFDA2-2875-4DD9-916B-FC8F5202261C";
@@ -636,7 +657,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "EF8EE5E3-89E7-4637-8F68-749F2058EDE9";
+				PROVISIONING_PROFILE = "87394133-4865-470e-a3e4-c162261642d5";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -646,7 +667,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Paul Lynch (D37Z6FSLLW)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SOEStatus/SOEStatus-Prefix.pch";
@@ -655,6 +676,7 @@
 				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "57AFFDA2-2875-4DD9-916B-FC8F5202261C";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
