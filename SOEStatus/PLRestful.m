@@ -33,8 +33,8 @@ static NSDictionary *statusMessages;
     }
 }
 
-+ (NSString *)messageForStatus:(int)status {
-    NSString *statusString = [NSString stringWithFormat:@"%d", status];
++ (NSString *)messageForStatus:(NSInteger)status {
+    NSString *statusString = [NSString stringWithFormat:@"%ld", (long)status];
     return [statusMessages objectForKey:statusString];
 }
 
@@ -133,7 +133,7 @@ static NSDictionary *statusMessages;
                 if (object) {
                     [self callCompletionBlockWithObject:object status:httpResponse.statusCode error:nil];
                 } else {
-                    NSLog(@"received bad json: (%d) '%@'", [data length], [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                    NSLog(@"received bad json: (%lu) '%@'", (unsigned long)[data length], [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                     [self callCompletionBlockWithObject:nil status:httpResponse.statusCode error:[NSError errorWithDomain:@"com.plsys.SOEStatus" code:1002 userInfo:nil]];
                     
                 }

@@ -44,7 +44,7 @@ static NSString *TRIGGERCOUNT_KEY = @"triggerCount";
     launchCount++;
     [prefs setInteger:launchCount forKey:LAUNCHCOUNT_PREFERENCE];
     [prefs synchronize];
-    NSLog(@"PLFeedback updating launch count: %d, from: %@", launchCount, [notification name]);
+    NSLog(@"PLFeedback updating launch count: %ld, from: %@", (long)launchCount, [notification name]);
     [[[PLFeedback alloc] init] checkForRating];
     //});
 }
@@ -79,7 +79,7 @@ static NSString *TRIGGERCOUNT_KEY = @"triggerCount";
 - (IBAction)actions:(id)sender {
     self.viewToPresentSheet = sender;
     NSArray *buttons = [NSArray arrayWithObjects:@"Do you like this app?", @"Feedback", nil];
-    [PLActionSheet actionSheetWithTitle:nil destructiveButtonTitle:nil buttons:buttons showFrom:self.viewToPresentSheet onDismiss:^(int buttonIndex){
+    [PLActionSheet actionSheetWithTitle:nil destructiveButtonTitle:nil buttons:buttons showFrom:self.viewToPresentSheet onDismiss:^(NSInteger buttonIndex){
         if (buttonIndex == [buttons indexOfObject:@"Do you like this app?"]) {
             [self like];
         } else if (buttonIndex == [buttons indexOfObject:@"Feedback"]) {
@@ -90,7 +90,7 @@ static NSString *TRIGGERCOUNT_KEY = @"triggerCount";
 
 - (IBAction)like {
     NSArray *buttons = [NSArray arrayWithObjects:@"Review in App Store", @"Share by Twitter", @"Share by Facebook", @"Share by Email", nil];
-    [PLActionSheet actionSheetWithTitle:nil destructiveButtonTitle:nil buttons:buttons showFrom:self.viewToPresentSheet onDismiss:^(int buttonIndex){
+    [PLActionSheet actionSheetWithTitle:nil destructiveButtonTitle:nil buttons:buttons showFrom:self.viewToPresentSheet onDismiss:^(NSInteger buttonIndex){
         if (buttonIndex == 0) {
             [self review];
         } else if (buttonIndex == 1) {
@@ -211,7 +211,7 @@ static NSString *TRIGGERCOUNT_KEY = @"triggerCount";
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSInteger launchCount = [prefs integerForKey:LAUNCHCOUNT_PREFERENCE];
     NSInteger trigger = [self.settings[TRIGGERCOUNT_KEY] integerValue];
-    NSLog(@"PLFeedback checking launch count: %d of %d", launchCount, trigger);
+    NSLog(@"PLFeedback checking launch count: %ld of %ld", (long)launchCount, (long)trigger);
     if (launchCount >= trigger) {
         [prefs setInteger:-1 forKey:LAUNCHCOUNT_PREFERENCE];
         PRPAlertView *alert = [[PRPAlertView alloc] initWithTitle:@"Do you like this app?" message:@"Please rate it on the App Store!" cancelTitle:@"Never" cancelBlock:^(NSString *title){

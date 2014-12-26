@@ -167,7 +167,7 @@ NSMutableArray *_gameKeys;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@ %@/%@ (%d)", [super description], self.key, self.name, self.servers.count];
+    return [NSString stringWithFormat:@"%@ %@/%@ (%lu)", [super description], self.key, self.name, (unsigned long)self.servers.count];
 }
 
 @end
