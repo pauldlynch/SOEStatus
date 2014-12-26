@@ -68,7 +68,7 @@
                                                                         preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                     UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert categories:nil];
-                    [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+                    [[UIApplication sharedApplication] performSelector:@selector(registerUserNotificationSettings:) withObject:notificationSettings afterDelay:0.1];
                 }];
                 [alert addAction:defaultAction];
                 [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alert animated:YES completion:nil];
