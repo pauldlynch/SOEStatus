@@ -22,6 +22,7 @@
 
 @property (nonatomic, strong) SOEServer *server;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, weak) UIViewController *vcForAlerts;
 
 - (IBAction)toggleWatch:(id)sender;
 

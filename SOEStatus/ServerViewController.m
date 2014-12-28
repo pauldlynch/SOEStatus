@@ -122,6 +122,7 @@
     // Configure the cell.
     SOEServer *server = [self.servers objectAtIndex:indexPath.row];
     cell.server = server;
+    cell.vcForAlerts = self;
 
     return cell;
 }

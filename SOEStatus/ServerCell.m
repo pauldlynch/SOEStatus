@@ -71,7 +71,7 @@
                     [[UIApplication sharedApplication] performSelector:@selector(registerUserNotificationSettings:) withObject:notificationSettings afterDelay:0.1];
                 }];
                 [alert addAction:defaultAction];
-                [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alert animated:YES completion:nil];
+                [self.vcForAlerts presentViewController:alert animated:YES completion:nil];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NotificationPermissionRequested"];
             }
             
