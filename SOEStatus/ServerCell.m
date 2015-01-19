@@ -74,7 +74,7 @@
                 [self.vcForAlerts presentViewController:alert animated:YES completion:nil];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NotificationPermissionRequested"];
             }
-            
+        } else { // iOS7 or earlier
         }
     }
 }
