@@ -116,7 +116,7 @@
             summary[hour] = @{@"y": [NSNumber numberWithInteger:[oldHour[@"y"] integerValue] + [population integerValue]],
                               @"n": [NSNumber numberWithInteger:[oldHour[@"n"] integerValue] + 1]};
         } else {
-            summary[hour] = @{@"y": population, @"n": @0};
+            //summary[hour] = @{@"y": population, @"n": @0}; // zero will force a crash (division by zero)
         }
     }
     NSDictionary *newSeries = @{@"data": series, @"color": @"palevioletred", @"name": self.server};
@@ -130,13 +130,20 @@
     NSMutableArray *summaryHours = [NSMutableArray array];
     for (NSNumber *hour in [[summary allKeys] sortedArrayUsingSelector:@selector(compare:)]) {
         NSNumber *hourTotal = [summary objectForKey:hour][@"y"];
-        [summaryHours addObject:@{@"x": hour, @"y": [NSNumber numberWithDouble:([hourTotal doubleValue] / [[summary objectForKey:hour][@"n"] integerValue])]}];
+        NSInteger hourInt = [[summary objectForKey:hour][@"n"] integerValue];
+        [summaryHours addObject:@{@"x": hour, @"y": [NSNumber numberWithDouble:([hourTotal doubleValue] / hourInt)]}];
     }
     NSDictionary *summarySeries = @{@"data": summaryHours, @"color": @"steelblue", @"name": self.server};
     
-    NSString *summaryString = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:summarySeries options:0 error:&error] encoding:NSUTF8StringEncoding];
-    if (!summaryString) {
-        NSLog(@"Failed to convert summary data from server to Rickshaw format: %@", error);
+    NSData *summaryData = [NSJSONSerialization dataWithJSONObject:summarySeries options:0 error:&error];
+    NSString *summaryString = nil;
+    if (summaryData) {
+        summaryString = [[NSString alloc] initWithData:summaryData encoding:NSUTF8StringEncoding];
+        if (!summaryString) {
+            NSLog(@"Failed to convert summary data from server to Rickshaw format: %@", error);
+        }
+    } else {
+        NSLog(@"Bad summary data sent from server: %@", error);
     }
 
     // assemble the HTML
