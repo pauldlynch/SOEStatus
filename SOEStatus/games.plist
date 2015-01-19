@@ -1,10 +1,9 @@
 (
-	{ key = lm; name = "Landmark™";  search = "landmark"; },
-	{ key = eq2; name = "Everquest® II"; search = "everquest2"; },
 	{ key = eq; name = "Everquest®"; search = "everquest"; },
-	{ key = eqmac; name = "Everquest® (Mac)"; search = "everquest"; },
+	{ key = eq2; name = "Everquest® II"; search = "everquest2"; },
 	{ key = dcuo; name = "DC Universe™ Online"; search = "dcuo"; },
-	{ key = vgd; name = "Vanguard: Saga of Heroes®";  search = "soe vanguard"; },
+	{ key = lm; name = "Landmark™";  search = "landmark"; },
+	{ key = h1z1; name = "H1Z1";  search = "h1z1"; },
 	{ key = ps; name = "Planetside®";  search = "planetside"; },
 	{ key = ps2; name = "Planetside®2";  search = "planetside2"; },
 	{ key = dpt; name = "Dragon's Prophet";  search = "dragonsprophet"; },

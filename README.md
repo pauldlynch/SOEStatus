@@ -15,9 +15,13 @@ We added a great new tool to get information about your server: just tap on the 
 Needs:
 ------
 
-- Possibility to register for notifications of server status changes;
 - Reachability checks for known SOE servers to identify network outages vs server status.
 
+
+2.0.2
+-----
+
+Bug fixes, including possible crash when monitoring historical data for H1Z1.  Also adds in H1Z1.
 
 2.0
 ---
