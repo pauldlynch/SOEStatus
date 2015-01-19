@@ -111,13 +111,12 @@
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:sampleDate];
         NSNumber *hour = [NSNumber numberWithInteger:[components hour]];
-        if (summary[hour]) {
-            NSDictionary *oldHour = summary[hour];
-            summary[hour] = @{@"y": [NSNumber numberWithInteger:[oldHour[@"y"] integerValue] + [population integerValue]],
-                              @"n": [NSNumber numberWithInteger:[oldHour[@"n"] integerValue] + 1]};
-        } else {
-            //summary[hour] = @{@"y": population, @"n": @0}; // zero will force a crash (division by zero)
+        if (!summary[hour]) {
+            summary[hour] = @{@"y": @0, @"n": @0};
         }
+        NSDictionary *oldHour = summary[hour];
+        summary[hour] = @{@"y": [NSNumber numberWithInteger:[oldHour[@"y"] integerValue] + [population integerValue]],
+                          @"n": [NSNumber numberWithInteger:[oldHour[@"n"] integerValue] + 1]};
     }
     NSDictionary *newSeries = @{@"data": series, @"color": @"palevioletred", @"name": self.server};
     
@@ -131,7 +130,9 @@
     for (NSNumber *hour in [[summary allKeys] sortedArrayUsingSelector:@selector(compare:)]) {
         NSNumber *hourTotal = [summary objectForKey:hour][@"y"];
         NSInteger hourInt = [[summary objectForKey:hour][@"n"] integerValue];
-        [summaryHours addObject:@{@"x": hour, @"y": [NSNumber numberWithDouble:([hourTotal doubleValue] / hourInt)]}];
+        if (hourInt > 0) {  // zero will force a crash (division by zero)
+            [summaryHours addObject:@{@"x": hour, @"y": [NSNumber numberWithDouble:([hourTotal doubleValue] / hourInt)]}];
+        }
     }
     NSDictionary *summarySeries = @{@"data": summaryHours, @"color": @"steelblue", @"name": self.server};
     
