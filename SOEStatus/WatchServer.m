@@ -30,14 +30,20 @@
     return [NSString stringWithFormat:@"ServerWatch %@/%@/%@", game, region, server];
 }
 
-- (BOOL)watching {
+- (NSArray *)watches {
     NSDictionary *keys = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
+    NSMutableArray *watches = [NSMutableArray array];
     for (NSString *key in keys) {
         if ([key isKindOfClass:[NSString class]] && [key hasPrefix:@"ServerWatch "]) {
-            return YES;
+            [watches addObject:[key stringByReplacingOccurrencesOfString:@"ServerWatch " withString:@""]];
         }
     }
-    return NO;
+    return watches;
+
+}
+
+- (BOOL)watching {
+    return [[self watches] count] ? YES : NO;
 }
 
 - (id)watchingFor:(NSString *)game region:(NSString *)region server:(NSString *)server {
@@ -74,6 +80,7 @@
         for (SOEServer *server in game.servers) {
             NSString *status = [self watchingServer:server];
             if (status) { // only true if server is being watched
+                NSLog(@"%@ status: %@", server.name, status);
                 if (![status isEqualToString:server.status]) { // and has changed
                     if ([SOEServer isUpOrDown:status] != server.isUpOrDown) { // and has changed significantly
                         NSString *message = server.isUpOrDown ? @"%@ %@ server is up." : @"%@ %@ server is down.";

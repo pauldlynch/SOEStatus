@@ -33,7 +33,14 @@
     NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
 #endif
     
-    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:600.0];
+    NSLog(@"watching: %@", [[WatchServer sharedInstance] watches]);
+    NSString *backgroundRefreshStatus = @"";
+    UIBackgroundRefreshStatus status = [[UIApplication sharedApplication] backgroundRefreshStatus];
+    if (status & UIBackgroundRefreshStatusDenied) backgroundRefreshStatus = [backgroundRefreshStatus stringByAppendingString:@"Denied "];
+    if (status & UIBackgroundRefreshStatusRestricted) backgroundRefreshStatus = [backgroundRefreshStatus stringByAppendingString:@"Restricted "];
+    if (status & UIBackgroundRefreshStatusAvailable) backgroundRefreshStatus = [backgroundRefreshStatus stringByAppendingString:@"Available "];
+    NSLog(@"backgroundRefreshStatus: %@", backgroundRefreshStatus);
 
     // Add the navigation controller's view to the window and display.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -53,15 +60,19 @@
      */
 }
 
+- (void)backgroundFetch {
+    [self application:[UIApplication sharedApplication] performFetchWithCompletionHandler:^(UIBackgroundFetchResult result){
+        NSLog(@"forced background fetch: %lu, time remaining: %f", (unsigned long)result, [[UIApplication sharedApplication] backgroundTimeRemaining]);
+    }];
+}
+
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     /*
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
-    [self application:application performFetchWithCompletionHandler:^(UIBackgroundFetchResult result){
-        NSLog(@"forced background fetch: %lu", (unsigned long)result);
-    }];
+    [self backgroundFetch];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -88,7 +99,10 @@
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    if ([[WatchServer sharedInstance] watching]) {
+    NSLog(@"background fetch called!");
+    NSLog(@"watching: %@", [[WatchServer sharedInstance] watches]);
+    if (![[WatchServer sharedInstance] watching]) {
+        NSLog(@"No Data Result.");
         completionHandler(UIBackgroundFetchResultNoData);
     }
     [SOEStatusAPI getStatuses:^(PLRestful *api, id object, NSInteger status, NSError *error){
@@ -96,10 +110,25 @@
             NSLog(@"API Error: %@", error);
             completionHandler(UIBackgroundFetchResultFailed);
         } else {
+            NSLog(@"New Data Result.");
             [[WatchServer sharedInstance] notify];
             completionHandler(UIBackgroundFetchResultNewData);
         }
     }];
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    NSLog(@"%@", notification.description);
+    
+    UIApplicationState state = [application applicationState];
+    if (state == UIApplicationStateActive) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Status Changed" message:notification.alertBody delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    NSLog(@"Notification types: %@", notificationSettings);
 }
 
 @end

@@ -16,6 +16,7 @@
 
 @property (nonatomic, retain) NSArray *notifyServers;
 
+- (NSArray *)watches;
 - (BOOL)watching;
 - (id)watchingFor:(NSString *)game region:(NSString *)region server:(NSString *)server;
 - (id)watchingServer:(SOEServer *)server;
