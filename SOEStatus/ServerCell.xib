@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1536</int>
-		<string key="IBDocument.SystemVersion">14B25</string>
+		<string key="IBDocument.SystemVersion">13F34</string>
 		<string key="IBDocument.InterfaceBuilderVersion">6254</string>
-		<string key="IBDocument.AppKitVersion">1343.16</string>
-		<string key="IBDocument.HIToolboxVersion">755.00</string>
+		<string key="IBDocument.AppKitVersion">1265.21</string>
+		<string key="IBDocument.HIToolboxVersion">698.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">6247</string>
@@ -167,9 +167,10 @@
 							<object class="IBUIButton" id="1023556052">
 								<reference key="NSNextResponder" ref="128138491"/>
 								<int key="NSvFlags">289</int>
-								<string key="NSFrame">{{275, 5}, {34, 34}}</string>
+								<string key="NSFrame">{{275, 0}, {44, 44}}</string>
 								<reference key="NSSuperview" ref="128138491"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
