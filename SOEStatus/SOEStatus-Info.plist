@@ -29,7 +29,7 @@
 		<string>Server_144.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.plsys.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>com.plsys.SOEStatus</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
