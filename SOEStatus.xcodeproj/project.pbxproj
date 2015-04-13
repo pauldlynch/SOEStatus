@@ -16,7 +16,6 @@
 		DA13725C141116B800A1BFCC /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA13725A141116B800A1BFCC /* MainWindow.xib */; };
 		DA13725F141116B800A1BFCC /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA13725E141116B800A1BFCC /* RootViewController.m */; };
 		DA137262141116B800A1BFCC /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA137260141116B800A1BFCC /* RootViewController.xib */; };
-		DA13726B141116CB00A1BFCC /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA137269141116CB00A1BFCC /* MainWindow-iPad.xib */; };
 		DA13729C141117B100A1BFCC /* PRPAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA13727B141117B100A1BFCC /* PRPAlertView.m */; };
 		DA13729D141117B100A1BFCC /* PRPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DA13727D141117B100A1BFCC /* PRPConnection.m */; };
 		DA1372A9141117B100A1BFCC /* UIApplication+PRPNetworkActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = DA137295141117B100A1BFCC /* UIApplication+PRPNetworkActivity.m */; };
@@ -57,6 +56,7 @@
 		DA60941117E4C0C2001EE311 /* Default-Landscape@2x70LRet.png in Resources */ = {isa = PBXBuildFile; fileRef = DA60941017E4C0C2001EE311 /* Default-Landscape@2x70LRet.png */; };
 		DA60941317E4C274001EE311 /* Server_152.png in Resources */ = {isa = PBXBuildFile; fileRef = DA60941217E4C274001EE311 /* Server_152.png */; };
 		DA60941517E4C281001EE311 /* Server_76.png in Resources */ = {isa = PBXBuildFile; fileRef = DA60941417E4C281001EE311 /* Server_76.png */; };
+		DA7129E51AD537BD0009EA04 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA7129E41AD537BD0009EA04 /* MainWindow-iPad.xib */; };
 		DA7889251611C19200A426F6 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DA7889241611C19200A426F6 /* Default-Portrait@2x~ipad.png */; };
 		DA78892B1611C26A00A426F6 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DA78892A1611C26A00A426F6 /* Default-Landscape~ipad.png */; };
 		DA78892D1611C2BD00A426F6 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = DA78892C1611C2BD00A426F6 /* Default-Landscape@2x~ipad.png */; };
@@ -102,7 +102,6 @@
 		DA13725D141116B800A1BFCC /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		DA13725E141116B800A1BFCC /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		DA137261141116B800A1BFCC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RootViewController.xib; sourceTree = "<group>"; };
-		DA13726A141116CB00A1BFCC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "iPad/en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		DA13727A141117B100A1BFCC /* PRPAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPAlertView.h; sourceTree = "<group>"; };
 		DA13727B141117B100A1BFCC /* PRPAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPAlertView.m; sourceTree = "<group>"; };
 		DA13727C141117B100A1BFCC /* PRPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPConnection.h; sourceTree = "<group>"; };
@@ -159,6 +158,7 @@
 		DA60941017E4C0C2001EE311 /* Default-Landscape@2x70LRet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x70LRet.png"; sourceTree = "<group>"; };
 		DA60941217E4C274001EE311 /* Server_152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Server_152.png; sourceTree = "<group>"; };
 		DA60941417E4C281001EE311 /* Server_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Server_76.png; sourceTree = "<group>"; };
+		DA7129E41AD537BD0009EA04 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		DA7889241611C19200A426F6 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
 		DA78892A1611C26A00A426F6 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		DA78892C1611C2BD00A426F6 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
@@ -334,7 +334,7 @@
 		DA137268141116C900A1BFCC /* iPad */ = {
 			isa = PBXGroup;
 			children = (
-				DA137269141116CB00A1BFCC /* MainWindow-iPad.xib */,
+				DA7129E41AD537BD0009EA04 /* MainWindow-iPad.xib */,
 			);
 			name = iPad;
 			sourceTree = "<group>";
@@ -483,7 +483,6 @@
 				DAE250D91A34B0630077BC9C /* tick.png in Resources */,
 				DA137262141116B800A1BFCC /* RootViewController.xib in Resources */,
 				DA26A5AC17E49EFA005F4C94 /* Default~iphone.png in Resources */,
-				DA13726B141116CB00A1BFCC /* MainWindow-iPad.xib in Resources */,
 				DAEDBBDE17E4BC800072EEF6 /* Default-Portrait~ipad70.png in Resources */,
 				DA1372F714113B6200A1BFCC /* games.plist in Resources */,
 				DA60941317E4C274001EE311 /* Server_152.png in Resources */,
@@ -493,6 +492,7 @@
 				DA137306141205C500A1BFCC /* medium_icon.png in Resources */,
 				DA280828198A7427009DF07F /* Default-568h@2x.png in Resources */,
 				DA137308141205CC00A1BFCC /* high_icon.png in Resources */,
+				DA7129E51AD537BD0009EA04 /* MainWindow-iPad.xib in Resources */,
 				DA13730A141205D300A1BFCC /* low_icon.png in Resources */,
 				DA26A5AD17E49EFA005F4C94 /* Default.png in Resources */,
 				DA13730C141205DA00A1BFCC /* up_icon.png in Resources */,
@@ -581,14 +581,6 @@
 				DA137261141116B800A1BFCC /* en */,
 			);
 			name = RootViewController.xib;
-			sourceTree = "<group>";
-		};
-		DA137269141116CB00A1BFCC /* MainWindow-iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DA13726A141116CB00A1BFCC /* en */,
-			);
-			name = "MainWindow-iPad.xib";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

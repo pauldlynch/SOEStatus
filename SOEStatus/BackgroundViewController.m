@@ -140,6 +140,8 @@ NSDictionary *sizeCodes;
 
     [self animateWithSearch:@"everquest2" apiKey:FlickrAPIKey transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Status" style:UIBarButtonItemStylePlain target:self action:@selector(togglePopover:)];
+    
     RootViewController *rootVC = [[RootViewController alloc] init];
     UINavigationController *statusVC = [[UINavigationController alloc] initWithRootViewController:rootVC];
     self.statusPopover = [[UIPopoverController alloc] initWithContentViewController:statusVC];
