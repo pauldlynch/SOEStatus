@@ -18,6 +18,12 @@ Needs:
 - Reachability checks for known SOE servers to identify network outages vs server status.
 
 
+2.1
+---
+
+Rebuild to use auto-layout to correct some intractable view resizing issues.  Took the opportunity to catch up with the name change from SOE to Daybreak Games.
+
+
 2.0.2
 -----
 

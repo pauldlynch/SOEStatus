@@ -88,7 +88,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DA137244141116B800A1BFCC /* SOEStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SOEStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA137244141116B800A1BFCC /* Daybreak Status.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Daybreak Status.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA137248141116B800A1BFCC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DA13724A141116B800A1BFCC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA13724C141116B800A1BFCC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -240,7 +240,7 @@
 		DA137245141116B800A1BFCC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DA137244141116B800A1BFCC /* SOEStatus.app */,
+				DA137244141116B800A1BFCC /* Daybreak Status.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -419,9 +419,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DA137243141116B800A1BFCC /* SOEStatus */ = {
+		DA137243141116B800A1BFCC /* Daybreak Status */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DA137265141116B800A1BFCC /* Build configuration list for PBXNativeTarget "SOEStatus" */;
+			buildConfigurationList = DA137265141116B800A1BFCC /* Build configuration list for PBXNativeTarget "Daybreak Status" */;
 			buildPhases = (
 				DA137240141116B800A1BFCC /* Sources */,
 				DA137241141116B800A1BFCC /* Frameworks */,
@@ -431,9 +431,9 @@
 			);
 			dependencies = (
 			);
-			name = SOEStatus;
+			name = "Daybreak Status";
 			productName = SOEStatus;
-			productReference = DA137244141116B800A1BFCC /* SOEStatus.app */;
+			productReference = DA137244141116B800A1BFCC /* Daybreak Status.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -467,7 +467,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DA137243141116B800A1BFCC /* SOEStatus */,
+				DA137243141116B800A1BFCC /* Daybreak Status */,
 			);
 		};
 /* End PBXProject section */
@@ -687,7 +687,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DA137265141116B800A1BFCC /* Build configuration list for PBXNativeTarget "SOEStatus" */ = {
+		DA137265141116B800A1BFCC /* Build configuration list for PBXNativeTarget "Daybreak Status" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA137266141116B800A1BFCC /* Debug */,

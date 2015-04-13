@@ -32,7 +32,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
         if (error) {
             NSLog(@"API Error: %@", error);
             NSString *message = [NSString stringWithFormat:@"%@", [error localizedDescription]];
-            [PRPAlertView showWithTitle:@"API Error" message:[NSString stringWithFormat:@"The SOE Status server isn't responding (%@).", message] buttonTitle:@"Continue"];
+            [PRPAlertView showWithTitle:@"API Error" message:[NSString stringWithFormat:@"The Daybreak Status server isn't responding (%@).", message] buttonTitle:@"Continue"];
         }
         
         CGFloat height = 44.0 * [[SOEGame games] count];
@@ -79,7 +79,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
 }
 
 - (IBAction)openInSafari {
-    [PRPAlertView showWithTitle:@"Warning" message:@"This will open Mobile Safari with the SOE status page" cancelTitle:@"Cancel" cancelBlock:nil otherTitle:@"Continue" otherBlock:^(NSString *title){
+    [PRPAlertView showWithTitle:@"Warning" message:@"This will open Safari with the Daybreak status page" cancelTitle:@"Cancel" cancelBlock:nil otherTitle:@"Continue" otherBlock:^(NSString *title){
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.soe.com/status"]];
     }];
 }

@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA137243141116B800A1BFCC"
-               BuildableName = "SOEStatus.app"
-               BlueprintName = "SOEStatus"
+               BuildableName = "Daybreak Status.app"
+               BlueprintName = "Daybreak Status"
                ReferencedContainer = "container:SOEStatus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -39,12 +39,13 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA137243141116B800A1BFCC"
-            BuildableName = "SOEStatus.app"
-            BlueprintName = "SOEStatus"
+            BuildableName = "Daybreak Status.app"
+            BlueprintName = "Daybreak Status"
             ReferencedContainer = "container:SOEStatus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -57,12 +58,13 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA137243141116B800A1BFCC"
-            BuildableName = "SOEStatus.app"
-            BlueprintName = "SOEStatus"
+            BuildableName = "Daybreak Status.app"
+            BlueprintName = "Daybreak Status"
             ReferencedContainer = "container:SOEStatus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
