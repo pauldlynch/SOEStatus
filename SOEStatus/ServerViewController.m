@@ -50,6 +50,7 @@
     [SOEStatusAPI getGameStatus:self.gameId completion:^(PLRestful *api, id object, NSInteger status, NSError *error) {
         if (error) {
             [PRPAlertView showWithTitle:@"Error" message:[error localizedDescription] buttonTitle:@"Continue"];
+            [self.refreshControl endRefreshing];
         } else {
             self.game = [SOEGame gameForKey:self.gameId];
             self.servers = self.game.servers;
