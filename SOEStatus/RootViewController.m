@@ -81,7 +81,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
 
 - (IBAction)openInSafari {
     [PRPAlertView showWithTitle:@"Warning" message:@"This will open Safari with the Daybreak status page" cancelTitle:@"Cancel" cancelBlock:nil otherTitle:@"Continue" otherBlock:^(NSString *title){
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.soe.com/status"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.daybreakgames.com/status/"]];
     }];
 }
 
