@@ -32,6 +32,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
         if (error) {
             NSLog(@"API Error: %@", error);
             NSString *message = [NSString stringWithFormat:@"%@", [error localizedDescription]];
+            [self.refreshControl endRefreshing];
             [PRPAlertView showWithTitle:@"API Error" message:[NSString stringWithFormat:@"The Daybreak Status server isn't responding (%@).", message] buttonTitle:@"Continue"];
         }
         
