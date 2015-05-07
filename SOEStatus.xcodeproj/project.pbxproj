@@ -309,9 +309,9 @@
 		DA13724F141116B800A1BFCC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DAE250D81A34B0630077BC9C /* tick.png */,
 				DA137250141116B800A1BFCC /* SOEStatus-Info.plist */,
 				DA137251141116B800A1BFCC /* InfoPlist.strings */,
+				DAE250D81A34B0630077BC9C /* tick.png */,
 				DA60941217E4C274001EE311 /* Server_152.png */,
 				DAA66ED31416BF7C00C0287A /* Server_114.png */,
 				DA26A59F17E49D83005F4C94 /* Server_120.png */,

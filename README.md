@@ -17,6 +17,11 @@ Needs:
 
 - Reachability checks for known SOE servers to identify network outages vs server status.
 
+2.2
+---
+
+Switch to census.daybreakgames.com from data.soe.com.  This was an unannounced change by Daybreak: although actually, it was announced - "It was on display in the bottom of a locked filing cabinet stuck in a disused lavatory with a sign on the door saying ‘Beware of the Leopard.” - better known as the Planetside2 forums.
+
 
 2.1
 ---

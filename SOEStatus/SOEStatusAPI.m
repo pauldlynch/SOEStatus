@@ -19,7 +19,7 @@
     self = [super init];
     if (self) {
         // Initialization code here.
-        self.endpoint = @"http://data.soe.com/json/status/"; // public API
+        self.endpoint = @"http://census.daybreakgames.com/json/status/"; // public API
     }
     
     return self;
