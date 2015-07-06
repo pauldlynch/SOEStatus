@@ -17,6 +17,11 @@ Needs:
 
 - Reachability checks for known SOE servers to identify network outages vs server status.
 
+2.2.1
+-----
+Fix for iPad version so that menu displays by default on launch
+
+
 2.2
 ---
 
