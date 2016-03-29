@@ -41,7 +41,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2.2.2</string>
+	<string>2.2.3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -287,6 +287,8 @@
 			<string>{320, 480}</string>
 		</dict>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -672,7 +672,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.plsys.SOEStatus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d9b3775e-88e3-40f9-a00e-36ecffec8179";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8459f8f9-52e4-4a94-be28-e40ae8414b26";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
