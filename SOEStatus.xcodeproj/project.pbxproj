@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -456,7 +456,7 @@
 				};
 			};
 			buildConfigurationList = DA13723E141116B800A1BFCC /* Build configuration list for PBXProject "SOEStatus" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -607,7 +607,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "dfc0ad52-2cf3-4d83-be46-a98021355204";
+				PROVISIONING_PROFILE = "e7c0e5b0-758e-457e-b3b0-c1d247129823";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s armv6 arm64";
 			};
@@ -627,8 +627,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "f68d65f0-bbe9-4b74-a1e9-7141b0f3455a";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "f68d65f0-bbe9-4b74-a1e9-7141b0f3455a";
+				PROVISIONING_PROFILE = "d9b3775e-88e3-40f9-a00e-36ecffec8179";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d9b3775e-88e3-40f9-a00e-36ecffec8179";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s armv6 arm64";
@@ -649,7 +649,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dfc0ad52-2cf3-4d83-be46-a98021355204";
+				PROVISIONING_PROFILE = "e7c0e5b0-758e-457e-b3b0-c1d247129823";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -669,7 +669,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "f68d65f0-bbe9-4b74-a1e9-7141b0f3455a";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "d9b3775e-88e3-40f9-a00e-36ecffec8179";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
