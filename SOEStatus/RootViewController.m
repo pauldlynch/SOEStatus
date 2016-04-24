@@ -40,11 +40,10 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
         CGFloat maxHeight = self.tableView.superview.frame.size.height - self.tableView.frame.origin.y;
         maxHeight = [UIScreen mainScreen].bounds.size.height - self.navigationController.navigationBar.bounds.size.height - 100.0f;
         if (height > maxHeight) height = maxHeight;
-        CGFloat width = self.contentSizeForViewInPopover.width;
+        CGFloat width = self.preferredContentSize.width;
         if (width == 0) width = 320.0;
         
-        self.contentSizeForViewInPopover = CGSizeMake(width, height);
-        self.preferredContentSize = self.contentSizeForViewInPopover;
+        self.preferredContentSize = CGSizeMake(width, height);
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
         
@@ -103,10 +102,9 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     self.plFeedback = [[PLFeedback alloc] initWithViewController:self];
     [self.plFeedback checkForRating];
     
-    CGFloat width = self.contentSizeForViewInPopover.width;
+    CGFloat width = self.preferredContentSize.width;
     if (width == 0) width = 320.0;
-    self.contentSizeForViewInPopover = CGSizeMake(width, 44.0 * [[SOEGame games] count]);
-    self.preferredContentSize = self.contentSizeForViewInPopover;
+    self.preferredContentSize = CGSizeMake(width, 44.0 * [[SOEGame games] count]);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -130,7 +128,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
 	[super viewDidDisappear:animated];
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

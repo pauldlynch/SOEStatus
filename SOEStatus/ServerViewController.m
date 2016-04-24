@@ -55,15 +55,14 @@
             self.game = [SOEGame gameForKey:self.gameId];
             self.servers = self.game.servers;
             
-            CGFloat width = self.contentSizeForViewInPopover.width;
+            CGFloat width = self.preferredContentSize.width;
             if (width == 0) width = 320.0;
             CGFloat height = 44.0 * [self.servers count];
             CGFloat maxHeight = self.tableView.superview.frame.size.height - self.tableView.frame.origin.y;
             maxHeight = [UIScreen mainScreen].bounds.size.height - self.navigationController.navigationBar.bounds.size.height - 100.0f;
             if (height > maxHeight) height = maxHeight;
 
-            self.contentSizeForViewInPopover = CGSizeMake(width, height);
-            self.preferredContentSize = self.contentSizeForViewInPopover;
+            self.preferredContentSize = CGSizeMake(width, height);
             [self.tableView reloadData];
             [self.refreshControl endRefreshing];
             
@@ -95,7 +94,7 @@
     [self loadGame];
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
