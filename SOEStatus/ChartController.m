@@ -86,6 +86,7 @@
     //   "sample_date" : "2014-06-25T17:55:51.000Z",
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     NSInteger x = 0;
     NSInteger increment = 5;
     NSDictionary *populationLevels = @{@"locked": @0, @"missing": @0, @"down": @0, @"low": @1, @"medium": @2, @"high": @3};
@@ -109,7 +110,7 @@
         x += increment;
         
         NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:sampleDate];
+        NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:sampleDate];
         NSNumber *hour = [NSNumber numberWithInteger:[components hour]];
         if (!summary[hour]) {
             summary[hour] = @{@"y": @0, @"n": @0};
@@ -280,7 +281,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
