@@ -138,18 +138,22 @@ NSDictionary *sizeCodes;
 	// Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameChanged:) name:SOEGameSelectedNotification object:nil];
 
-    [self animateWithSearch:@"everquest2" apiKey:FlickrAPIKey transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
+    [self animateWithSearch:@"everquest" apiKey:FlickrAPIKey transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
     
-    self.statusButton = [[UIBarButtonItem alloc] initWithTitle:@"Status" style:UIBarButtonItemStylePlain target:self action:@selector(togglePopover:)];
-    self.navigationItem.leftBarButtonItem = self.statusButton;
+    /*if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        self.statusButton = [[UIBarButtonItem alloc] initWithTitle:@"Status" style:UIBarButtonItemStylePlain target:self action:@selector(togglePopover:)];
+        self.navigationItem.leftBarButtonItem = self.statusButton;
+    }*/
     
-    RootViewController *rootVC = [[RootViewController alloc] init];
-    UINavigationController *statusVC = [[UINavigationController alloc] initWithRootViewController:rootVC];
-    self.statusPopover = [[UIPopoverController alloc] initWithContentViewController:statusVC];
-    self.statusPopover.popoverContentSize = CGSizeMake(320.0, 440.0);
-    
-    // need to do this rather than call directly to allow rotation to landscape to happen first <shrug>
-    [self performSelector:@selector(togglePopover:) withObject:self.statusButton afterDelay:0.0];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        RootViewController *rootVC = [[RootViewController alloc] init];
+        UINavigationController *statusVC = [[UINavigationController alloc] initWithRootViewController:rootVC];
+        self.statusPopover = [[UIPopoverController alloc] initWithContentViewController:statusVC];
+        self.statusPopover.popoverContentSize = CGSizeMake(320.0, 440.0);
+        
+        // need to do this rather than call directly to allow rotation to landscape to happen first <shrug>
+        [self performSelector:@selector(togglePopover:) withObject:self.statusButton afterDelay:0.0];
+    }
 }
 
 - (void)didReceiveMemoryWarning

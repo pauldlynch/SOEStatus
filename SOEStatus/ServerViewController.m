@@ -14,6 +14,7 @@
 #import "SOEGame.h"
 #import "SOEServer.h"
 #import "WatchServer.h"
+#import "SOEStatusAppDelegate.h"
 
 @implementation ServerViewController
 
@@ -133,7 +134,14 @@
     SOEServer *server = [self.servers objectAtIndex:indexPath.row];
     chartController.gameCode = server.game;
     chartController.server = server.name;
-    [self.navigationController pushViewController:chartController animated:YES];
+    
+    SOEStatusAppDelegate *appDelegate = (SOEStatusAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    if (appDelegate.splitViewController) {
+        [appDelegate.splitViewController showDetailViewController:chartController sender:self];
+    } else {
+        [self.navigationController pushViewController:chartController animated:YES];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {

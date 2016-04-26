@@ -42,8 +42,11 @@
     if (status & UIBackgroundRefreshStatusAvailable) backgroundRefreshStatus = [backgroundRefreshStatus stringByAppendingString:@"Available "];
     NSLog(@"backgroundRefreshStatus: %@", backgroundRefreshStatus);
 
-    // Add the navigation controller's view to the window and display.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    if (self.splitViewController) {
+        self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryOverlay;
+        self.window.rootViewController = self.splitViewController;
+    } else if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        // Add the navigation controller's view to the window and display.
         self.window.rootViewController = self.navigationController;
     } else {
         self.window.rootViewController = self.toolbarController;

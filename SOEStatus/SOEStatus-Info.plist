@@ -50,9 +50,9 @@
 		<true/>
 	</dict>
 	<key>NSMainNibFile</key>
-	<string>MainWindow</string>
+	<string>SplitViewWindow</string>
 	<key>NSMainNibFile~ipad</key>
-	<string>MainWindow-iPad</string>
+	<string>SplitViewWindow</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

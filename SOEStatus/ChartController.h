@@ -14,4 +14,6 @@
 @property (nonatomic, copy) NSString *gameCode;
 @property (nonatomic, copy) NSString *server;
 
+@property (nonatomic, weak) IBOutlet UINavigationBar *navigationBar;
+
 @end

@@ -9,7 +9,7 @@
 #import "ChartController.h"
 #import "SOEGame.h"
 
-@interface ChartController ()<UIWebViewDelegate, UIDocumentInteractionControllerDelegate>
+@interface ChartController ()<UIWebViewDelegate, UIDocumentInteractionControllerDelegate, UIBarPositioningDelegate>
 
 @property (nonatomic, strong) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) UIDocumentInteractionController *shareController;
@@ -27,6 +27,11 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)setServer:(NSString *)name {
+    _server = name;
+    self.title = name;
 }
 
 - (void)loadDataForGameCode:(NSString *)code server:(NSString *)server {
@@ -255,10 +260,14 @@
     [self.shareController presentOptionsMenuFromBarButtonItem:sender animated:YES];
 }
 
+#pragma mark UIViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self.navigationBar setItems:@[self.navigationItem] animated:NO];
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAsImage:)];
     
     NSURL *historyUrlLocation = [NSURL URLWithString:@"http://paullynch.org/soe-status-url.txt"];
@@ -322,6 +331,12 @@
 }
 
 - (void)documentInteractionControllerDidDismissOptionsMenu:(UIDocumentInteractionController *) controller {
+}
+
+#pragma mark UIBarPositioningDelegate
+
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
+    return UIBarPositionTopAttached;
 }
 
 @end

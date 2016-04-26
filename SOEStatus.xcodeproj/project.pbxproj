@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA0456761CC7969D00193548 /* SplitViewWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA0456751CC7969D00193548 /* SplitViewWindow.xib */; };
 		DA137249141116B800A1BFCC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA137248141116B800A1BFCC /* UIKit.framework */; };
 		DA13724B141116B800A1BFCC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA13724A141116B800A1BFCC /* Foundation.framework */; };
 		DA13724D141116B800A1BFCC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA13724C141116B800A1BFCC /* CoreGraphics.framework */; };
@@ -78,6 +79,7 @@
 		DAC1C0261A2F770A0092036C /* WatchServer.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1C0251A2F770A0092036C /* WatchServer.m */; };
 		DAC1C0291A30B4700092036C /* SOEServer.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1C0281A30B4700092036C /* SOEServer.m */; };
 		DAE250D91A34B0630077BC9C /* tick.png in Resources */ = {isa = PBXBuildFile; fileRef = DAE250D81A34B0630077BC9C /* tick.png */; };
+		DAE32F021CCE6A9500B477A6 /* BackgroundViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAE32F011CCE6A9500B477A6 /* BackgroundViewController.xib */; };
 		DAEBA9581511127600EBB52A /* PLActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEBA9571511127600EBB52A /* PLActionSheet.m */; };
 		DAEBA95A1511132600EBB52A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEBA9591511132600EBB52A /* Twitter.framework */; };
 		DAEDBBDA17E4A1500072EEF6 /* Default@2xX.png in Resources */ = {isa = PBXBuildFile; fileRef = DAEDBBD917E4A1500072EEF6 /* Default@2xX.png */; };
@@ -88,6 +90,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA0456751CC7969D00193548 /* SplitViewWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplitViewWindow.xib; sourceTree = "<group>"; };
 		DA137244141116B800A1BFCC /* Daybreak Status.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Daybreak Status.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA137248141116B800A1BFCC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DA13724A141116B800A1BFCC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -192,6 +195,7 @@
 		DAC1C0271A30B4700092036C /* SOEServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOEServer.h; sourceTree = "<group>"; };
 		DAC1C0281A30B4700092036C /* SOEServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOEServer.m; sourceTree = "<group>"; };
 		DAE250D81A34B0630077BC9C /* tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick.png; sourceTree = "<group>"; };
+		DAE32F011CCE6A9500B477A6 /* BackgroundViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BackgroundViewController.xib; sourceTree = "<group>"; };
 		DAEBA9561511127600EBB52A /* PLActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLActionSheet.h; sourceTree = "<group>"; };
 		DAEBA9571511127600EBB52A /* PLActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLActionSheet.m; sourceTree = "<group>"; };
 		DAEBA9591511132600EBB52A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -267,6 +271,7 @@
 		DA13724E141116B800A1BFCC /* SOEStatus */ = {
 			isa = PBXGroup;
 			children = (
+				DA0456751CC7969D00193548 /* SplitViewWindow.xib */,
 				DA137257141116B800A1BFCC /* SOEStatusAppDelegate.h */,
 				DA137258141116B800A1BFCC /* SOEStatusAppDelegate.m */,
 				DA96DB901421FA6C00F0CE7E /* PLRestful.h */,
@@ -287,6 +292,7 @@
 				DA137260141116B800A1BFCC /* RootViewController.xib */,
 				DA4D8DFD1750C5D800E61232 /* BackgroundViewController.h */,
 				DA4D8DFE1750C5D800E61232 /* BackgroundViewController.m */,
+				DAE32F011CCE6A9500B477A6 /* BackgroundViewController.xib */,
 				DA1372FF1411968400A1BFCC /* ServerViewController.h */,
 				DA1373001411968400A1BFCC /* ServerViewController.m */,
 				DA1373011411968400A1BFCC /* ServerViewController.xib */,
@@ -487,6 +493,7 @@
 				DA1372F714113B6200A1BFCC /* games.plist in Resources */,
 				DA60941317E4C274001EE311 /* Server_152.png in Resources */,
 				DA1373031411968500A1BFCC /* ServerViewController.xib in Resources */,
+				DAE32F021CCE6A9500B477A6 /* BackgroundViewController.xib in Resources */,
 				DA60940F17E4C08B001EE311 /* Default-Landscape~ipad70LNonRet.png in Resources */,
 				DA26A5A817E49EC0005F4C94 /* Default~ipad.png in Resources */,
 				DA137306141205C500A1BFCC /* medium_icon.png in Resources */,
@@ -512,6 +519,7 @@
 				DAEDBBDA17E4A1500072EEF6 /* Default@2xX.png in Resources */,
 				DABF25D5195B77C70032F056 /* HTML in Resources */,
 				DAEDBBE017E4BCEE0072EEF6 /* Default-Portrait~ipad@2x70.png in Resources */,
+				DA0456761CC7969D00193548 /* SplitViewWindow.xib in Resources */,
 				DA78892B1611C26A00A426F6 /* Default-Landscape~ipad.png in Resources */,
 				DA78892D1611C2BD00A426F6 /* Default-Landscape@2x~ipad.png in Resources */,
 				DA7889301611EE7C00A426F6 /* Server_144.png in Resources */,
@@ -647,7 +655,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.plsys.SOEStatus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -668,7 +676,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "SOEStatus/SOEStatus-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.plsys.SOEStatus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
