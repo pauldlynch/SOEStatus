@@ -12,6 +12,8 @@
 #import "RootViewController.h"
 #import "SOEGame.h"
 
+NSString *FlickrSearchKeyConstant = @"FlickrSearchKey";
+
 @interface BackgroundViewController ()
 
 @property (nonatomic, strong) NSMutableArray *photoURLs;
@@ -119,6 +121,7 @@ NSDictionary *sizeCodes;
 - (void)gameChanged:(NSNotification *)notification {
     SOEGame *game = [[notification userInfo] objectForKey:@"game"];
     NSLog(@"%s %@", __PRETTY_FUNCTION__, game.name);
+    [[NSUserDefaults standardUserDefaults] setObject:game.search forKey:FlickrSearchKeyConstant];
     if (game.search) {
         [self animateWithSearch:game.search apiKey:FlickrAPIKey transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
     }
@@ -138,7 +141,9 @@ NSDictionary *sizeCodes;
 	// Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameChanged:) name:SOEGameSelectedNotification object:nil];
 
-    [self animateWithSearch:@"everquest" apiKey:FlickrAPIKey transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
+    NSString *searchValue = [[NSUserDefaults standardUserDefaults] objectForKey:FlickrSearchKeyConstant];
+    if (!searchValue) searchValue = @"everquest";
+    [self animateWithSearch:searchValue apiKey:FlickrAPIKey transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
     
     /*if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         self.statusButton = [[UIBarButtonItem alloc] initWithTitle:@"Status" style:UIBarButtonItemStylePlain target:self action:@selector(togglePopover:)];
