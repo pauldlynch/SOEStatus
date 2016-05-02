@@ -246,7 +246,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     [self tableView:tableView didDeselectRowAtIndexPath:indexPath];
 }
 
-#pragma UINavigationControllerDelegate
+#pragma mark UINavigationControllerDelegate
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if (viewController == self) {
@@ -261,6 +261,14 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
         if (splitViewController.viewControllers.count >= 2 && ![splitViewController.viewControllers[1] isKindOfClass:[backgroundViewController class]]) {
             [splitViewController showDetailViewController:backgroundViewController sender:self];
         }
+    }
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    if ([viewController isKindOfClass:[BackgroundViewController class]]) {
+        // this is some weird behaviour from UISplitViewController, so kill it
+        [navigationController setViewControllers:@[navigationController.viewControllers[0]] animated:NO];
     }
 }
 

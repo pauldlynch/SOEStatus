@@ -25,9 +25,21 @@
                 </navigationBar>
                 <viewControllers>
                     <tableViewController clearsSelectionOnViewWillAppear="NO" id="I4a-AO-Nfu" customClass="RootViewController">
+                        <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0Ip-qs-CQM">
+                            <rect key="frame" x="0.0" y="20" width="0.0" height="0.0"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="I4a-AO-Nfu" id="mBy-Y2-jCe"/>
+                                <outlet property="delegate" destination="I4a-AO-Nfu" id="yLs-Aw-dUY"/>
+                            </connections>
+                        </tableView>
                         <navigationItem key="navigationItem" title="Root View Controller" id="ery-XZ-osl"/>
                     </tableViewController>
                 </viewControllers>
+                <connections>
+                    <outlet property="delegate" destination="I4a-AO-Nfu" id="cjT-9C-GU1"/>
+                </connections>
             </navigationController>
             <viewController key="detailViewController" id="Y66-lf-cq3" customClass="BackgroundViewController">
                 <view key="view" contentMode="scaleToFill" id="1bw-5Z-zFO">

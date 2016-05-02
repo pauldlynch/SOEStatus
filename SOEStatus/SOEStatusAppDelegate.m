@@ -43,7 +43,11 @@
     NSLog(@"backgroundRefreshStatus: %@", backgroundRefreshStatus);
 
     if (self.splitViewController) {
-        self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryOverlay;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryOverlay;
+        } else {
+            self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryOverlay;
+        }
         self.window.rootViewController = self.splitViewController;
     } else if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         // Add the navigation controller's view to the window and display.
