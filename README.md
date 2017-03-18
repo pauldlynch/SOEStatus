@@ -17,7 +17,7 @@ Needs:
 
 - Reachability checks for known SOE servers to identify network outages vs server status.
 
-x.x.x
+3.0
 _____
 
 
