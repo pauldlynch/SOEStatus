@@ -270,10 +270,15 @@
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAsImage:)];
     
-    NSURL *historyUrlLocation = [NSURL URLWithString:@"http://paullynch.org/soe-status-url.txt"];
+    NSURL *historyUrlLocation = [NSURL URLWithString:@"https://paullynch.org/soe-status-url.txt"];
     // NSString *historyUrl = @"http://54.88.120.46:3000";
     // NSString *historyUrl = @"http://52.4.164.117:3001";
-    NSString *historyUrl = @"http://52.1.155.132:3001";
+    // NSString *historyUrl = @"http://52.1.155.132:3001";
+    
+    NSString *historyUrl = @"http://52.7.81.172:3001";
+
+  
+    
     NSData *data = [NSData dataWithContentsOfURL:historyUrlLocation];
     if (data) {
         historyUrl = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
