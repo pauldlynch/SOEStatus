@@ -235,7 +235,7 @@ static NSString *TRIGGERCOUNT_KEY = @"triggerCount";
 - (void)mailComposeController:(MFMailComposeViewController *)controller
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError *)error {
-    if (error) NSLog(@"%s error sending email, result %d: %@", __PRETTY_FUNCTION__, result, [error localizedDescription]);
+    if (error) NSLog(@"%s error sending email, result %ld: %@", __PRETTY_FUNCTION__, (long)result, [error localizedDescription]);
     [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -130,7 +130,7 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
 	[super viewDidDisappear:animated];
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
