@@ -9,7 +9,7 @@
 #import "ChartController.h"
 #import "SOEGame.h"
 
-@interface ChartController ()<UIWebViewDelegate, UIDocumentInteractionControllerDelegate>
+@interface ChartController ()<UIWebViewDelegate, UIDocumentInteractionControllerDelegate, UIBarPositioningDelegate>
 
 @property (nonatomic, strong) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) UIDocumentInteractionController *shareController;
@@ -27,6 +27,11 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)setServer:(NSString *)name {
+    _server = name;
+    self.title = name;
 }
 
 - (void)loadDataForGameCode:(NSString *)code server:(NSString *)server {
@@ -86,6 +91,7 @@
     //   "sample_date" : "2014-06-25T17:55:51.000Z",
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     NSInteger x = 0;
     NSInteger increment = 5;
     NSDictionary *populationLevels = @{@"locked": @0, @"missing": @0, @"down": @0, @"low": @1, @"medium": @2, @"high": @3};
@@ -109,7 +115,7 @@
         x += increment;
         
         NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:sampleDate];
+        NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:sampleDate];
         NSNumber *hour = [NSNumber numberWithInteger:[components hour]];
         if (!summary[hour]) {
             summary[hour] = @{@"y": @0, @"n": @0};
@@ -254,15 +260,25 @@
     [self.shareController presentOptionsMenuFromBarButtonItem:sender animated:YES];
 }
 
+#pragma mark UIViewController
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self.navigationBar setItems:@[self.navigationItem] animated:NO];
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAsImage:)];
     
-    NSURL *historyUrlLocation = [NSURL URLWithString:@"http://paullynch.org/soe-status-url.txt"];
+    NSURL *historyUrlLocation = [NSURL URLWithString:@"https://paullynch.org/soe-status-url.txt"];
     // NSString *historyUrl = @"http://54.88.120.46:3000";
-    NSString *historyUrl = @"http://52.4.164.117:3001";
+    // NSString *historyUrl = @"http://52.4.164.117:3001";
+    // NSString *historyUrl = @"http://52.1.155.132:3001";
+    
+    NSString *historyUrl = @"http://52.7.81.172:3001";
+
+  
+    
     NSData *data = [NSData dataWithContentsOfURL:historyUrlLocation];
     if (data) {
         historyUrl = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -320,6 +336,12 @@
 }
 
 - (void)documentInteractionControllerDidDismissOptionsMenu:(UIDocumentInteractionController *) controller {
+}
+
+#pragma mark UIBarPositioningDelegate
+
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
+    return UIBarPositionTopAttached;
 }
 
 @end

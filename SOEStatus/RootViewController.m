@@ -14,8 +14,9 @@
 #import "SOEGame.h"
 #import "PLFeedback.h"
 #import "WatchServer.h"
+#import "BackgroundViewController.h"
 
-@interface RootViewController ()
+@interface RootViewController () <UINavigationControllerDelegate>
 
 @property (nonatomic, strong) PLFeedback *plFeedback;
 
@@ -40,11 +41,10 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
         CGFloat maxHeight = self.tableView.superview.frame.size.height - self.tableView.frame.origin.y;
         maxHeight = [UIScreen mainScreen].bounds.size.height - self.navigationController.navigationBar.bounds.size.height - 100.0f;
         if (height > maxHeight) height = maxHeight;
-        CGFloat width = self.contentSizeForViewInPopover.width;
+        CGFloat width = self.preferredContentSize.width;
         if (width == 0) width = 320.0;
         
-        self.contentSizeForViewInPopover = CGSizeMake(width, height);
-        self.preferredContentSize = self.contentSizeForViewInPopover;
+        self.preferredContentSize = CGSizeMake(width, height);
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
         
@@ -85,6 +85,8 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     }];
 }
 
+#pragma mark UIViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -103,10 +105,15 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     self.plFeedback = [[PLFeedback alloc] initWithViewController:self];
     [self.plFeedback checkForRating];
     
-    CGFloat width = self.contentSizeForViewInPopover.width;
+    CGFloat width = self.preferredContentSize.width;
     if (width == 0) width = 320.0;
-    self.contentSizeForViewInPopover = CGSizeMake(width, 44.0 * [[SOEGame games] count]);
-    self.preferredContentSize = self.contentSizeForViewInPopover;
+    self.preferredContentSize = CGSizeMake(width, 44.0 * [[SOEGame games] count]);
+    
+    if (self.navigationController.splitViewController) {
+        self.navigationItem.leftItemsSupplementBackButton = YES;
+        self.navigationItem.leftBarButtonItems = @[self.navigationController.splitViewController.displayModeButtonItem];
+        self.navigationController.delegate = self;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -142,6 +149,22 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     }
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Relinquish ownership any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    
+    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
+    // For example: self.myOutlet = nil;
+}
+
+#pragma mark UITableViewDataSource/UITaleViewDelegate
 
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -223,20 +246,30 @@ NSString *SOEGameSelectedNotification = @"SOEGameSelectedNotification";
     [self tableView:tableView didDeselectRowAtIndexPath:indexPath];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Relinquish ownership any cached data, images, etc that aren't in use.
+#pragma mark UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if (viewController == self) {
+        // therefore has popped back to games menu
+        BackgroundViewController *backgroundViewController = [[BackgroundViewController alloc] initWithNibName:@"BackgroundViewController" bundle:nil];
+        UISplitViewController *splitViewController = self.navigationController.splitViewController;
+        NSInteger gameIndex = self.tableView.indexPathForSelectedRow.row;
+        if (gameIndex > 0) {
+            SOEGame *game = [[SOEGame games] objectAtIndex:gameIndex];
+            [[NSNotificationCenter defaultCenter] postNotificationName:SOEGameSelectedNotification object:self userInfo:@{@"game": game}];
+        }
+        if (splitViewController.viewControllers.count >= 2 && ![splitViewController.viewControllers[1] isKindOfClass:[backgroundViewController class]]) {
+            [splitViewController showDetailViewController:backgroundViewController sender:self];
+        }
+    }
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-
-    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-    // For example: self.myOutlet = nil;
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    if ([viewController isKindOfClass:[BackgroundViewController class]]) {
+        // this is some weird behaviour from UISplitViewController, so kill it
+        [navigationController setViewControllers:@[navigationController.viewControllers[0]] animated:NO];
+    }
 }
 
 @end

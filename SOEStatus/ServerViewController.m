@@ -14,6 +14,7 @@
 #import "SOEGame.h"
 #import "SOEServer.h"
 #import "WatchServer.h"
+#import "SOEStatusAppDelegate.h"
 
 @implementation ServerViewController
 
@@ -55,15 +56,14 @@
             self.game = [SOEGame gameForKey:self.gameId];
             self.servers = self.game.servers;
             
-            CGFloat width = self.contentSizeForViewInPopover.width;
+            CGFloat width = self.preferredContentSize.width;
             if (width == 0) width = 320.0;
             CGFloat height = 44.0 * [self.servers count];
             CGFloat maxHeight = self.tableView.superview.frame.size.height - self.tableView.frame.origin.y;
             maxHeight = [UIScreen mainScreen].bounds.size.height - self.navigationController.navigationBar.bounds.size.height - 100.0f;
             if (height > maxHeight) height = maxHeight;
 
-            self.contentSizeForViewInPopover = CGSizeMake(width, height);
-            self.preferredContentSize = self.contentSizeForViewInPopover;
+            self.preferredContentSize = CGSizeMake(width, height);
             [self.tableView reloadData];
             [self.refreshControl endRefreshing];
             
@@ -134,7 +134,14 @@
     SOEServer *server = [self.servers objectAtIndex:indexPath.row];
     chartController.gameCode = server.game;
     chartController.server = server.name;
-    [self.navigationController pushViewController:chartController animated:YES];
+    
+    SOEStatusAppDelegate *appDelegate = (SOEStatusAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    if (appDelegate.splitViewController) {
+        [appDelegate.splitViewController showDetailViewController:chartController sender:self];
+    } else {
+        [self.navigationController pushViewController:chartController animated:YES];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {

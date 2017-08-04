@@ -107,7 +107,9 @@
 }
 
 - (void)nextImage {
+    if (_imagesArray.count == 0) return;
     _currentIndex++;
+    if (_currentIndex >= _imagesArray.count) _currentIndex = 0;
     
     UIImage *image = nil;
     id imageSource = _imagesArray[_currentIndex];

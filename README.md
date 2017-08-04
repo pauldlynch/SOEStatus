@@ -17,6 +17,14 @@ Needs:
 
 - Reachability checks for known SOE servers to identify network outages vs server status.
 
+3.0
+_____
+
+
+Revised the UI to allow access to the sliding images view for iPhone users.  The makes use of UISplitViewController, and necessitates a minimum OS level of iOS 8.  The image view will also persist images for the last game that you selected, making things better for people who only play one game.
+
+If you read the code, there are some situations where I have delegate methods in controllers where they don't belong; I'd like to refactor that at some point.
+
 2.2.1
 -----
 Fix for iPad version so that menu displays by default on launch

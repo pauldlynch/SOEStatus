@@ -41,9 +41,20 @@
     if (status & UIBackgroundRefreshStatusRestricted) backgroundRefreshStatus = [backgroundRefreshStatus stringByAppendingString:@"Restricted "];
     if (status & UIBackgroundRefreshStatusAvailable) backgroundRefreshStatus = [backgroundRefreshStatus stringByAppendingString:@"Available "];
     NSLog(@"backgroundRefreshStatus: %@", backgroundRefreshStatus);
+    
+    /* UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound) categories:nil];
+    [application registerUserNotificationSettings:notificationSettings];*/
+    [application registerForRemoteNotifications];
 
-    // Add the navigation controller's view to the window and display.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    if (self.splitViewController) {
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+            self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryOverlay;
+        } else {
+            self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryOverlay;
+        }
+        self.window.rootViewController = self.splitViewController;
+    } else if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        // Add the navigation controller's view to the window and display.
         self.window.rootViewController = self.navigationController;
     } else {
         self.window.rootViewController = self.toolbarController;
@@ -117,8 +128,10 @@
     }];
 }
 
+#pragma mark handle notifications
+
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    NSLog(@"%@", notification.description);
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, notification.description);
     
     UIApplicationState state = [application applicationState];
     if (state == UIApplicationStateActive) {
@@ -127,8 +140,27 @@
     }
 }
 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, deviceToken);
+    // should pass token to remote push server
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler {
+    NSLog(@"%s %@", __PRETTY_FUNCTION__, userInfo);
+    UIApplicationState state = [application applicationState];
+    if (state == UIApplicationStateActive) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Status Changed" message:[userInfo description] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+    handler(UIBackgroundFetchResultNoData);
+}
+
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-    NSLog(@"Notification types: %@", notificationSettings);
+    NSLog(@"%s Notification types: %@", __PRETTY_FUNCTION__, notificationSettings);
 }
 
 @end
