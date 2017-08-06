@@ -17,17 +17,16 @@ NSString *FlickrSearchKeyConstant = @"FlickrSearchKey";
 @interface BackgroundViewController ()
 
 @property (nonatomic, strong) NSMutableArray *photoURLs;
-@property (nonatomic, strong) NSMutableArray *photoURLStrings;
 @property (nonatomic, strong) NSMutableArray *photoNames;
 
 + (void)callFlickr:(NSString *)urlString completion:(void (^)(NSDictionary *results))completion;
-- (void)loadFlickrPhotoSearch:(NSString *)searchString apiKey:(NSString *)apiKey completion:(void (^)(void))completion;
+- (void)photoSearch:(NSString *)searchString completion:(void (^)(void))completion;
 
 @end
 
 @implementation BackgroundViewController
 
-NSDictionary *sizeCodes;
+/*NSDictionary *sizeCodes;
 
 + (void)initialize {
     if (self == [BackgroundViewController class]) {
@@ -44,7 +43,7 @@ NSDictionary *sizeCodes;
                       @"Original": @"o",
                       };
     }
-}
+}*/
 
 + (void)callFlickr:(NSString *)urlString completion:(void (^)(NSDictionary *results))completion {
     NSURL *url = [NSURL URLWithString:urlString];
@@ -68,25 +67,24 @@ NSDictionary *sizeCodes;
     if (completion) completion(results);
 }
 
-- (void)loadFlickrPhotoSearch:(NSString *)searchString apiKey:(NSString *)apiKey completion:(void (^)(void))completion {
+- (void)photoSearch:(NSString *)searchString completion:(void (^)(void))completion {
     self.photoURLs = [NSMutableArray array];
-    self.photoURLStrings = [NSMutableArray array];
     self.photoNames = [NSMutableArray array];
     
-    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%@&tags=%@&per_page=20&format=json&nojsoncallback=1&content_type=7&safe_search=2", apiKey, [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%@&tags=%@&per_page=20&format=json&nojsoncallback=1&content_type=7&safe_search=2", FlickrAPIKey, [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [BackgroundViewController callFlickr:urlString completion:^(NSDictionary *results){
         NSArray *photos = [results valueForKeyPath:@"photos.photo"];
         NSLog(@"flickr returned %lu for %@", (unsigned long)[photos count], searchString);
         for (NSDictionary *photo in photos) {
-            NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=%@&format=json&nojsoncallback=1&photo_id=%@", apiKey, [photo objectForKey:@"id"]];
+            NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=%@&format=json&nojsoncallback=1&photo_id=%@", FlickrAPIKey, [photo objectForKey:@"id"]];
             [BackgroundViewController callFlickr:urlString completion:^(NSDictionary *results){
                 NSString *photoURLString = [[results valueForKeyPath:@"sizes.size.source"] lastObject];
-                [self.photoURLStrings addObject:photoURLString];
                 [self.photoURLs addObject:[NSURL URLWithString:photoURLString]];
                 NSString *title = [photo objectForKey:@"title"];
                 [self.photoNames addObject:([title length] > 0 ? title : @"Untitled")];
             }];
         }
+        if (completion) completion();
     }];
 }
 
@@ -103,18 +101,19 @@ NSDictionary *sizeCodes;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)animateWithSearch:(NSString *)searchString apiKey:(NSString *)apiKey transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)inLandscape {
+- (void)animateWithSearch:(NSString *)searchString transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)inLandscape {
     dispatch_queue_t task_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(task_queue, ^{
-        [self loadFlickrPhotoSearch:searchString apiKey:apiKey completion:^{}];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([self.photoURLStrings count]) {
-                [self.backgroundView animateWithImages:self.photoURLs transitionDuration:duration loop:shouldLoop isLandscape:inLandscape];
-            } else {
-                // halt animations, if we're lucky
-                [self.backgroundView flush];
-            }
-        });
+        [self photoSearch:searchString completion:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([self.photoURLs count]) {
+                    [self.backgroundView animateWithImages:self.photoURLs transitionDuration:duration loop:shouldLoop isLandscape:inLandscape];
+                } else {
+                    // halt animations, if we're lucky
+                    [self.backgroundView flush];
+                }
+            });
+        }];
     });
 }
 
@@ -123,7 +122,8 @@ NSDictionary *sizeCodes;
     NSLog(@"%s %@", __PRETTY_FUNCTION__, game.name);
     [[NSUserDefaults standardUserDefaults] setObject:game.search forKey:FlickrSearchKeyConstant];
     if (game.search) {
-        [self animateWithSearch:game.search apiKey:FlickrAPIKey transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
+        // statusBarOrientation is deprecated in 9.0 for UITrait*
+        [self animateWithSearch:game.search transitionDuration:15.0 loop:YES isLandscape:UIInterfaceOrientationIsLandscape(self.interfaceOrientation)];
     }
 }
 
@@ -143,7 +143,8 @@ NSDictionary *sizeCodes;
 
     NSString *searchValue = [[NSUserDefaults standardUserDefaults] objectForKey:FlickrSearchKeyConstant];
     if (!searchValue) searchValue = @"everquest";
-    [self animateWithSearch:searchValue apiKey:FlickrAPIKey transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
+    // statusBarOrientation is deprecated in 9.0 for UITrait*
+    [self animateWithSearch:searchValue transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
     
     /*if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         self.statusButton = [[UIBarButtonItem alloc] initWithTitle:@"Status" style:UIBarButtonItemStylePlain target:self action:@selector(togglePopover:)];
