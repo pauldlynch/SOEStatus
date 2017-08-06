@@ -7,92 +7,27 @@
 //
 
 #import "BackgroundViewController.h"
-#import "FlickrAPIKey.h"
 #import "JBKenBurnsView.h"
 #import "RootViewController.h"
 #import "SOEGame.h"
+#import "PhotoSearch.h"
 
-NSString *FlickrSearchKeyConstant = @"FlickrSearchKey";
+NSString *PhotoSearchKeyConstant = @"FlickrSearchKey";
 
 @interface BackgroundViewController ()
 
-@property (nonatomic, strong) NSMutableArray *photoURLs;
-@property (nonatomic, strong) NSMutableArray *photoNames;
-
-+ (void)callFlickr:(NSString *)urlString completion:(void (^)(NSDictionary *results))completion;
-- (void)photoSearch:(NSString *)searchString completion:(void (^)(void))completion;
+@property (nonatomic, strong) PhotoSearch *photoSearch;
 
 @end
 
 @implementation BackgroundViewController
-
-/*NSDictionary *sizeCodes;
-
-+ (void)initialize {
-    if (self == [BackgroundViewController class]) {
-        sizeCodes = @{
-                      @"Square": @"s",
-                      @"Large Square": @"q",
-                      @"Thumbnail": @"t",
-                      @"Small": @"m",
-                      @"Small 320": @"n",
-                      @"Medium": @"-",
-                      @"Medium 640": @"z",
-                      @"Medium 800": @"c",
-                      @"Large": @"b",
-                      @"Original": @"o",
-                      };
-    }
-}*/
-
-+ (void)callFlickr:(NSString *)urlString completion:(void (^)(NSDictionary *results))completion {
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSData *jsonData = [NSData dataWithContentsOfURL:url];
-    if (!jsonData) {
-        NSLog(@"%s failed call to Flickr API", __PRETTY_FUNCTION__);
-        return;
-    }
-    NSError *error;
-    NSDictionary *results = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-    if (!results) {
-        NSLog(@"%s bad JSON from Flickr API: %@ '%@'", __PRETTY_FUNCTION__, error, [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
-        return;
-    }
-    
-    NSString *status = [results objectForKey:@"stat"];
-    if (![status isEqualToString:@"ok"]) {
-        NSLog(@"Flickr API not good: %@ code %@ '%@'", status, [results objectForKey:@"code"], [results objectForKey:@"message"]);
-    }
-    
-    if (completion) completion(results);
-}
-
-- (void)photoSearch:(NSString *)searchString completion:(void (^)(void))completion {
-    self.photoURLs = [NSMutableArray array];
-    self.photoNames = [NSMutableArray array];
-    
-    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%@&tags=%@&per_page=20&format=json&nojsoncallback=1&content_type=7&safe_search=2", FlickrAPIKey, [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    [BackgroundViewController callFlickr:urlString completion:^(NSDictionary *results){
-        NSArray *photos = [results valueForKeyPath:@"photos.photo"];
-        NSLog(@"flickr returned %lu for %@", (unsigned long)[photos count], searchString);
-        for (NSDictionary *photo in photos) {
-            NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=%@&format=json&nojsoncallback=1&photo_id=%@", FlickrAPIKey, [photo objectForKey:@"id"]];
-            [BackgroundViewController callFlickr:urlString completion:^(NSDictionary *results){
-                NSString *photoURLString = [[results valueForKeyPath:@"sizes.size.source"] lastObject];
-                [self.photoURLs addObject:[NSURL URLWithString:photoURLString]];
-                NSString *title = [photo objectForKey:@"title"];
-                [self.photoNames addObject:([title length] > 0 ? title : @"Untitled")];
-            }];
-        }
-        if (completion) completion();
-    }];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.photoSearch = [[PhotoSearch alloc] init];
     }
     return self;
 }
@@ -104,10 +39,10 @@ NSString *FlickrSearchKeyConstant = @"FlickrSearchKey";
 - (void)animateWithSearch:(NSString *)searchString transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)inLandscape {
     dispatch_queue_t task_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(task_queue, ^{
-        [self photoSearch:searchString completion:^{
+        [self.photoSearch photoSearch:searchString completion:^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                if ([self.photoURLs count]) {
-                    [self.backgroundView animateWithImages:self.photoURLs transitionDuration:duration loop:shouldLoop isLandscape:inLandscape];
+                if ([self.photoSearch.photoURLs count]) {
+                    [self.backgroundView animateWithImages:self.photoSearch.photoURLs transitionDuration:duration loop:shouldLoop isLandscape:inLandscape];
                 } else {
                     // halt animations, if we're lucky
                     [self.backgroundView flush];
@@ -120,7 +55,7 @@ NSString *FlickrSearchKeyConstant = @"FlickrSearchKey";
 - (void)gameChanged:(NSNotification *)notification {
     SOEGame *game = [[notification userInfo] objectForKey:@"game"];
     NSLog(@"%s %@", __PRETTY_FUNCTION__, game.name);
-    [[NSUserDefaults standardUserDefaults] setObject:game.search forKey:FlickrSearchKeyConstant];
+    [[NSUserDefaults standardUserDefaults] setObject:game.search forKey:PhotoSearchKeyConstant];
     if (game.search) {
         // statusBarOrientation is deprecated in 9.0 for UITrait*
         [self animateWithSearch:game.search transitionDuration:15.0 loop:YES isLandscape:UIInterfaceOrientationIsLandscape(self.interfaceOrientation)];
@@ -141,7 +76,7 @@ NSString *FlickrSearchKeyConstant = @"FlickrSearchKey";
 	// Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameChanged:) name:SOEGameSelectedNotification object:nil];
 
-    NSString *searchValue = [[NSUserDefaults standardUserDefaults] objectForKey:FlickrSearchKeyConstant];
+    NSString *searchValue = [[NSUserDefaults standardUserDefaults] objectForKey:PhotoSearchKeyConstant];
     if (!searchValue) searchValue = @"everquest";
     // statusBarOrientation is deprecated in 9.0 for UITrait*
     [self animateWithSearch:searchValue transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
