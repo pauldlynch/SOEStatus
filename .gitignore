@@ -9,4 +9,6 @@ build
 profile
 *.pbxuser
 *.mode1v3
+ImgurAPIKey.h
+FlickrAPIKey.h
 

@@ -44,6 +44,7 @@
 		DA137310141205EA00A1BFCC /* lock_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA13730F141205EA00A1BFCC /* lock_icon.png */; };
 		DA137312141205F200A1BFCC /* down_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA137311141205F200A1BFCC /* down_icon.png */; };
 		DA227D5F177DBB8700FE8B5E /* statusMessages.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA227D5E177DBB8700FE8B5E /* statusMessages.plist */; };
+		DA22F1901F37900100732683 /* PhotoSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = DA22F18F1F37900100732683 /* PhotoSearch.m */; };
 		DA26A5A017E49D83005F4C94 /* Server_120.png in Resources */ = {isa = PBXBuildFile; fileRef = DA26A59F17E49D83005F4C94 /* Server_120.png */; };
 		DA3908CB16B9D4F300FE7286 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3908CA16B9D4F300FE7286 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DA4D8DF9174E65FE00E61232 /* JBKenBurnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4D8DF8174E65FE00E61232 /* JBKenBurnsView.m */; };
@@ -130,7 +131,10 @@
 		DA137311141205F200A1BFCC /* down_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down_icon.png; sourceTree = "<group>"; };
 		DA1D544B1442F44E006E652A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		DA227D5E177DBB8700FE8B5E /* statusMessages.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = statusMessages.plist; sourceTree = "<group>"; };
+		DA22F18E1F37900100732683 /* PhotoSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoSearch.h; sourceTree = "<group>"; };
+		DA22F18F1F37900100732683 /* PhotoSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoSearch.m; sourceTree = "<group>"; };
 		DA26A59F17E49D83005F4C94 /* Server_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Server_120.png; path = ../Server_120.png; sourceTree = "<group>"; };
+		DA29B9A51F3B8E3400EDCC76 /* ImgurAPIKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImgurAPIKey.h; sourceTree = "<group>"; };
 		DA3908CA16B9D4F300FE7286 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		DA4D8DF7174E65FE00E61232 /* JBKenBurnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBKenBurnsView.h; sourceTree = "<group>"; };
 		DA4D8DF8174E65FE00E61232 /* JBKenBurnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBKenBurnsView.m; sourceTree = "<group>"; };
@@ -261,6 +265,8 @@
 				DA4D8DFD1750C5D800E61232 /* BackgroundViewController.h */,
 				DA4D8DFE1750C5D800E61232 /* BackgroundViewController.m */,
 				DAE32F011CCE6A9500B477A6 /* BackgroundViewController.xib */,
+				DA22F18E1F37900100732683 /* PhotoSearch.h */,
+				DA22F18F1F37900100732683 /* PhotoSearch.m */,
 				DA1372FF1411968400A1BFCC /* ServerViewController.h */,
 				DA1373001411968400A1BFCC /* ServerViewController.m */,
 				DA1373011411968400A1BFCC /* ServerViewController.xib */,
@@ -275,6 +281,7 @@
 				DAB2E097179061440000209D /* PLFeedback.h */,
 				DAB2E098179061440000209D /* PLFeedback.m */,
 				DA4D8E001750C91B00E61232 /* FlickrAPIKey.h */,
+				DA29B9A51F3B8E3400EDCC76 /* ImgurAPIKey.h */,
 				DA13724F141116B800A1BFCC /* Supporting Files */,
 			);
 			path = SOEStatus;
@@ -475,6 +482,7 @@
 				DA1372C7141119BF00A1BFCC /* PRPSmartTableViewCell.m in Sources */,
 				DABF25CF1959A3F40032F056 /* ChartController.m in Sources */,
 				DA1372C8141119BF00A1BFCC /* PRPWebViewController.m in Sources */,
+				DA22F1901F37900100732683 /* PhotoSearch.m in Sources */,
 				DA1372C9141119BF00A1BFCC /* UITableView+PRPSubviewAdditions.m in Sources */,
 				DA1372E914111AAA00A1BFCC /* SOEStatusAPI.m in Sources */,
 				DA1372FE1411935E00A1BFCC /* MoveArray.m in Sources */,
@@ -559,6 +567,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "1013b4c3-dcbb-4837-bf39-4bdcbbbecc22";
 				SDKROOT = iphoneos;
@@ -583,6 +592,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Paul Lynch (D37Z6FSLLW)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_THUMB_SUPPORT = NO;
@@ -595,6 +605,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LINK_WITH_STANDARD_LIBRARIES = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "2a721878-3a16-4391-a48a-914685267df4";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

@@ -27,7 +27,6 @@ NSString *PhotoSearchKeyConstant = @"FlickrSearchKey";
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.photoSearch = [[PhotoSearch alloc] init];
     }
     return self;
 }
@@ -37,6 +36,7 @@ NSString *PhotoSearchKeyConstant = @"FlickrSearchKey";
 }
 
 - (void)animateWithSearch:(NSString *)searchString transitionDuration:(float)duration loop:(BOOL)shouldLoop isLandscape:(BOOL)inLandscape {
+    if (!self.photoSearch) self.photoSearch = [[PhotoSearch alloc] init];
     dispatch_queue_t task_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(task_queue, ^{
         [self.photoSearch photoSearch:searchString completion:^{
@@ -77,7 +77,7 @@ NSString *PhotoSearchKeyConstant = @"FlickrSearchKey";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameChanged:) name:SOEGameSelectedNotification object:nil];
 
     NSString *searchValue = [[NSUserDefaults standardUserDefaults] objectForKey:PhotoSearchKeyConstant];
-    if (!searchValue) searchValue = @"everquest";
+    if (!searchValue) searchValue = @"daybreakgames";
     // statusBarOrientation is deprecated in 9.0 for UITrait*
     [self animateWithSearch:searchValue transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
     
