@@ -17,6 +17,13 @@ Needs:
 
 - Reachability checks for known SOE servers to identify network outages vs server status.
 
+
+3.1
+-----
+
+iPad game images are now sourced from imgur as well as flickr.
+
+
 3.0
 _____
 
