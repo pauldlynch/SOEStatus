@@ -73,6 +73,7 @@
     NSLog(@"PhotoSearch requesting: %@", searchString);
     
     // start with queueing Flickr request
+    dispatch_group_enter(photo_group);
     NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%@&tags=%@&per_page=20&format=json&nojsoncallback=1&content_type=7&safe_search=2", FlickrAPIKey, [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [PhotoSearch callFlickr:urlString completion:^(NSDictionary *results){
         NSArray *photos = [results valueForKeyPath:@"photos.photo"];
@@ -88,6 +89,7 @@
                 dispatch_group_leave(photo_group);
             }];
         }
+        dispatch_group_leave(photo_group);
     }];
     
     // Now queue Imgur request
