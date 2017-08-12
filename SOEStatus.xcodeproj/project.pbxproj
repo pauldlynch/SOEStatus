@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -401,7 +401,6 @@
 				ORGANIZATIONNAME = "P & L Systems";
 				TargetAttributes = {
 					DA137243141116B800A1BFCC = {
-						DevelopmentTeam = D37Z6FSLLW;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -412,7 +411,7 @@
 				};
 			};
 			buildConfigurationList = DA13723E141116B800A1BFCC /* Build configuration list for PBXProject "SOEStatus" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -546,6 +545,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Paul Lynch (BH9HL5GQ59)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = D37Z6FSLLW;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -569,7 +569,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "1013b4c3-dcbb-4837-bf39-4bdcbbbecc22";
+				PROVISIONING_PROFILE = "3efa5a08-83a9-481a-8245-2c87ccff7932";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s armv6 arm64";
 			};
@@ -591,6 +591,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Paul Lynch (D37Z6FSLLW)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Paul Lynch (D37Z6FSLLW)";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = D37Z6FSLLW;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -607,8 +608,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "2a721878-3a16-4391-a48a-914685267df4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "3efa5a08-83a9-481a-8245-2c87ccff7932";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2a721878-3a16-4391-a48a-914685267df4";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s armv6 arm64";
@@ -622,7 +623,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Paul Lynch (BH9HL5GQ59)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Paul Lynch (BH9HL5GQ59)";
 				DEVELOPMENT_TEAM = D37Z6FSLLW;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SOEStatus/SOEStatus-Prefix.pch";
@@ -633,8 +634,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.plsys.SOEStatus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1013b4c3-dcbb-4837-bf39-4bdcbbbecc22";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "facac704-e780-43a5-b322-2ae6777f5020";
+				PROVISIONING_PROFILE_SPECIFIER = "SOEStatusDevelopment-2017";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -646,8 +647,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Paul Lynch (D37Z6FSLLW)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Paul Lynch (D37Z6FSLLW)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = D37Z6FSLLW;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SOEStatus/SOEStatus-Prefix.pch";
@@ -657,9 +658,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.plsys.SOEStatus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2a721878-3a16-4391-a48a-914685267df4";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2a721878-3a16-4391-a48a-914685267df4";
-				PROVISIONING_PROFILE_SPECIFIER = "SOEStatus Distribution Apr 2017-18";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
