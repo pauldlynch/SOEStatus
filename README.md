@@ -1,7 +1,7 @@
-README for SOE Status
-=====================
+README for Daybreak Status
+==========================
 
-An iPhone/iPad app to check the status of SOE game servers.
+An iPhone/iPad app to check the status of Daybreak Games game servers.
 
 If you use this app and find it helpful, please take the time to give us a good review.  Good reviews encourage us to keep adding new features!
 
@@ -15,13 +15,13 @@ We added a great new tool to get information about your server: just tap on the 
 Needs:
 ------
 
-- Reachability checks for known SOE servers to identify network outages vs server status.
+- Reachability checks for known Daybreak servers to identify network outages vs server status.
 
 
 3.1
 -----
 
-iPad game images are now sourced from imgur as well as flickr.
+iPad game images are now sourced from imgur as well as flickr. These are pulled up in random order now.
 
 
 3.0
