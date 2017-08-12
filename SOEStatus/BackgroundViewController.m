@@ -42,10 +42,7 @@ NSString *PhotoSearchKeyConstant = @"FlickrSearchKey";
         [self.photoSearch photoSearch:searchString completion:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 if ([self.photoSearch.photoURLs count]) {
-                    [self.backgroundView animateWithImages:self.photoSearch.photoURLs transitionDuration:duration loop:shouldLoop isLandscape:inLandscape];
-                } else {
-                    // halt animations, if we're lucky
-                    [self.backgroundView flush];
+                    [self.backgroundView animateWithImageURLs:self.photoSearch.photoURLs transitionDuration:duration initialDelay:0.0 loop:shouldLoop isLandscape:inLandscape];
                 }
             });
         }];
