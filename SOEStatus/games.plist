@@ -2,9 +2,7 @@
 	{ key = eq; name = "Everquest®"; search = "everquest"; },
 	{ key = eq2; name = "Everquest® II"; search = "everquest2"; },
 	{ key = dcuo; name = "DC Universe™ Online"; search = "dcuo"; },
-	{ key = lm; name = "Landmark™";  search = "landmark"; },
 	{ key = h1z1; name = "H1Z1: Just Survive";  search = "h1z1"; },
 	{ key = h1z1xx; name = "H1Z1: King of the Kill";  search = "h1z1"; },
-	{ key = ps; name = "Planetside®";  search = "planetside"; },
 	{ key = ps2; name = "Planetside®2";  search = "planetside2"; },
 )
