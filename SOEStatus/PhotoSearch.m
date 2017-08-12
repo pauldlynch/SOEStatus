@@ -9,6 +9,7 @@
 #import "PhotoSearch.h"
 #import "FlickrAPIKey.h"
 #import "ImgurAPIKey.h"
+#import "PLCategories.h"
 
 @implementation PhotoSearch
 
@@ -116,6 +117,8 @@
     }];
     
     dispatch_group_notify(photo_group, dispatch_get_main_queue(), ^{
+        // now shuffle
+        [self.photoURLs shuffle];
         if (completion) completion();
         NSLog(@"PhotoSearch returning: %lu", (unsigned long)self.photoURLs.count);
     });

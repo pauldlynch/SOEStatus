@@ -27,3 +27,7 @@
 - (NSURL *)urlByAddingPath:(NSString *)path parameters:(NSDictionary *)parameters;
 
 @end
+
+@interface NSMutableArray (Shuffling)
+- (void)shuffle;
+@end
