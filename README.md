@@ -18,6 +18,11 @@ Needs:
 - Reachability checks for known Daybreak servers to identify network outages vs server status.
 
 
+3.2
+----
+Minor update to add in iPhone X launch images and change History location url.
+
+
 3.1
 -----
 
