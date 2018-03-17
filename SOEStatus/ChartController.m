@@ -273,9 +273,10 @@
     NSURL *historyUrlLocation = [NSURL URLWithString:@"https://paullynch.org/soe-status-url.txt"];
     // NSString *historyUrl = @"http://54.88.120.46:3000";
     // NSString *historyUrl = @"http://52.4.164.117:3001";
-    // NSString *historyUrl = @"http://52.1.155.132:3001";
+    // NSString *historyUrl = @"http://52.1.155.132:3001";    
+    // NSString *historyUrl = @"http://52.7.81.172:3001";
     
-    NSString *historyUrl = @"http://52.7.81.172:3001";
+     NSString *historyUrl = @"http://52.44.254.4:3001";
 
   
     
