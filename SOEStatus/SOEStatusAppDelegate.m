@@ -37,14 +37,17 @@
     NSLog(@"watching: %@", [[WatchServer sharedInstance] watches]);
     NSString *backgroundRefreshStatus = @"";
     UIBackgroundRefreshStatus status = [[UIApplication sharedApplication] backgroundRefreshStatus];
-    if (status & UIBackgroundRefreshStatusDenied) backgroundRefreshStatus = [backgroundRefreshStatus stringByAppendingString:@"Denied "];
-    if (status & UIBackgroundRefreshStatusRestricted) backgroundRefreshStatus = [backgroundRefreshStatus stringByAppendingString:@"Restricted "];
     if (status & UIBackgroundRefreshStatusAvailable) backgroundRefreshStatus = [backgroundRefreshStatus stringByAppendingString:@"Available "];
+    if (status & UIBackgroundRefreshStatusDenied) backgroundRefreshStatus = [backgroundRefreshStatus stringByAppendingString:@"Denied "];
+    // TODO: why does this line give a "code will never be executed warning"?
+    //if (status & UIBackgroundRefreshStatusRestricted) backgroundRefreshStatus = [backgroundRefreshStatus stringByAppendingString:@"Restricted "];
     NSLog(@"backgroundRefreshStatus: %@", backgroundRefreshStatus);
     
     /* UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound) categories:nil];
     [application registerUserNotificationSettings:notificationSettings];*/
-    [application registerForRemoteNotifications];
+    
+    // Remote notifications
+    // [application registerForRemoteNotifications];
 
     if (self.splitViewController) {
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
