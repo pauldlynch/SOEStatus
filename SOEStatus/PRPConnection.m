@@ -48,7 +48,7 @@
 - (void)dealloc {
     url = nil;
     urlRequest = nil;
-    [connection cancel], connection = nil;
+    (void)([connection cancel]), connection = nil;
     downloadData = nil;
     progressBlock = nil;
     completionBlock = nil;

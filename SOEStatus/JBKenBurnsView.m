@@ -101,8 +101,8 @@ enum JBSourceMode {
     _currentImageIndex = -1;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        _nextImageTimer = [NSTimer scheduledTimerWithTimeInterval:duration target:self selector:@selector(nextImage) userInfo:nil repeats:YES];
-        [_nextImageTimer fire];
+        self->_nextImageTimer = [NSTimer scheduledTimerWithTimeInterval:duration target:self selector:@selector(nextImage) userInfo:nil repeats:YES];
+        [self->_nextImageTimer fire];
     });
 }
 

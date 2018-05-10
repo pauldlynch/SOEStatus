@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef void (^DismissBlock)(NSInteger buttonIndex);
-typedef void (^VoidBlock)();
+typedef void (^VoidBlock)(void);
 
 @interface PLActionSheet : UIActionSheet <UIActionSheetDelegate>
 

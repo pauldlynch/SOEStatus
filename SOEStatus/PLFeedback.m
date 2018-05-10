@@ -127,15 +127,7 @@ static NSString *TRIGGERCOUNT_KEY = @"triggerCount";
             [PRPAlertView showWithTitle:@"Twitter" message:@"Unable to send tweet: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
         }
     } else {
-        if ([TWTweetComposeViewController canSendTweet]) {
-            TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
-            [tweetSheet setInitialText:@"I like this application and I think you should try it too."];
-            [tweetSheet addURL:[NSURL URLWithString:self.settings[DOWNLOADURL_KEY]]];
-            tweetSheet.modalPresentationStyle = UIModalPresentationFormSheet;
-            [self.parentViewController presentViewController:tweetSheet animated:YES completion:nil];
-        } else {
-            [PRPAlertView showWithTitle:@"Twitter" message:@"Unable to send tweet: do you have an account set up?" cancelTitle:@"Continue" cancelBlock:nil otherTitle:nil otherBlock:nil];
-        }
+        // TWTweetComposeViewController was deprecated in iOS 6.0
     }
 }
 

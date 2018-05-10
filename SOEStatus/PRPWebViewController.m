@@ -38,14 +38,6 @@ const float PRPWebViewControllerFadeDuration = 0.5;
     activityIndicator = nil;
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    
-    self.backgroundColor = nil;
-    self.webView = nil;
-    self.activityIndicator = nil;
-}
-
 - (void)loadView {
     UIViewAutoresizing resizeAllMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     UIView *mainView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
@@ -85,14 +77,8 @@ const float PRPWebViewControllerFadeDuration = 0.5;
     [self reload];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    BOOL shouldRotate = YES;
-    
-    if ([self.delegate respondsToSelector:@selector(webController:shouldAutorotateToInterfaceOrientation:)]) {
-        shouldRotate = [self.delegate webController:self shouldAutorotateToInterfaceOrientation:interfaceOrientation];
-    }
-    
-    return shouldRotate;
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 #pragma mark -

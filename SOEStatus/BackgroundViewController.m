@@ -55,7 +55,12 @@ NSString *PhotoSearchKeyConstant = @"FlickrSearchKey";
     [[NSUserDefaults standardUserDefaults] setObject:game.search forKey:PhotoSearchKeyConstant];
     if (game.search) {
         // statusBarOrientation is deprecated in 9.0 for UITrait*
-        [self animateWithSearch:game.search transitionDuration:15.0 loop:YES isLandscape:UIInterfaceOrientationIsLandscape(self.interfaceOrientation)];
+        // interfaceOrientation is deprecated in iOS 8.0
+        if (self.view.frame.size.width > self.view.frame.size.height) {
+            [self animateWithSearch:game.search transitionDuration:15.0 loop:YES isLandscape:YES];
+        } else {
+            [self animateWithSearch:game.search transitionDuration:15.0 loop:YES isLandscape:NO];
+        }
     }
 }
 
@@ -76,7 +81,13 @@ NSString *PhotoSearchKeyConstant = @"FlickrSearchKey";
     NSString *searchValue = [[NSUserDefaults standardUserDefaults] objectForKey:PhotoSearchKeyConstant];
     if (!searchValue) searchValue = @"daybreakgames";
     // statusBarOrientation is deprecated in 9.0 for UITrait*
-    [self animateWithSearch:searchValue transitionDuration:15.0 loop:YES isLandscape:UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])];
+    if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft) {
+        [self animateWithSearch:searchValue transitionDuration:15.0 loop:YES isLandscape:YES];
+    } else if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight) {
+        [self animateWithSearch:searchValue transitionDuration:15.0 loop:YES isLandscape:YES];
+    } else {
+        [self animateWithSearch:searchValue transitionDuration:15.0 loop:YES isLandscape:NO];
+    }
     
     /*if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         self.statusButton = [[UIBarButtonItem alloc] initWithTitle:@"Status" style:UIBarButtonItemStylePlain target:self action:@selector(togglePopover:)];
@@ -102,15 +113,6 @@ NSString *PhotoSearchKeyConstant = @"FlickrSearchKey";
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
-}
-
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        return YES;
-    }
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end
